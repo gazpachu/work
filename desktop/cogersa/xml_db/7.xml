@@ -1,0 +1,75 @@
+﻿<xml>
+	<punto x="149" y="430" nombre="Ponga" habitantes="699">
+		<contenedores vidrio="5" envases="5" papel="5" />
+		<habcontenedor vidrio="139,80" envases="139,80" papel="139,80" />
+		<toneladas vidrio="11,30" envases="1,73" papel="4,18" />
+		<kghab vidrio="16,17" envases="2,47" papel="5,98" />
+	</punto>
+	
+	<punto x="198" y="342" nombre="Amieva" habitantes="868">
+		<contenedores vidrio="4" envases="4" papel="4" />
+		<habcontenedor vidrio="217,00" envases="217,0" papel="217,00" />
+		<toneladas vidrio="5,90" envases="1,39" papel="3,22" />
+		<kghab vidrio="6,80" envases="1,60" papel="3,71" />
+	</punto>
+	
+	<punto x="204" y="226" nombre="Cangas de Onís" habitantes="6.574">
+		<contenedores vidrio="25" envases="12" papel="14" />
+		<habcontenedor vidrio="262,96" envases="547,83" papel="469,57" />
+		<toneladas vidrio="64,80" envases="24,33" papel="102,43" />
+		<kghab vidrio="9,86" envases="3,70" papel="15,58" />
+	</punto>
+
+	<punto x="349" y="286" nombre="Onís" habitantes="846">
+		<contenedores vidrio="4" envases="4" papel="5" />
+		<habcontenedor vidrio="211,50" envases="211,50" papel="169,20" />
+		<toneladas vidrio="12,94" envases="1,92" papel="4,37" />
+		<kghab vidrio="15,30" envases="2,27" papel="5,17" />
+	</punto>
+
+	<punto x="342" y="130" nombre="Ribadesella" habitantes="6.205">
+		<contenedores vidrio="18" envases="18" papel="30" />
+		<habcontenedor vidrio="344,72" envases="344,72" papel="206,83" />
+		<toneladas vidrio="44,24" envases="32,56" papel="94,76" />
+		<kghab vidrio="7,13" envases="5,25" papel="15,27" />
+	</punto>
+
+	<punto x="499" y="154" nombre="Llanes" habitantes="13.169">
+		<contenedores vidrio="47" envases="44" papel="60" />
+		<habcontenedor vidrio="280,19" envases="299,30" papel="219,48" />
+		<toneladas vidrio="130,18" envases="71,17" papel="233,08" />
+		<kghab vidrio="9,89" envases="5,40" papel="17,70" />
+	</punto>
+
+
+	<punto x="471" y="296" nombre="Cabrales" habitantes="2.249">
+		<contenedores vidrio="6" envases="4" papel="5" />
+		<habcontenedor vidrio="374,83" envases="562,25" papel="449,80" />
+		<toneladas vidrio="7,10" envases="1,85" papel="8,76" />
+		<kghab vidrio="3,16" envases="0,82" papel="3,90" />
+	</punto>
+
+
+	<punto x="564" y="251" nombre="Peñamellera Alta" habitantes="670">
+		<contenedores vidrio="5" envases="5" papel="5" />
+		<habcontenedor vidrio="134,00" envases="134,00" papel="134,00" />
+		<toneladas vidrio="12,53" envases="1,21" papel="5,59" />
+		<kghab vidrio="18,70" envases="1,81" papel="8,34" />
+	</punto>
+
+
+	<punto x="604" y="270" nombre="Peñamellera Baja" habitantes="1.470">
+		<contenedores vidrio="4" envases="3" papel="3" />
+		<habcontenedor vidrio="367,50" envases="490,00" papel="490,00" />
+		<toneladas vidrio="13,34" envases="0,98" papel="4,65" />
+		<kghab vidrio="9,07" envases="0,67" papel="3,16" />
+	</punto>
+
+
+	<punto x="640" y="193" nombre="Ribadedeva" habitantes="1.901">
+		<contenedores vidrio="14" envases="13" papel="30" />
+		<habcontenedor vidrio="135,79" envases="146,23" papel="206,83" />
+		<toneladas vidrio="36,37" envases="8,01" papel="94,76" />
+		<kghab vidrio="19,13" envases="4,21" papel="15,27" />
+	</punto>
+</xml>

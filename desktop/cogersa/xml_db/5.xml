@@ -1,0 +1,36 @@
+﻿<xml>
+	<punto x="273" y="327" nombre="Lena" habitantes="13.276">
+		<contenedores vidrio="18" envases="12" papel="25" />
+		<habcontenedor vidrio="737,56" envases="1.106,33" papel="531,04" />
+		<toneladas vidrio="48,60" envases="21,39" papel="193,47" />
+		<kghab vidrio="3,66" envases="1,61" papel="14,57" />
+	</punto>
+	
+	<punto x="238" y="238" nombre="Riosa" habitantes="2.362">
+		<contenedores vidrio="4" envases="6" papel="6" />
+		<habcontenedor vidrio="590,50" envases="393,67" papel="393,67" />
+		<toneladas vidrio="8,38" envases="8,27" papel="26,39" />
+		<kghab vidrio="3,55" envases="3,50" papel="11,17" />
+	</punto>
+	
+	<punto x="208" y="141" nombre="Morcín" habitantes="3.016">
+		<contenedores vidrio="15" envases="13" papel="16" />
+		<habcontenedor vidrio="201,07" envases="232,00" papel="188,50" />
+		<toneladas vidrio="26,54" envases="8,11" papel="35,57" />
+		<kghab vidrio="8,80" envases="2,69" papel="11,79" />
+	</punto>
+
+	<punto x="329" y="188" nombre="Mieres" habitantes="45.943">
+		<contenedores vidrio="78" envases="73" papel="120" />
+		<habcontenedor vidrio="589,01" envases="629,36" papel="382,86" />
+		<toneladas vidrio="259,48" envases="172,43" papel="689,00" />
+		<kghab vidrio="5,65" envases="3,75" papel="15,00" />
+	</punto>
+
+	<punto x="472" y="307" nombre="Aller" habitantes="868">
+		<contenedores vidrio="29" envases="31" papel="4" />
+		<habcontenedor vidrio="472,48" envases="442,00" papel="217,00" />
+		<toneladas vidrio="63,30" envases="34,23" papel="3,22" />
+		<kghab vidrio="4,62" envases="2,50" papel="3,71" />
+	</punto>
+</xml>

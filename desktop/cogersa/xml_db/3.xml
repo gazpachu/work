@@ -1,0 +1,31 @@
+﻿<xml>
+	<punto x="135" y="403" nombre="Ibias" habitantes="1.903">
+		<contenedores vidrio="5" envases="4" papel="8" />
+		<habcontenedor vidrio="380,60" envases="475,75" papel="237,88" />
+		<toneladas vidrio="4,22" envases="0,74" papel="3,68" />
+		<kghab vidrio="2,22" envases="0,39" papel="1.93" />
+	</punto>
+	
+	<punto x="376" y="279" nombre="Cangas del Narcea" habitantes="15.672">
+		<contenedores vidrio="29" envases="25" papel="34" />
+		<habcontenedor vidrio="540,41" envases="626,88" papel="460,94" />
+		<toneladas vidrio="55,48" envases="22,38" papel="91,28" />
+		<kghab vidrio="3,54" envases="1,43" papel="5,82" />
+	</punto>
+
+	<punto x="600" y="177" nombre="Belmonte de Miranda" habitantes="2.019">
+		<contenedores vidrio="4" envases="2" papel="3" />
+		<habcontenedor vidrio="504,75" envases="1.009,50" papel="673,00" />
+		<toneladas vidrio="3,08" envases="2,33" papel="8,63" />
+		<kghab vidrio="1,53" envases="1,15" papel="4,27" />
+	</punto>
+
+	<punto x="570" y="368" nombre="Somiedo" habitantes="1.570">
+		<contenedores vidrio="2" envases="2" papel="2" />
+		<habcontenedor vidrio="785,00" envases="785,00" papel="785,00" />
+		<toneladas vidrio="2,20" envases="0,80" papel="1,88" />
+		<kghab vidrio="1,40" envases="0,51" papel="1,20" />
+	</punto>
+
+
+</xml>

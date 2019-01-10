@@ -1,0 +1,50 @@
+﻿<xml>
+	<punto x="364" y="199" nombre="Gozón" habitantes="10.674">
+		<contenedores vidrio="38" envases="22" papel="48" />
+		<habcontenedor vidrio="280,89" envases="485,18" papel="222,38" />
+		<toneladas vidrio="94,16" envases="47,48" papel="152,32" />
+		<kghab vidrio="8,82" envases="4,45" papel="14,27" />
+	</punto>
+	
+	<punto x="418" y="262" nombre="Carreño" habitantes="10.716">
+		<contenedores vidrio="43" envases="48" papel="75" />
+		<habcontenedor vidrio="249,21" envases="223,25" papel="142,88" />
+		<toneladas vidrio="99,32" envases="77,65" papel="177,01" />
+		<kghab vidrio="9,27" envases="7,25" papel="16,52" />
+	</punto>
+	
+	<punto x="581" y="368" nombre="Gijón" habitantes="273.931">
+		<contenedores vidrio="766" envases="703" papel="968" />
+		<habcontenedor vidrio="357,61" envases="389,66" papel="282,99" />
+		<toneladas vidrio="3.475,48" envases="2.126,33" papel="10.143,00" />
+		<kghab vidrio="12,69" envases="7,76" papel="37,03" />
+	</punto>
+
+	<punto x="215" y="280" nombre="Avilés" habitantes="83.855">
+		<contenedores vidrio="129" envases="153" papel="245" />
+		<habcontenedor vidrio="650,04" envases="548,07" papel="342,27" />
+		<toneladas vidrio="602,80" envases="401,42" papel="2.714,54" />
+		<kghab vidrio="7,19" envases="4,79" papel="32,37" />
+	</punto>
+
+	<punto x="270" y="385" nombre="Corvera" habitantes="15.769">
+		<contenedores vidrio="41" envases="44" papel="67" />
+		<habcontenedor vidrio="384,61" envases="358,39" papel="235,36" />
+		<toneladas vidrio="71,54" envases="87,92" papel="319,10" />
+		<kghab vidrio="4,54" envases="5,58" papel="20,24" />
+	</punto>
+
+	<punto x="130" y="410" nombre="Illas" habitantes="1.036">
+		<contenedores vidrio="5" envases="5" papel="5" />
+		<habcontenedor vidrio="207,20" envases="207,20" papel="207,20" />
+		<toneladas vidrio="7,10" envases="4,80" papel="7,24" />
+		<kghab vidrio="6,85" envases="4,63" papel="6,99" />
+	</punto>
+
+	<punto x="100" y="320" nombre="Castrillón" habitantes="22.932">
+		<contenedores vidrio="64" envases="42" papel="72" />
+		<habcontenedor vidrio="358,31" envases="546,00" papel="318,50" />
+		<toneladas vidrio="204,36" envases="112,46" papel="407,13" />
+		<kghab vidrio="8,91" envases="4,90" papel="17,75" />
+	</punto>
+</xml>

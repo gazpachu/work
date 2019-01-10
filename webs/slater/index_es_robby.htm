@@ -1,0 +1,565 @@
+<html>
+<head>
+<title>[ Slater Labs. Español ]</title>
+</head>
+
+<script language="JavaScript">
+<!--
+
+//The function is quite simple, it takes one argument, "newBgColor"
+//and passes it as the value of the "bgColor" property of the "document" object
+
+function changeBgColor( newBgColor )
+{
+	if( window.document && window.document.bgColor )
+	{
+		document.bgColor = newBgColor;
+	}
+}
+
+function Pelicula_DoFSCommand( command, args )
+{
+	var message = "Bienvenido a Slater Labs, " + args;
+	
+	updateStatus( message );
+}
+
+function updateStatus( message )
+{
+	window.status = message;
+}
+	
+-->
+</script>
+
+<script language="vbscript" type="text/vbscript">
+<!--
+
+Dim ScriptVersion
+	
+Dim Robby
+	
+' Screen Locations
+Dim RobbyX, RobbyY
+
+' Request Objects
+Dim Req
+
+' Character Local Flags
+Dim RobbyLocal
+Dim RobbyHideReq
+	
+Dim fContinue
+Dim id
+
+Dim username
+
+Function GetScriptVersion()
+
+    On Error Resume Next
+    Dim Ver
+
+    Ver = Val(ScriptEngineMajorVersion)
+    If Ver = 0 Then Ver = 1
+    GetScriptVersion = Ver
+    
+End Function
+
+Sub Pelicula_FSCommand( ByVal command, ByVal args )
+
+	username = args
+	call Pelicula_DoFSCommand( command, args )
+		
+end sub
+
+Function HelloUser( )
+
+	Set Req = Robby.Show()
+    WaitFor Req
+	
+	Robby.Play "Greet"
+    Set Req = Robby.Speak("Bienvenido "&username&"!")
+    WaitFor Req
+    Robby.Play "RestPose"
+
+
+End Function
+
+Function Welcome()
+
+	'**************************************************
+    '*** START SKETCH *********************************
+    '**************************************************
+    
+    Set Req = Robby.Show()
+    WaitFor Req
+
+    Robby.Play "Greet"
+    Robby.Speak "Hola amigo!"
+    
+    Robby.Play("Confused")
+    Robby.Speak("Uffff!")
+    Robby.Speak("Estos saltos intergalácticos destrozan mis circuitos...")
+    Set Req = Robby.Play("RestPose")
+    WaitFor Req
+    
+    Robby.Play "Announce"
+    Robby.Speak " " & GetTimeOfDay() & "!"
+    Robby.Speak "Son las " & GetTime()
+    Robby.Speak "del " & GetDay() & ","
+    Robby.Speak GetDate() & "."
+
+    If Holiday() <> "" Then
+        Robby.Speak Holiday()
+    End If
+
+    Robby.Play "Greet"
+    Robby.Speak "Bienvenido a Slater Laboratories!."
+    Robby.Play "Suggest"
+    Set Req = Robby.Speak("En esta web encontrarás muchas cosas interesantes sobre Slater Labs.")
+    WaitFor Req
+    
+    Robby.Play "Congratulate"
+    Robby.Speak "Me alegro de verte. Tu siempre serás \emp\bienvenido aqui."
+
+    Robby.Play "GestureLeft"
+    Set Req = Robby.Speak("Estoy trabajando duro para terminar esta página web.")
+    WaitFor Req
+    
+    Robby.Play "Think"
+    Robby.Speak "Espero que te guste!."
+    
+    Robby.Play "Congratulate"
+    Set Req = Robby.Speak("Mi nombre es Robby y soy tu asistente personal.")
+    WaitFor Req
+    
+    Robby.Play "Process"
+    Set Req = Robby.Speak("Uppps, un fax de mi jefe acaba de llegar...")
+    WaitFor Req
+    
+    Robby.Play "GestureLeft"
+    Set Req = Robby.Speak("Hay un mando a distancia encima de la mesa, usalo para acceder al menu principal.")
+    WaitFor Req
+    
+    Robby.Play "Greet"
+    Set Req = Robby.Speak("Si necesitas ayuda o no sabes como empezar, haz click con el botón derecho encima de mi y selecciona ayuda.")
+    WaitFor Req
+    
+    Robby.Play "Greet"
+    Set Req = Robby.Speak("Una cosa más... Puedes hablarme usando la tecla BLOQ DESPL. Intentaré reconocer tu voz.")
+    WaitFor Req
+    
+    Robby.Play "Think"
+    Set Req = Robby.Speak("Buena suerte! y que tengas un buen dia. Tengo que irme a recargar mis baterias. Hasta luego!")
+    WaitFor Req
+    
+    Set Req = Robby.Play("Idle2_2")
+    WaitFor Req
+    
+    '**************************************************
+    '*** END SKETCH ***********************************
+    '**************************************************
+
+End Function
+
+Function Help()
+
+	Robby.Play "Congratulate"
+    Set Req = Robby.Speak("No te preocupes. Es muy fácil...")
+    WaitFor Req
+    
+    Robby.Play "GestureLeft"
+    Set Req = Robby.Speak("Click en el control remoto que hay sobre la mesa. Cuando aparezca, haz click en el boton del menu para mostrarlo.")
+    WaitFor Req
+    
+    Robby.Play "Greet"
+    Set Req = Robby.Speak("Para aprender como funcionan los botones del mando, haz click en el boton de ayuda situado en la parte de abajo del control remoto.")
+    WaitFor Req
+    
+    Robby.Play "GestureLeft"
+    Set Req = Robby.Speak("Cuando situes el puntero encima de cualquier botón, en la pantalla del control remoto explicará su funcionalidad.")
+    WaitFor Req
+    
+    Robby.Play "Think"
+    Set Req = Robby.Speak("Puedes usar los cursores para moverte por el menu y la tecla enter para aceptar ordenes.")
+    WaitFor Req
+
+	Robby.Play "Greet"
+    Set Req = Robby.Speak("Una cosa más... Puedes hablarme usando la tecla BLOQ DESPL. Intentaré reconocer tu voz.")
+    WaitFor Req
+
+	Robby.Play "Wave"
+    Set Req = Robby.Speak("Me voy a echar una siesta. Si quieres que me vaya para siempre, haz doble click encima mia.")
+    WaitFor Req
+
+End Function
+
+Sub window_OnLoad
+	
+	ScriptVersion = GetScriptVersion()
+	
+	AgentControl.Connected = True	' necessary for IE3
+	AgentControl.Characters.Load "Robby", "http://agent.microsoft.com/agent2/chars/robby/robby.acf"
+	Set Robby = AgentControl.Characters("Robby")
+	Robby.LanguageID = &H0C0A		' needed under some conditions (Spanish)
+	Robby.Get "State", "Showing, Speaking, Hiding"
+	Robby.Get "Animation", "Greet, GreetReturn, Confused, RestPose, Announce, Suggest, Congratulate, Think, Process, Idle3_2, Idle2_2, GestureLeft, Wave, Alert, Blink, Sad"
+	InitCommands
+		
+    If GetScreenWidth() > 0 And GetScreenHeight > 0 Then
+        RobbyX = GetScreenWidth() \ 2 - 340
+        RobbyY = GetScreenHeight() \ 2 + 230
+    Else
+        RobbyX = 384
+        RobbyY = 240
+    End If
+
+    Robby.MoveTo RobbyX, RobbyY
+    
+    fContinue = True
+    
+End Sub
+
+Sub InitCommands	' Intialize the Commands collection for Robby
+	Dim cmd	' temp variable - holds a single command object
+	
+	Robby.Commands.Add "Welcome"	' add a command to the collection
+	Set cmd = Robby.Commands("Welcome")	' get its object
+	cmd.Caption = "Bienvenido"	' set the text that the user sees
+	cmd.Enabled = True	' enable the command in the pop-up menu
+	cmd.Visible = True	' add the command to the pop-up menu
+	
+	Robby.Commands.Add "Help"	' add a command to the collection
+	Set cmd = Robby.Commands("Help")	' get its object
+	cmd.Caption = "Ayuda!"	' set the text that the user sees
+	cmd.Enabled = True	' enable the command in the pop-up menu
+	cmd.Visible = True	' add the command to the pop-up menu
+		
+	Robby.Commands.Add "About"	' add a command to the collection
+	Set cmd = Robby.Commands("About")	' get its object
+	cmd.Caption = "Qué es Robby"	' set the text that the user sees
+	cmd.Enabled = True	' enable the command in the pop-up menu
+	cmd.Visible = True	' add the command to the pop-up menu
+
+	' You should always include the following command, which gives
+	' the user access to the Advanced Character Options dialog:
+	Robby.Commands.Add "ACO", "Opciones Avanzadas del Personaje", _
+		"advanced character options", True, True
+
+End Sub
+
+Sub AgentControl_Command(byVal UserInput)
+' This is the Command event handler.
+' It is called whenever the user speaks a command
+' or selects one from the menu.
+' The UserInput object has the details of the command.
+' The Name property contains the name assigned when the command was added.
+	Select Case UserInput.Name
+		Case "Welcome"
+			ShowWelcome
+		Case "Help"
+			ShowHelp
+		Case "About"
+			ShowAbout
+		Case "ACO"
+			AgentControl.PropertySheet.visible = True
+	End Select
+End Sub
+
+Sub ShowWelcome
+	Robby.StopAll
+	
+	Welcome()
+    
+	Robby.Play "RestPose"
+End Sub
+
+Sub ShowHelp
+	Robby.StopAll
+	
+	Help()
+    
+	Robby.Play "RestPose"
+End Sub
+
+Sub ShowAbout
+	Robby.StopAll
+	Robby.Play "Greet"
+	
+	Set Req = Robby.Speak("Yo soy Robby. Modelo PJ-2008. No tengo super poderes pero soy más inteligente de lo que tu crees. Pachu lo cree...")
+    WaitFor Req
+    
+	Robby.Play "RestPose"
+End Sub
+
+Sub AgentControl_Bookmark(ByVal BookmarkID)
+    On Error Resume Next
+
+    Select Case BookmarkID
+    Case 1
+    End Select
+End Sub
+
+Sub AgentControl_IdleStart(ByVal CharacterID)
+    On Error Resume Next
+
+    Robby.Play "Idle3_2"
+         
+End Sub
+
+Sub AgentControl_IdleComplete(ByVal CharacterID)
+    On Error Resume Next
+
+    Robby.Play "RestPose"
+         
+End Sub
+
+Sub UnloadChar(ByVal pstrCharID)
+    On Error Resume Next
+
+    If Not AgentControl.Characters(pstrCharID).HasOtherClients Then
+        AgentControl.Characters.Unload pstrCharID
+    End If
+End Sub
+
+Sub AgentControl_Click (ByVal CharacterID, ByVal Button, ByVal Shift, ByVal X, ByVal Y)
+  Robby.Stop
+  Robby.Play "Alert"
+  Robby.Speak "Hey, "&username&" cuidado con ese puntero!|Oh! eso hace cosquillas!|\pit=170\Hee hee hee!|para ya! |ese puntero hace daño.|Tu vas por ahi pinchando a la gente?!|"&username&", si necesitas mi ayuda, haz click con el boton derecho del ratón.|Tu no tienes remedio, verdad?"
+  Robby.Play "Blink"
+End Sub
+
+Sub AgentControl_DragComplete (ByVal CharacterID, ByVal Button, ByVal Shift, ByVal X, ByVal Y)
+  Robby.Stop
+  Robby.Play "Alert"
+  Robby.Speak "Ok "&username&", tu ganas...|Me gusta mucho más aqui "&username&".|A ver, porque me has movido "&username&"?|Hey, "&username&" ten cuidado!"
+  Robby.Play "Blink"
+End Sub
+
+
+Sub AgentControl_DblClick(ByVal CharID, ByVal Button, ByVal Shift, ByVal X, ByVal Y)
+    ' Stop all characters
+    On Error Resume Next
+    Dim i
+
+    fContinue = False
+    
+    Robby.Play "Wave"
+    Set Req = Robby.Speak("Hasta la vista baby!")
+    WaitFor Req
+
+    Robby.StopAll
+    Set RobbyHideReq = Robby.Hide
+End Sub
+
+Sub AgentControl_RequestComplete(ByVal Request)
+    On Error Resume Next
+    Select Case Request
+    Case RobbyHideReq
+        UnloadChar "Robby"
+    End Select
+End Sub
+
+Sub AgentControl_Move(ByVal CharID, ByVal X, ByVal Y, ByVal Cause)
+    If Cause = 1 Then ' User Dragged
+    End If
+End Sub
+
+Function WhisperText(ByVal Text)
+    WhisperText = "\Chr=" & Chr(34) & "Whisper" & Chr(34) & "\" & Text
+End Function
+
+Function MapText(ByVal SpokenText, ByVal BalloonText)
+    MapText = "\Map=" & Chr(34) & SpokenText & Chr(34) & "=" & Chr(34) & BalloonText & Chr(34) & "\"
+End Function
+
+Function MonotoneText(ByVal pSpeak)
+    If pSpeak <> "" Then
+        pSpeak = "\Pit=80\\Chr=" & Chr(34) & "Monotone" & Chr(34) & "\" & pSpeak
+    End If
+    Monotone = pSpeak
+End Function
+
+Sub WaitFor(ByVal Request)
+    On Error Resume Next
+    Robby.Wait Request
+End Sub
+
+Function GetScreenWidth()
+    On Error Resume Next
+    GetScreenWidth = Window.Screen.Width
+    Err.Clear
+End Function
+
+Function GetScreenHeight()
+    On Error Resume Next
+    GetScreenHeight = Window.Screen.Height
+    Err.Clear
+End Function
+
+Function GetDay()
+    Dim aDay(8)
+
+    aDay(0)= ""
+    aDay(1)= "Domingo"
+    aDay(2)= "Lunes"
+    aDay(3)= "Martes"
+    aDay(4)= "Miercoles"
+    aDay(5)= "Jueves"
+    aDay(6)= "Viernes"
+    aDay(7)= "Sabado"
+
+    GetDay = aDay(WeekDay(Now()))
+End Function
+
+Function GetDate()
+    Dim aMon(13)
+    Dim sDay
+
+    aMon(0)= ""
+    aMon(1)= "Enero"
+    aMon(2)= "Febrero"
+    aMon(3)= "Marzo"
+    aMon(4)= "Abril"
+    aMon(5)= "Mayo"
+    aMon(6)= "Junio"
+    aMon(7)= "Julio"
+    aMon(8)= "Agosto"
+    aMon(9)= "Septiembre"
+    aMon(10)= "Octubre"
+    aMon(11)= "Noviembre"
+    aMon(12)= "Diciembre"
+
+    sDay = Day(Now())
+
+    GetDate = aMon(Month(Now)) & " " & sDay & ", " & Year(Now)
+    
+End Function
+
+Function GetTime()
+    Dim sTime
+
+    sTime = Left(Time(), 5)
+    If Right(sTime, 1) = ":" Then
+        sTime = Left(sTime, Len(sTime) - 1)
+    End If
+    
+    GetTime = sTime
+End Function
+
+Function GetTimeOfDay()
+    Dim TimeOfDay
+    Dim h
+
+    h = Hour(Now())
+
+    If h < 7 then
+        TimeOfDay = "Buenas noches"
+    ElseIf h < 15 then
+        TimeOfDay = "Buenos dias"
+    ElseIf h < 20 then
+        TimeOfDay = "Buenas tardes"
+    ElseIf h < 24 then
+        TimeOfDay = "Buenas noches"
+    End If
+
+    GetTimeOfDay = TimeOfDay
+End Function
+
+Function Holiday()
+    iMonth = Month(Now())
+    iDay = Day(Now())
+
+    If iMonth = 1 And iDay = 1 Then
+        Holiday = "Feliz año!!"
+    End If
+    If iMonth = 2 And iDay = 14 Then
+        Holiday = "Feliz dia de San Valentin!!"
+    End If
+    If iMonth = 10 And iDay = 31 Then
+        Holiday "Feliz Halloween!"
+    End If
+    If iMonth = 12 And (iDay = 24 Or iDay = 25) Then
+        Holiday = "Feliz Navidad!"
+    End If
+    If iMonth = 12 And iDay = 25 Then
+     	Holiday = "Feliz dia de los Santos Inocentes!"
+    End If
+    If iMonth = 12 And iDay = 31 Then
+        Holiday = "Feliz año!"
+    End If
+End Function
+-->
+</script>
+
+<body topmargin="0" leftmargin="0" background="images/bg.gif">
+
+<p align="center">
+<!--To trigger an autodownload of a Microsoft Agent language component from a Web 
+page, include this tag on the page BEFORE the Agent control Object tag:
+-->
+<OBJECT id=AgentControlDLL
+codeBase=http://activex.microsoft.com/activex/controls/agent2/AgtX0C0A.exe#VERSION=2,0,0,0
+width=0 height=0 classid=CLSID:C3480C0A-A7F8-11D1-AA75-00C04FA34D72></OBJECT>
+<!--
+In order to use Microsoft Agent, the Microsoft Agent Control
+OBJECT tag must be placed on the page.  The presence of this
+tag will cause the control to be automatically downloaded and
+installed if it is not found on the client machine when the
+page is processed.  In the example below, the CODEBASE
+attribute is used so that the latest version number can be
+specified.  The Agent object will be referred to in script using
+the name assigned to it in the ID field of the OBJECT tag -
+in this case, "AgentControl".
+-->
+<OBJECT id=AgentControl 
+codeBase=http://activex.microsoft.com/activex/controls/agent2/msagent.exe#VERSION=2,0,0,0 
+height=0 width=0 classid=CLSID:D45FD31B-5C6E-11D1-9EC1-00C04FD7081F></OBJECT>
+<!--
+To autodownload the Lernout &amp; Hauspie TTS3000 Text-To-Speech Engines from a 
+Web page, use the following tag-->
+<OBJECT id=L&amp;HTTS3000
+codeBase=http://activex.microsoft.com/activex/controls/agent2/lhttsspe.exe#VERSION=1,0,0,0 
+height=0 width=0 classid=CLSID:1D87F5B9-05F1-11D2-AD7C-0000F8799342 data="DATA:application/x-oleobject;BASE64,ufWHHfEF0hGtfAAA+HmTQgADAAAAAAAAAAAAAA=="></OBJECT>
+<!--
+In order to use Voice Commands, a speech recognition engine compatible
+with Microsoft Agent must be installed on the client's machine.
+Microsoft Agent is compatible with any SAPI 4.0-compliant speech
+engine. Your Microsoft Agent license includes a license to use the
+Microsoft Speech Recognition Engine.  The following
+object tag causes the browser to automatically download and install
+this speech engine on the client. The CODEBASE attribute specifies
+the latest version number of the speech engine.
+-->
+<OBJECT codeBase=http://activex.microsoft.com/activex/controls/sapi/spchapi.exe#VERSION=4,0,0,0 height=0 width=0 
+classid=CLSID:161FA781-A52C-11d0-8D7C-00A0C9034A7E data="DATA:application/x-oleobject;BASE64,gacfFiyl0BGNfACgyQNKfgICAAAAAAAAAAAAAA=="></OBJECT>
+
+
+    <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="850" height="650" id="Pelicula" hspace="0">
+<param name="allowScriptAccess" value="sameDomain" />
+<param name="movie" value="main_es.swf" />
+<param name="quality" value="High" />
+<param name="wmode" value="Transparent" />
+<param name="bgcolor" value="FFFFFF" />
+      <param name="_cx" value="22490">
+      <param name="_cy" value="17198">
+      <param name="FlashVars" value>
+      <param name="Src" value="main_es.swf">
+      <param name="Play" value="0">
+      <param name="Loop" value="-1">
+      <param name="SAlign" value>
+      <param name="Menu" value="-1">
+      <param name="Base" value>
+      <param name="Scale" value="ShowAll">
+      <param name="DeviceFont" value="0">
+      <param name="EmbedMovie" value="0">
+      <param name="SWRemote" value>
+      <param name="MovieData" value>
+      <param name="SeamlessTabbing" value="1">
+      <embed src="main_es.swf" quality="high" wmode="transparent" bgcolor="#ffffff" width="850" height="650" name="prueba" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" /></object>
+    </p>
+    </p>
+
+</body>
+
+</html>

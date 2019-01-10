@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<clients>
+	<client> 
+		<name>Federación Española de Municipios y Provincias</name>
+		<stars>5</stars>
+		<location>Madrid, Spain</location>
+		<year>2008</year>
+		<type>Corporative web</type>
+		<description>Programming of the company's website. Features and avanced CMS (Content Management System) to handle users, news, vilas, statistics, revisions, emailing, etc.</description>
+		<technology>FlashCS3, PHP, MySQL, Remoting, JavaScript, XHTML</technology>
+		<url>www.villastermales.com</url>
+		<images>villastermales/</images>
+		<totalimages>4</totalimages>
+	</client>
+	<client> 
+		<name>Council house of Alcalá de Henares</name>
+		<stars>5</stars>
+		<location>Madrid, Spain</location>
+		<year>2006</year>
+		<type>Flash application</type>
+		<description>Design and programming of an interactive application for an educational project to improve the integration of inmigrants.</description>
+		<technology>Flash, Sound Forge</technology>
+		<url></url>
+		<images>alcalahenares/</images>
+		<totalimages>5</totalimages>
+	</client>
+	<client> 
+		<name>Editex</name>
+		<stars>5</stars>
+		<location>Madrid, Spain</location>
+		<year>2006</year>
+		<type>Flash applications</type>
+		<description>Programming of 25 different interactive applications. 15 of them are targeted to high school teachers and they feature and advanced exam creator for subjects like Maths, Languages, Social Sciences, etc. The rest of applications are about mechanics and electronics.</description>
+		<technology>Flash 8, XML, Zinc</technology>
+		<url></url>
+		<images>editex/</images>
+		<totalimages>5</totalimages>
+	</client>
+	<client> 
+		<name>Cogersa</name>
+		<stars>5</stars>
+		<location>Oviedo, Spain</location>
+		<year>2007</year>
+		<type>Flash applications</type>
+		<description>Design and programming of several applications for an interactive exhibit of the reciclying centers of the client.</description>
+		<technology>Flash 8, XML, MdM Zinc</technology>
+		<url></url>
+		<images>cogersa/</images>
+		<totalimages>5</totalimages>
+	</client>
+	<client> 
+		<name>Slater Software Laboratories</name>
+		<stars>5</stars>
+		<location>Madrid, Spain</location>
+		<year>2004</year>
+		<type>Experimental web</type>
+		<description>Experimental design and programming of a website for the client. Features voice and text recognition, robotic assistant, sophisticated user interface, oscilloscope, webcam video streaming, video editing (move, rotate, skew) and other interactive capacities.</description>
+		<technology>Flash8, PHP, VBScript, JavaScript, XHTML y otras.</technology>
+		<url>www.webmarket.es/webs/slater/</url>
+		<images>slater/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>GAZ New Media Design - v4</name>
+		<stars>5</stars>
+		<location>Alicante, Spain</location>
+		<year>2006</year>
+		<type>Personal web</type>
+		<description>Design and programming of web designer Joan Mira's portfolio. Features a cool user interface, a video as a background that can be modified by the user, a game (remake of Arkanoid), music player and a world map representation with all GMT hours.</description>
+		<technology>Flash 8, PHP, XHTML, JavaScript</technology>
+		<url>www.webmarket.es/webs/gazpachu/v4/</url>
+		<images>gazpachu_v4/</images>
+		<totalimages>5</totalimages>
+	</client>
+	<client> 
+		<name>GAZ New Media Design - v3</name>
+		<stars>3</stars>
+		<location>Alicante, Spain</location>
+		<year>2006</year>
+		<type>Personal web</type>
+		<description>Design and programming of web designer Joan Mira's portfolio. Features a cool user interface, a video as a background that can be modified by the user, a game (remake of Arkanoid) and music player.</description>
+		<technology>Flash 8, PHP, XHTML, JavaScript</technology>
+		<url>www.webmarket.es/webs/gazpachu/v3/</url>
+		<images>gazpachu_v3/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>GAZ Galería de Arte</name>
+		<stars>3</stars>
+		<location>Alicante, Spain</location>
+		<year>2008</year>
+		<type>Personal web</type>
+		<description>Photo Gallery of several artists</description>
+		<technology>Flash 8, PHP, SlideshowPro, XHTML, JavaScript</technology>
+		<url>www.webmarket.es/</url>
+		<images>gazgaleria/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>Roberto Silvosa Floristas</name>
+		<stars>5</stars>
+		<location>Marbella, Spain</location>
+		<year>2006</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website. Features a Flash presentation, magazine effect for the proyects section, photo gallery, news management and virtual shop.</description>
+		<technology>Flash 8, PHP, XHTML, XML</technology>
+		<url>www.webmarket.es/webs/robertosilvosa/</url>
+		<images>robertosilvosa/</images>
+		<totalimages>5</totalimages>
+	</client>
+	<client> 
+		<name>Grupo Soledad Francia</name>
+		<stars>4</stars>
+		<location>Alicante, Spain</location>
+		<year>2006</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website. Features a cool Flash navigation for the tires catalog and a simple file management system to update prices and special offers.</description>
+		<technology>Flash 8, PHP, XHTML</technology>
+		<url>www.webmarket.es/webs/gruposoledad/francia/index.html</url>
+		<images>soledadfrancia/</images>
+		<totalimages>5</totalimages>
+	</client>
+	<client> 
+		<name>Atolon3D</name>
+		<stars>3</stars>
+		<location>Alicante, Spain</location>
+		<year>2006</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website. Features a pictures management system.</description>
+		<technology>Flash 8, AMFPHP, MySQL, PHP, XHTML, JavaScript</technology>
+		<url>www.webmarket.es/webs/atolon3d</url>
+		<images>atolon3d/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>Acedemia Formatio</name>
+		<stars>4</stars>
+		<location>Alicante, Spain</location>
+		<year>2008</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website. Features and advanced CMS (Content Management System) for the students, study resources, exams, news, blog, etc.</description>
+		<technology>FlashCS3, PHP, MySQL, Remoting, JavaScript, XHTML</technology>
+		<url>www.formatio.es</url>
+		<images>formatio/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>Green Point</name>
+		<stars>3</stars>
+		<location>Alicante, Spain</location>
+		<year>2006</year>
+		<type>3D Animation</type>
+		<description>3D design of a prototype for a gas station of biodiesel. The project includes a brochure with high quality images and a videoclip.</description>
+		<technology>3DMax and Premiere</technology>
+		<url></url>
+		<images>greenpoint/</images>
+		<totalimages>4</totalimages>
+	</client>
+	<client> 
+		<name>CR Asociados</name>
+		<stars>3</stars>
+		<location>Alicante, Spain</location>
+		<year>2007</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website. Features and advanced CMS (Content Management System) for users and files. The website can generate PDF files with the corporative image of the company and information from the database.</description>
+		<technology>Flash 8, AMFPHP, MySQL, PHP, XHTML, JavaScript</technology>
+		<url>www.webmarket.es/webs/crasociados/</url>
+		<images>crasociados/</images>
+		<totalimages>2</totalimages>
+	</client>
+	<client> 
+		<name>Tello y Serna Asociados</name>
+		<stars>3</stars>
+		<location>Alicante, Spain</location>
+		<year>2007</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website.</description>
+		<technology>Flash 8, PHP, XHTML, JavaScript</technology>
+		<url>www.webmarket.es/webs/telloserna/</url>
+		<images>telloserna/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>Camara Española de Comercio en Filipinas</name>
+		<stars>3</stars>
+		<location>Manila, Philippines</location>
+		<year>2004</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website.</description>
+		<technology>Flash8, XHTML</technology>
+		<url>www.webmarket.es/webs/lacamara/</url>
+		<images>camaracomercio/</images>
+		<totalimages>2</totalimages>
+	</client>
+	<client> 
+		<name>Insaturbo</name>
+		<stars>3</stars>
+		<location>Elche, Spain</location>
+		<year>2006</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the preloading, Flash presentation and main menu of the company's website.</description>
+		<technology>Flash 8, Photoshop</technology>
+		<url>www.webmarket.es/webs/gruposoledad/insaturbo/</url>
+		<images>insaturbo/</images>
+		<totalimages>2</totalimages>
+	</client>
+	<client> 
+		<name>Baxtermead Spain</name>
+		<stars>3</stars>
+		<location>Alicante, Spain</location>
+		<year>2003</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website. Features an HTML and a Flash version. After a couple of years the client decided to improve the website with more functionality for client management and tracking system.</description>
+		<technology>Flash8, PHP, XHTML</technology>
+		<url>www.webmarket.es/webs/baxtermead/</url>
+		<images>baxtermead/</images>
+		<totalimages>4</totalimages>
+	</client>
+	<client> 
+		<name>NoSurrender</name>
+		<stars>3</stars>
+		<location>Badajoz, Spain</location>
+		<year>2008</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website. Features TIENDAFlash, a fast and reliable virtual shop with advanced CMS (Content Management System) to update clients, products, images, orders and sells. It also includes a Paypal and Banca Pueyo gateways, accepting Visa/Mastercard cards as online payment methods.</description>
+		<technology>FlashCS3, PHP, MySQL, Remoting, JavaScript, XHTML</technology>
+		<url>http://www.webmarket.es/webs/nosurrender/</url>
+		<images>nosurrender/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>Local 7</name>
+		<stars>3</stars>
+		<location>Alicante, Spain</location>
+		<year>2006</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website. Features TIENDAFlash, a fast and reliable virtual shop with advanced CMS (Content Management System) to update clients, products, images, orders and sells. It also includes a Rural Caja gateway, accepting Visa/Mastercard cards as online payment methods.</description>
+		<technology>Flash 8, AMFPHP, PHP, XHTML, JavaScript</technology>
+		<url>www.webmarket.es/webs/local7/</url>
+		<images>local7/</images>
+		<totalimages>4</totalimages>
+	</client>
+	<client> 
+		<name>Proyecto 2025</name>
+		<stars>3</stars>
+		<location>Alicante, Spain</location>
+		<year>2006</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website. Features INMOFlash, a fast and reliable real state application with advanced CMS (Content Management System) with a powerful search engine. The CMS allows the client to update the client and properties.</description>
+		<technology>Flash 8, AMFPHP, PHP, XHTML, JavaScript</technology>
+		<url>www.webmarket.es/webs/proyecto2025/</url>
+		<images>proyecto2025/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>L'Ovul</name>
+		<stars>4</stars>
+		<location>Barcelona, Spain</location>
+		<year>2003</year>
+		<type>Experimental web</type>
+		<description>Programming of the website of a cultural association.</description>
+		<technology>Flash8</technology>
+		<url>javascript:NewWindow('popup.html?http://www.webmarket.es/webs/lovul/lovul.swf','popup','692','550','no')</url>
+		<images>lovul/</images>
+		<totalimages>1</totalimages>
+	</client>
+	<client> 
+		<name>Grupo InnovaConst</name>
+		<stars>3</stars>
+		<location>Madrid, Spain</location>
+		<year>2006</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website.</description>
+		<technology>Flash8, PHP, XHTML</technology>
+		<url>www.webmarket.es/webs/grupoinnovaconst/</url>
+		<images>innovaconst/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>Digital Toy Shop</name>
+		<stars>3</stars>
+		<location>Malaga, Spain</location>
+		<year>2006</year>
+		<type>Corporative web</type>
+		<description>Design and programming of a template for Ebay, banners, logos and other graphics.</description>
+		<technology>Flash 8, Freehand, Photoshop</technology>
+		<url>www.webmarket.es/webs/digitaltoy/</url>
+		<images>digitaltoy/</images>
+		<totalimages>1</totalimages>
+	</client>
+	<client> 
+		<name>Comunidad de Castilla León</name>
+		<stars>3</stars>
+		<location>Asturias, Spain</location>
+		<year>2006</year>
+		<type>Multimedia</type>
+		<description>Multimedia presentation for Castilla León's advertising campaign.</description>
+		<technology>Flash 8, Photoshop</technology>
+		<url></url>
+		<images>castillaleon/</images>
+		<totalimages>1</totalimages>
+	</client>
+	<client> 
+		<name>Save Guimaras</name>
+		<stars>3</stars>
+		<location>Manila, Philippines</location>
+		<year>2006</year>
+		<type>Personal Blog</type>
+		<description>Design and programming of a blog based in Wordpress with forum.</description>
+		<technology>Wordpress, PHP, XHTML, JavaScript</technology>
+		<url>www.webmarket.es/webs/saveguimaras/</url>
+		<images>saveguimaras/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>Iván Torres Tamara</name>
+		<stars>3</stars>
+		<location>Alicante, Spain</location>
+		<year>2006</year>
+		<type>Personal web</type>
+		<description>Design and programming of a website for the illustrator Ivan Torres. Features a simple CMS (Content Management System) to update his works and projects.</description>
+		<technology>Flash 8, XML, PHP, XHML</technology>
+		<url>www.webmarket.es/webs/ivantorres/</url>
+		<images>ivantorres/</images>
+		<totalimages>2</totalimages>
+	</client>
+	<client> 
+		<name>La Solidaridad v3.0</name>
+		<stars>4</stars>
+		<location>International</location>
+		<year>2008</year>
+		<type>Personal web</type>
+		<description>Personal project of filipina writer Tuesday Gutierrez.</description>
+		<technology>Joomla, MySQL, PHP, XHTML</technology>
+		<url>www.webmarket.es/webs/lasolidaridad/</url>
+		<images>lasolidaridad_v3/</images>
+		<totalimages>2</totalimages>
+	</client>
+	<client> 
+		<name>La Solidaridad v2.0</name>
+		<stars>3</stars>
+		<location>International</location>
+		<year>2004</year>
+		<type>Personal web</type>
+		<description>Personal project of filipina writer Tuesday Gutierrez.</description>
+		<technology>Flash8, PHPNuke, MySQL, PHP, XHTML</technology>
+		<url></url>
+		<images>lasolidaridad/</images>
+		<totalimages>2</totalimages>
+	</client>
+	<client> 
+		<name>Render Render</name>
+		<stars>3</stars>
+		<location>Madrid, Spain</location>
+		<year>2005</year>
+		<type>Experimental web</type>
+		<description>Interactive simulation of a computer running windows xp. The interface has been designed to accept multiple users, windows management, music player, screensaver and dinamic background.</description>
+		<technology>Flash8, XHTML</technology>
+		<url>www.webmarket.es/webs/renderrender/</url>
+		<images>renderrender/</images>
+		<totalimages>4</totalimages>
+	</client>
+	<client> 
+		<name>Stephane et Celina</name>
+		<stars>3</stars>
+		<location>Madrid, Spain</location>
+		<year>2005</year>
+		<type>Personal web</type>
+		<description>Design and programming of a personal website.</description>
+		<technology>Flash8, PHP, XHTML</technology>
+		<url>www.webmarket.es/webs/stephane/</url>
+		<images>stephane/</images>
+		<totalimages>1</totalimages>
+	</client>
+	<client> 
+		<name>Mugfaker project</name>
+		<stars>3</stars>
+		<location>Madrid, Spain</location>
+		<year>2005</year>
+		<type>Personal web</type>
+		<description>Design and programming of a website about cinema and photography.</description>
+		<technology>Flash8, PHPNuke, MySQL, XHTML</technology>
+		<url></url>
+		<images>mugfaker/</images>
+		<totalimages>1</totalimages>
+	</client>
+	<client> 
+		<name>InnovaCiudad</name>
+		<stars>3</stars>
+		<location>Alicante, Spain</location>
+		<year>2007</year>
+		<type>Corporative web</type>
+		<description>Programming and partial design of the company's website. Features a video player and a CMS (Content Management System) to update real state properties.</description>
+		<technology>Flash8, PHP, MySQL, XHTML</technology>
+		<url>www.webmarket.es/webs/innovaciudad/</url>
+		<images>innovaciudad/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>Josep Lluis Manen</name>
+		<stars>2</stars>
+		<location>Barcelona, Spain</location>
+		<year>2006</year>
+		<type>Interactive presentation</type>
+		<description>Design and programming of an interactive presentation.</description>
+		<technology>Flash, Sound Forge</technology>
+		<url>www.webmarket.es/webs/josep_manen/</url>
+		<images>josepmanen/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>RefCovers</name>
+		<stars>2</stars>
+		<location>Alicante, Spain</location>
+		<year>2006</year>
+		<type>Corporative web</type>
+		<description>Programming and partial design of the company's website. Features a CMS (Content Management System) to update the products of the company.</description>
+		<technology>Flash, PHP, XHTML</technology>
+		<url>www.webmarket.es/webs/refcovers/</url>
+		<images>refcovers/</images>
+		<totalimages>2</totalimages>
+	</client>
+	<client> 
+		<name>CUBRE-T</name>
+		<stars>2</stars>
+		<location>Alicante, Spain</location>
+		<year>2007</year>
+		<type>Corporative web</type>
+		<description>Programming and partial design of the company's website. Features a CMS (Content Management System) to update the products of the company, and videos with 3D simulations.</description>
+		<technology>Flash 8, PHP, XHTML, JavaScript</technology>
+		<url>www.webmarket.es/webs/cubre-t/</url>
+		<images>cubre-t/</images>
+		<totalimages>1</totalimages>
+	</client>
+	<client> 
+		<name>Jose Luis Mira Conca</name>
+		<stars>2</stars>
+		<location>Alicante, Spain</location>
+		<year>2005</year>
+		<type>Personal web</type>
+		<description>Design and programming of a personal website. Features a CMS PHPNuke (Content Management System), photo gallery Coppermine, interactive presentation and Flash navigation.</description>
+		<technology>Flash8, PHPNuke, MySQL, XHTML</technology>
+		<url>www.webmarket.es/webs/burreta/</url>
+		<images>burreta/</images>
+		<totalimages>2</totalimages>
+	</client>
+	<client> 
+		<name>Residencial Isla Tabarca</name>
+		<stars>2</stars>
+		<location>Alicante, Spain</location>
+		<year>2005</year>
+		<type>Personal web</type>
+		<description>Design and programming of Residencial Isla Tabarca neighbourhood association. Features CMS PHPNuke (Content Management System) with forum and picture gallery.</description>
+		<technology>Flash8, PHPNuke, MySQL, XHTML</technology>
+		<url></url>
+		<images>islatabarca/</images>
+		<totalimages>2</totalimages>
+	</client>
+	<client> 
+		<name>GAZ New Media Design - v2</name>
+		<stars>2</stars>
+		<location>Alicante, Spain</location>
+		<year>2005</year>
+		<type>Personal web</type>
+		<description>Design and programming of web designer Joan Mira's portfolio.</description>
+		<technology>Flash 8, PHP, XHTML, JavaScript</technology>
+		<url>www.webmarket.es/webs/gazpachu/v2/</url>
+		<images>gazpachu_v2/</images>
+		<totalimages>2</totalimages>
+	</client>
+	<client> 
+		<name>GAZ New Media Design - v1</name>
+		<stars>2</stars>
+		<location>Alicante, Spain</location>
+		<year>2004</year>
+		<type>Personal web</type>
+		<description>Design and programming of web designer Joan Mira's portfolio.</description>
+		<technology>Flash 8, PHP, XHTML, JavaScript</technology>
+		<url>www.webmarket.es/webs/gazpachu/v1/</url>
+		<images>gazpachu_v1/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>Viveros Murcia</name>
+		<stars>2</stars>
+		<location>Murcia, Spain</location>
+		<year>2006</year>
+		<type>Corporative web</type>
+		<description>Design and programming of a web template for the company's website.</description>
+		<technology>Flash 8, Photoshop</technology>
+		<url>www.webmarket.es/webs/viverosmurcia/</url>
+		<images>viveros/</images>
+		<totalimages>2</totalimages>
+	</client>
+	<client> 
+		<name>Club de Golf El Plantio</name>
+		<stars>2</stars>
+		<location>Alicante, Spain</location>
+		<year>2002</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website. Features a Flash presentation, picture gallery and an interactive guide of the golf course.</description>
+		<technology>Flash8, Perl, XHTML</technology>
+		<url>www.webmarket.es/webs/elplantio/</url>
+		<images>elplantio/</images>
+		<totalimages>3</totalimages>
+	</client>
+	<client> 
+		<name>Proyecto Hombre Alicante</name>
+		<stars>2</stars>
+		<location>Alicante, Spain</location>
+		<year>2001</year>
+		<type>Corporative web</type>
+		<description>Design and programming of the company's website.</description>
+		<technology>Flash MX 2004, XHTML</technology>
+		<url>www.webmarket.es/webs/phombre/</url>
+		<images>phombre/</images>
+		<totalimages>1</totalimages>
+	</client>
+	<client> 
+		<name>Logotypes</name>
+		<stars>3</stars>
+		<location>-</location>
+		<year>-</year>
+		<type>Logotypes</type>
+		<description>Design of logos for several companies.</description>
+		<technology>Freehand, Ilustrator, Photoshop</technology>
+		<url></url>
+		<images>logos/</images>
+		<totalimages>3</totalimages>
+	</client>
+</clients>
+
+
+

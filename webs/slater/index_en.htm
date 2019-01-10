@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>[ Slater Labs. ]</title>
+</head>
+
+<script language="JavaScript">
+<!--
+
+//The function is quite simple, it takes one argument, "newBgColor"
+//and passes it as the value of the "bgColor" property of the "document" object
+
+function changeBgColor( newBgColor )
+{
+	if (window.document && window.document.bgColor)
+	{
+		document.bgColor = newBgColor;
+	}
+}
+
+function Pelicula_DoFSCommand( command, args )
+{
+	var message = "Welcome to Slater Labs, " + args;
+	
+	updateStatus( message );
+}
+
+function updateStatus( message )
+{
+	window.status = message;
+}
+	
+-->
+</script>
+
+<script language="vbscript" type="text/vbscript">
+<!--
+
+Sub Pelicula_FSCommand( ByVal command, ByVal args )
+
+	call Pelicula_DoFSCommand( command, args )
+			
+end sub
+
+Function HelloUser( )
+
+	// Just for compatibility purposes
+
+End Function
+
+Function Welcome( )
+
+	// Just for compatibility purposes
+
+End Function
+
+-->
+</script>
+
+
+<body topmargin="0" leftmargin="0" background="images/bg.gif">
+
+<p align="center">
+    <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="850" height="650" id="Pelicula" hspace="0">
+<param name="allowScriptAccess" value="sameDomain" />
+<param name="movie" value="main_en.swf" />
+<param name="quality" value="High" />
+<param name="wmode" value="Transparent" />
+<param name="bgcolor" value="FFFFFF" />
+      <param name="_cx" value="22490">
+      <param name="_cy" value="17198">
+      <param name="FlashVars" value>
+      <param name="Src" value="main_en.swf">
+      <param name="Play" value="0">
+      <param name="Loop" value="-1">
+      <param name="SAlign" value>
+      <param name="Menu" value="-1">
+      <param name="Base" value>
+      <param name="Scale" value="ShowAll">
+      <param name="DeviceFont" value="0">
+      <param name="EmbedMovie" value="0">
+      <param name="SWRemote" value>
+      <param name="MovieData" value>
+      <param name="SeamlessTabbing" value="1">
+      <embed src="main_en.swf" quality="high" wmode="transparent" bgcolor="#ffffff" width="850" height="650" name="prueba" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" /></object>
+    </p>
+
+</body>
+
+</html>

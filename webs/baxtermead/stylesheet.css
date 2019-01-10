@@ -1,0 +1,30 @@
+BODY {
+	SCROLLBAR-FACE-COLOR: #D0D0BF; SCROLLBAR-HIGHLIGHT-COLOR: #D0D0BF; SCROLLBAR-SHADOW-COLOR: #D0D0BF; SCROLLBAR-3DLIGHT-COLOR: #D0D0BF; SCROLLBAR-ARROW-COLOR: #86867A; SCROLLBAR-TRACK-COLOR: #86867A; SCROLLBAR-DARKSHADOW-COLOR: #D0D0BF
+}
+.text {
+	FONT: 10px Arial, Helvetica, sans-serif; COLOR: #666
+}
+A:link {
+	FONT: 10px Arial, Helvetica, sans-serif; COLOR: #666; TEXT-DECORATION: none
+}
+A:visited {
+	FONT: 10px Arial, Helvetica, sans-serif; COLOR: #666; TEXT-DECORATION: none
+}
+A:hover {
+	BACKGROUND: #ccc; FONT: 10px Arial, Helvetica, sans-serif; COLOR: #666666; TEXT-DECORATION: none
+}
+A:active {
+	BACKGROUND: #ccc; FONT: 10px Arial, Helvetica, sans-serif; COLOR: #666666; TEXT-DECORATION: none
+}
+.locationspopup {
+	FONT: bold 12px Arial, Helvetica, sans-serif
+}
+INPUT {
+	BORDER-RIGHT: #ccc 1px solid; BORDER-TOP: #ccc 1px solid; FONT: 10px Arial, Helvetica, sans-serif; BORDER-LEFT: #ccc 1px solid; BORDER-BOTTOM: #ccc 1px solid; BACKGROUND-COLOR: #f3f3f3
+}
+SELECT {
+	BORDER-RIGHT: #fff 1px solid; BORDER-TOP: #fff 1px solid; FONT: 10px Arial, Helvetica, sans-serif; BORDER-LEFT: #fff 1px solid; COLOR: #000; BORDER-BOTTOM: #fff 1px solid; BACKGROUND-COLOR: #f3f3f3
+}
+TEXTAREA {
+	FONT: 10px Arial, Helvetica, sans-serif; COLOR: #000; BACKGROUND-COLOR: #f3f3f3
+}

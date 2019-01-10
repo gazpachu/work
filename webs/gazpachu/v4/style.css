@@ -1,0 +1,51 @@
+BODY {
+	FONT-SIZE: 10px;
+	COLOR: #808080;
+	FONT-FAMILY: Verdana;
+	link: #808080;
+	vlink: #808080;
+	alink: #808080;
+	background: #000000;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+P {
+	FONT-SIZE: 10px;
+	COLOR: #808080;
+	FONT-FAMILY: Verdana;
+}
+
+TD {
+	FONT-SIZE: 10px;
+	COLOR: #808080;
+	FONT-FAMILY: Verdana;
+}
+
+A {
+	FONT-SIZE: 10px;
+	COLOR: #808080;
+	FONT-FAMILY: Verdana;
+	TEXT-DECORATION: none
+}
+
+A:hover {
+	TEXT-DECORATION: underline;
+	font-family: Verdana;
+	COLOR: #808080;
+	font-size: 10px
+}
+
+.noflashcontent{
+	FONT-SIZE: 10px;
+	text-align: center;
+	height: 50%;
+	width: 50%;
+    position: absolute;
+    left: 25%;
+    top: 25%;
+	position: absolute;
+	FONT-FAMILY: Verdana;
+	COLOR: #808080;
+}

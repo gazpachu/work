@@ -1,0 +1,19 @@
+p {
+	color : #666666;
+	margin-top : 5px;
+	padding-bottom : 5px;
+	margin-bottom : 0px;
+	margin-left : 10px;
+	margin-right : 10px;
+	font-size : 11px;
+	font-family : Tahoma,Verdana,Arial;
+}
+p a {
+	color : #66421E;
+}
+p a:hover {
+	color : #666666;
+}
+.bot a:hover {
+	color : #66421E;
+}

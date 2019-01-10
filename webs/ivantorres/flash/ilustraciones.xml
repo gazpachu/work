@@ -1,0 +1,15 @@
+﻿<galeria>
+	
+	<item titulo="Niña" archivo="ilustraciones/5.jpg" />
+        <item titulo="Semaforo" archivo="ilustraciones/6.jpg" />
+        <item titulo="Biblioteca" archivo="ilustraciones/Biblioteca.jpg" />
+        <item titulo="Mujeres" archivo="ilustraciones/4.jpg" />
+        <item titulo="Bosque" archivo="ilustraciones/Bosque.jpg" />
+        <item titulo="Retrato 1" archivo="ilustraciones/retrato-1.jpg" />
+        <item titulo="Retrato 2" archivo="ilustraciones/retrato-2.jpg" />
+        <item titulo="Caricatura" archivo="ilustraciones/caricatura.jpg" />
+        <item titulo="Asun" archivo="ilustraciones/1.jpg" />
+	<item titulo="Duendes" archivo="ilustraciones/duendes.jpg" />
+        <item titulo="Dalmata" archivo="ilustraciones/2.jpg" />
+        
+</galeria>

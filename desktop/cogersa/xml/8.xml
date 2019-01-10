@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<xml>
+	<punto x="267" y="411" nombre="Bimenes" habitantes="1.941">
+		<contenedores vidrio="5" envases="5" papel="8" />
+		<habcontenedor vidrio="388,20" envases="388,20" papel="242,62" />
+		<toneladas vidrio="10,48" envases="3,50" papel="6,41" />
+		<kghab vidrio="5,40" envases="1,80" papel="3,30" />
+	</punto>
+	
+	<punto x="276" y="328" nombre="Nava" habitantes="5.455">
+		<contenedores vidrio="17" envases="16" papel="24" />
+		<habcontenedor vidrio="320,88" envases="340,94" papel="227,29" />
+		<toneladas vidrio="42,08" envases="17,70" papel="95,89" />
+		<kghab vidrio="7,71" envases="3,24" papel="17,58" />
+	</punto>
+	
+	<punto x="216" y="262" nombre="Sariego" habitantes="1.364">
+		<contenedores vidrio="6" envases="6" papel="9" />
+		<habcontenedor vidrio="227,33" envases="227,33" papel="151,56" />
+		<toneladas vidrio="10,54" envases="6,79" papel="21,98" />
+		<kghab vidrio="7,73" envases="4,98" papel="16,11" />
+	</punto>
+
+	<punto x="330" y="255" nombre="Cabranes" habitantes="1.093">
+		<contenedores vidrio="8" envases="8" papel="8" />
+		<habcontenedor vidrio="136,62" envases="136,62" papel="163,62" />
+		<toneladas vidrio="19,92" envases="4,63" papel="8,02" />
+		<kghab vidrio="18,23" envases="4,24" papel="7,34" />
+	</punto>
+
+	<punto x="395" y="348" nombre="Piloña" habitantes="8.440">
+		<contenedores vidrio="18" envases="17" papel="28" />
+		<habcontenedor vidrio="468,89" envases="496,47" papel="301,43" />
+		<toneladas vidrio="42,90" envases="16,99" papel="67,71" />
+		<kghab vidrio="5,08" envases="2,01" papel="8,02" />
+	</punto>
+
+	<punto x="476" y="303" nombre="Parres" habitantes="5.736">
+		<contenedores vidrio="14" envases="14" papel="25" />
+		<habcontenedor vidrio="409,71" envases="409,71" papel="229,44" />
+		<toneladas vidrio="32,44" envases="15,91" papel="70,60" />
+		<kghab vidrio="5,66" envases="2,77" papel="12,31" />
+	</punto>
+
+	<punto x="557" y="209" nombre="Caravia" habitantes="555">
+		<contenedores vidrio="5" envases="5" papel="4" />
+		<habcontenedor vidrio="111,00" envases="111,00" papel="138,75" />
+		<toneladas vidrio="6,80" envases="3,86" papel="9,10" />
+		<kghab vidrio="12,25" envases="6,95" papel="16,40" />
+	</punto>
+
+	<punto x="437" y="191" nombre="Colunga" habitantes="3.882">
+		<contenedores vidrio="21" envases="17" papel="25" />
+		<habcontenedor vidrio="184,86" envases="228,35" papel="155,28" />
+		<toneladas vidrio="27,76" envases="13,75" papel="51,04" />
+		<kghab vidrio="7,15" envases="3,54" papel="13,15" />
+	</punto>
+
+	<punto x="325" y="168" nombre="Villaviciosa" habitantes="14.360">
+		<contenedores vidrio="63" envases="38" papel="56" />
+		<habcontenedor vidrio="227,94" envases="377,89" papel="256,43" />
+		<toneladas vidrio="227,14" envases="73,24" papel="179,29" />
+		<kghab vidrio="15,82" envases="5,10" papel="12,49" />
+	</punto>
+</xml>

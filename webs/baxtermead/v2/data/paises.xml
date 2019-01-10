@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+	<paises>
+                   <pais nombre="Todos" siglas=""/>
+                   <pais nombre="Afganistán" siglas="AF"/>
+                   <pais nombre="Albania" siglas="AL"/>
+                   <pais nombre="Alemania" siglas="DE"/>
+                   <pais nombre="Andorra" siglas="AD"/>
+                   <pais nombre="Angola" siglas="AO"/>
+                   <pais nombre="Anguila" siglas="AI"/>
+                   <pais nombre="Antártida" siglas="AQ"/>
+                   <pais nombre="Antigua y Barbuda" siglas="AG"/>
+                   <pais nombre="Antillas holandesas" siglas="AN"/>
+                   <pais nombre="Arabia Saudíta" siglas="SA"/>
+                   <pais nombre="Argentina" siglas="AR"/>
+                   <pais nombre="Armenia" siglas="AM"/>
+                   <pais nombre="Aruba" siglas="AW"/>
+                   <pais nombre="Australia" siglas="AU"/>
+                   <pais nombre="Austria" siglas="AT"/>
+                   <pais nombre="Azerbaiyán" siglas="AZ"/>
+                   <pais nombre="Bahamas" siglas="BS"/>
+                   <pais nombre="Bahrein" siglas="BH"/>
+                   <pais nombre="Bangladesh" siglas="BD"/>
+                   <pais nombre="Barbados" siglas="BB"/>
+                   <pais nombre="Bélgica" siglas="BE"/>
+                   <pais nombre="Belice" siglas="BZ"/>
+                   <pais nombre="Benín" siglas="BJ"/>
+                   <pais nombre="Bermudas" siglas="BM"/>
+                   <pais nombre="Bhután" siglas="BT"/>
+                   <pais nombre="Bielorrusia" siglas="BY"/>
+                   <pais nombre="Birmania" siglas="MM"/>
+                   <pais nombre="Bolivia" siglas="BO"/>
+                   <pais nombre="Bosnia y Herzegovina" siglas="BA"/>
+                   <pais nombre="Botsuana" siglas="BW"/>
+                   <pais nombre="Brasil" siglas="BR"/>
+                   <pais nombre="Brunei" siglas="BN"/>
+                   <pais nombre="Bulgaria" siglas="BG"/>
+                   <pais nombre="Burkina Faso" siglas="BF"/>
+                   <pais nombre="Burundi" siglas="BI"/>
+                   <pais nombre="Cabo Verde" siglas="CV"/>
+                   <pais nombre="Camboya" siglas="KH"/>
+                   <pais nombre="Camerún" siglas="CM"/>
+                   <pais nombre="Canadá" siglas="CA"/>
+                   <pais nombre="Chad" siglas="TD"/>
+                   <pais nombre="Chile" siglas="CL"/>
+                   <pais nombre="China" siglas="CN"/>
+                   <pais nombre="Chipre" siglas="CY"/>
+                   <pais nombre="Ciudad del Vaticano" siglas="VC"/>
+                   <pais nombre="Colombia" siglas="CO"/>
+                   <pais nombre="Comores" siglas="KM"/>
+                   <pais nombre="Congo" siglas="CG"/>
+                   <pais nombre="Corea" siglas="KR"/>
+                   <pais nombre="Corea del Norte" siglas="KP"/>
+                   <pais nombre="Costa del Marfíl" siglas="CI"/>
+                   <pais nombre="Costa Rica" siglas="CR"/>
+                   <pais nombre="Croacia (Hrvatska)" siglas="HR"/>
+                   <pais nombre="Cuba" siglas="CU"/>
+                   <pais nombre="Dinamarca" siglas="DK"/>
+                   <pais nombre="Djibouri" siglas="DJ"/>
+                   <pais nombre="Dominica" siglas="DM"/>
+                   <pais nombre="Ecuador" siglas="EC"/>
+                   <pais nombre="Egipto" siglas="EG"/>
+                   <pais nombre="El Salvador" siglas="SV"/>
+                   <pais nombre="Emiratos Árabes Unidos" siglas="AE"/>
+                   <pais nombre="Eritrea" siglas="ER"/>
+                   <pais nombre="Eslovaquia" siglas="SK"/>
+                   <pais nombre="Eslovenia" siglas="SI"/>
+                   <pais nombre="España" siglas="ES"/>
+                   <pais nombre="Estados Unidos" siglas="US"/>
+                   <pais nombre="Estonia" siglas="EE"/>
+                   <pais nombre="Etiopía" siglas="ET"/>
+                   <pais nombre="Ex-República de Macedonia" siglas="MK"/>
+                   <pais nombre="Filipinas" siglas="PH"/>
+                   <pais nombre="Finlandia" siglas="FI"/>
+                   <pais nombre="Francia" siglas="FR"/>
+                   <pais nombre="Gabón" siglas="GA"/>
+                   <pais nombre="Gambia" siglas="GM"/>
+                   <pais nombre="Georgia" siglas="GE"/>
+                   <pais nombre="Georgia del Surr" siglas="GS"/>
+                   <pais nombre="Ghana" siglas="GH"/>
+                   <pais nombre="Gibraltar" siglas="GI"/>
+                   <pais nombre="Granada" siglas="GD"/>
+                   <pais nombre="Grecia" siglas="GR"/>
+                   <pais nombre="Groenlandia" siglas="GL"/>
+                   <pais nombre="Guadalupe" siglas="GP"/>
+                   <pais nombre="Guam" siglas="GU"/>
+                   <pais nombre="Guatemala" siglas="GT"/>
+                   <pais nombre="Guayana" siglas="GY"/>
+                   <pais nombre="Guayana Francesa" siglas="GF"/>
+                   <pais nombre="Guinea" siglas="GN"/>
+                   <pais nombre="Guinea Ecuatorial" siglas="GQ"/>
+                   <pais nombre="Guinea-Bissau" siglas="GW"/>
+                   <pais nombre="Haití" siglas="HT"/>
+                   <pais nombre="Holanda" siglas="NL"/>
+                   <pais nombre="Honduras" siglas="HN"/>
+                   <pais nombre="Hong Kong R. A. E" siglas="HK"/>
+                   <pais nombre="Hungría" siglas="HU"/>
+                   <pais nombre="India" siglas="IN"/>
+                   <pais nombre="Indonesia" siglas="ID"/>
+                   <pais nombre="Irak" siglas="IQ"/>
+                   <pais nombre="Irán" siglas="IR"/>
+                   <pais nombre="Irlanda" siglas="IE"/>
+                   <pais nombre="Isla Bouvet" siglas="BV"/>
+                   <pais nombre="Isla Christmas" siglas="CX"/>
+                   <pais nombre="Isla Heard e Islas McDonald" siglas="HM"/>
+                   <pais nombre="Islandia" siglas="IS"/>
+                   <pais nombre="Islas Caimán" siglas="KY"/>
+                   <pais nombre="Islas Cook" siglas="CK"/>
+                   <pais nombre="Islas de Cocos o Keeling" siglas="CC"/>
+                   <pais nombre="Islas Faroe" siglas="FO"/>
+                   <pais nombre="Islas Fiyi" siglas="FJ"/>
+                   <pais nombre="Islas Malvinas" siglas="FK"/>
+                   <pais nombre="Islas Marianas del Norte" siglas="MP"/>
+                   <pais nombre="Islas Marshall" siglas="MH"/>
+                   <pais nombre="Islas menores de EE.UU" siglas="UM"/>
+                   <pais nombre="Islas Palau" siglas="SB"/>
+                   <pais nombre="Islas Tokelau" siglas="TK"/>
+                   <pais nombre="Islas Turks y Caicos" siglas="TC"/>
+                   <pais nombre="Islas Vírgenes (EE.UU.)" siglas="IV"/>
+                   <pais nombre="Islas Vírgenes (Reino Unido)" siglas="VG"/>
+                   <pais nombre="Israel" siglas="IL"/>
+                   <pais nombre="Italia" siglas="IT"/>
+                   <pais nombre="Jamaica" siglas="JM"/>
+                   <pais nombre="Japón" siglas="JP"/>
+                   <pais nombre="Jordania" siglas="JO"/>
+                   <pais nombre="Kazajistán" siglas="KZ"/>
+                   <pais nombre="Kenia" siglas="KE"/>
+                   <pais nombre="Kirguizistán" siglas="KG"/>
+                   <pais nombre="Kiribati" siglas="KI"/>
+                   <pais nombre="Kuwait" siglas="KW"/>
+                   <pais nombre="Laos" siglas="LA"/>
+                   <pais nombre="Lesoto" siglas="LS"/>
+                   <pais nombre="Letonia" siglas="LV"/>
+                   <pais nombre="Jamaica" siglas="JM"/>
+                   <pais nombre="Líbano" siglas="LB"/>
+                   <pais nombre="Liberia" siglas="LR"/>
+                   <pais nombre="Libia" siglas="LY"/>
+                   <pais nombre="Liechtenstein" siglas="LI"/>
+                   <pais nombre="Lituania" siglas="LT"/>
+                   <pais nombre="Luxemburgo" siglas="LU"/>
+                   <pais nombre="Macao R. A. E" siglas="MO"/>
+                   <pais nombre="Madagascar" siglas="MG"/>
+                   <pais nombre="Malasia" siglas="MY"/>
+                   <pais nombre="Malawi" siglas="MW"/>
+                   <pais nombre="Maldivas" siglas="MV"/>
+                   <pais nombre="Malí" siglas="ML"/>
+                   <pais nombre="Malta" siglas="MT"/>
+                   <pais nombre="Marruecos" siglas="MA"/>
+                   <pais nombre="Martinica" siglas="MQ"/>
+                   <pais nombre="Mauricio" siglas="MU"/>
+                   <pais nombre="Mauritania" siglas="MR"/>
+                   <pais nombre="Mayotte" siglas="YT"/>
+                   <pais nombre="México" siglas="MX"/>
+                   <pais nombre="Micronesia" siglas="FM"/>
+                   <pais nombre="Moldavia" siglas="MD"/>
+                   <pais nombre="Mónaco" siglas="MC"/>
+                   <pais nombre="Mongolia" siglas="MN"/>
+                   <pais nombre="Montserrat" siglas="MS"/>
+                   <pais nombre="Mozambique" siglas="MZ"/>
+                   <pais nombre="Namibia" siglas="NA"/>
+                   <pais nombre="Nauru" siglas="NR"/>
+                   <pais nombre="Nepal" siglas="NP"/>
+                   <pais nombre="Nicaragua" siglas="NI"/>
+                   <pais nombre="Níger" siglas="NE"/>
+                   <pais nombre="Nigeria" siglas="NG"/>
+                   <pais nombre="Niue" siglas="NU"/>
+                   <pais nombre="Norfolk" siglas="NF"/>
+                   <pais nombre="Noruega" siglas="NO"/>
+                   <pais nombre="Nueva Caledonia" siglas="NC"/>
+                   <pais nombre="Nueva Zelanda" siglas="NZ"/>
+                   <pais nombre="Omán" siglas="OM"/>
+                   <pais nombre="Panamá" siglas="PA"/>
+                   <pais nombre="Papua Nueva Guinea" siglas="PG"/>
+                   <pais nombre="Paquistán" siglas="PK"/>
+                   <pais nombre="Paraguay" siglas="PY"/>
+                   <pais nombre="Perú" siglas="PE"/>
+                   <pais nombre="Pitcairn" siglas="PN"/>
+                   <pais nombre="Polinesia Francesa" siglas="PF"/>
+                   <pais nombre="Polonia" siglas="PL"/>
+                   <pais nombre="Portugal" siglas="PT"/>
+                   <pais nombre="Puerto Rico" siglas="PR"/>
+                   <pais nombre="Qatar" siglas="QA"/>
+                   <pais nombre="Reino Unido" siglas="UK"/>
+                   <pais nombre="República Centroafricana" siglas="CF"/>
+                   <pais nombre="República Checa" siglas="CZ"/>
+                   <pais nombre="República de Sudáfrica" siglas="ZA"/>
+                   <pais nombre="República del Congo (Zaire)" siglas="CD"/>
+                   <pais nombre="República Dominicana" siglas="DO"/>
+                   <pais nombre="Reunión" siglas="RE"/>
+                   <pais nombre="Ruanda" siglas="RW"/>
+                   <pais nombre="Rumania" siglas="RO"/>
+                   <pais nombre="Rusia" siglas="RU"/>
+                   <pais nombre="Samoa" siglas="WS"/>
+                   <pais nombre="Samoa occidental" siglas="AS"/>
+                   <pais nombre="San Kitts y Nevis" siglas="KN"/>
+                   <pais nombre="San Marino" siglas="SM"/>
+                   <pais nombre="San Pierre y Miquelon" siglas="PM"/>
+                   <pais nombre="San Vicente e Islas Granadinas" siglas="VC"/>
+                   <pais nombre="Santa Helena" siglas="SH"/>
+                   <pais nombre="Santa Lucía" siglas="LC"/>
+                   <pais nombre="Santo Tomé y Príncipe" siglas="ST"/>
+                   <pais nombre="Senegal" siglas="SN"/>
+                   <pais nombre="Serbia y Montenegro" siglas="YU"/>
+                   <pais nombre="Seychelles" siglas="SC"/>
+                   <pais nombre="Sierra Leona" siglas="SL"/>
+                   <pais nombre="Singapur" siglas="SG"/>
+                   <pais nombre="Siria" siglas="SY"/>
+                   <pais nombre="Somalia" siglas="SO"/>
+                   <pais nombre="Sri Lanka" siglas="LK"/>
+                   <pais nombre="Suazilandia" siglas="SZ"/>
+                   <pais nombre="Sudán" siglas="SD"/>
+                   <pais nombre="Suecia" siglas="SE"/>
+                   <pais nombre="Suiza" siglas="CH"/>
+                   <pais nombre="Surinam" siglas="SR"/>
+                   <pais nombre="Svalbard" siglas="SJ"/>
+                   <pais nombre="Tailandia" siglas="TH"/>
+                   <pais nombre="Taiwán" siglas="TW"/>
+                   <pais nombre="Tanzania" siglas="TZ"/>
+                   <pais nombre="Tayikistán" siglas="TJ"/>
+                   <pais nombre="Territorios Franceses del Sur" siglas="TF"/>
+                   <pais nombre="Timor Oriental" siglas="TP"/>
+                   <pais nombre="Togo" siglas="TG"/>
+                   <pais nombre="Tonga" siglas="TO"/>
+                   <pais nombre="Trinidad y Tobago" siglas="TT"/>
+                   <pais nombre="Túnez" siglas="TN"/>
+                   <pais nombre="Turkmenistán" siglas="TM"/>
+                   <pais nombre="Turquía" siglas="TR"/>
+                   <pais nombre="Tuvalu" siglas="TV"/>
+                   <pais nombre="Ucrania" siglas="UA"/>
+                   <pais nombre="Uganda" siglas="UG"/>
+                   <pais nombre="Uruguay" siglas="UY"/>
+                   <pais nombre="Uzbekistán" siglas="UZ"/>
+                   <pais nombre="Vanuatu" siglas="VU"/>
+                   <pais nombre="Venezuela" siglas="VE"/>
+                   <pais nombre="Vietnam" siglas="VN"/>
+                   <pais nombre="Wallis y Futuna" siglas="WF"/>
+                   <pais nombre="Yemen" siglas="YE"/>
+                   <pais nombre="Zambia" siglas="ZM"/>
+                   <pais nombre="Zimbabue" siglas="ZW"/>
+	</paises>
+</xml>

@@ -1,0 +1,11 @@
+[12-Feb-2010 03:58:45] PHP Warning:  require_once(fpdf.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home/gazpachu/public_html/webs/muvap/save_pdf.php on line 2
+[12-Feb-2010 03:58:45] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required 'fpdf.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/gazpachu/public_html/webs/muvap/save_pdf.php on line 2
+[12-Feb-2010 04:23:33] PHP Parse error:  syntax error, unexpected '[' in /home/gazpachu/public_html/webs/muvap/save_pdf.php on line 117
+[12-Feb-2010 04:23:57] PHP Parse error:  syntax error, unexpected '[' in /home/gazpachu/public_html/webs/muvap/save_pdf.php on line 117
+[12-Feb-2010 04:25:13] PHP Parse error:  syntax error, unexpected '[' in /home/gazpachu/public_html/webs/muvap/save_pdf.php on line 118
+[12-Feb-2010 04:35:44] PHP Parse error:  syntax error, unexpected '[', expecting ']' in /home/gazpachu/public_html/webs/muvap/save_pdf.php on line 122
+[12-Feb-2010 04:40:55] PHP Parse error:  syntax error, unexpected '[' in /home/gazpachu/public_html/webs/muvap/save_pdf.php on line 121
+[12-Feb-2010 04:43:05] PHP Parse error:  syntax error, unexpected '[' in /home/gazpachu/public_html/webs/muvap/save_pdf.php on line 121
+[12-Feb-2010 04:50:35] PHP Parse error:  syntax error, unexpected '[' in /home/gazpachu/public_html/webs/muvap/save_pdf.php on line 121
+[12-Feb-2010 04:52:54] PHP Fatal error:  Using $this when not in object context in /home/gazpachu/public_html/webs/muvap/save_pdf.php on line 124
+[15-Feb-2010 12:18:07] PHP Parse error:  syntax error, unexpected T_CONSTANT_ENCAPSED_STRING in /home/gazpachu/public_html/webs/muvap/save_pdf.php on line 126

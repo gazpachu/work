@@ -1,0 +1,29 @@
+﻿<xml>
+	<punto x="269" y="338" nombre="Teverga" habitantes="2.035">
+		<contenedores vidrio="5" envases="5" papel="7" />
+		<habcontenedor vidrio="407,00" envases="407,00" papel="290,71" />
+		<toneladas vidrio="6,40" envases="3,15" papel="11,84" />
+		<kghab vidrio="3,14" envases="1,55" papel="5,82" />
+	</punto>
+	
+	<punto x="455" y="305" nombre="Proaza" habitantes="810">
+		<contenedores vidrio="3" envases="3" papel="4" />
+		<habcontenedor vidrio="270,00" envases="270,00" papel="202,50" />
+		<toneladas vidrio="5,70" envases="1,78" papel="6,99" />
+		<kghab vidrio="7,04" envases="2,20" papel="8,63" />
+	</punto>
+	
+	<punto x="306" y="248" nombre="Quirós" habitantes="1.465">
+		<contenedores vidrio="4" envases="4" papel="5" />
+		<habcontenedor vidrio="366,25" envases="366,25" papel="293,00" />
+		<toneladas vidrio="4,60" envases="1,32" papel="4,66" />
+		<kghab vidrio="3,14" envases="0,90" papel="3,18" />
+	</punto>
+
+	<punto x="308" y="166" nombre="Santo Adriano" habitantes="280">
+		<contenedores vidrio="3" envases="3" papel="3" />
+		<habcontenedor vidrio="93,33" envases="93,33" papel="93,33" />
+		<toneladas vidrio="2,72" envases="0,73" papel="2,88" />
+		<kghab vidrio="9,71" envases="2,61" papel="10,29" />
+	</punto>
+</xml>

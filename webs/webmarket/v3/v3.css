@@ -1,0 +1,24 @@
+P {
+	FONT-SIZE: 10px; COLOR: #C0C0C0; FONT-FAMILY: Verdana
+}
+BODY {
+	FONT-SIZE: 10px; COLOR: #C0C0C0; FONT-FAMILY: Verdana
+	background-color: #414141;
+	background-image: url('images/bg.gif');
+	margin:0;;
+}
+TD {
+	FONT-SIZE: 10px; COLOR: #C0C0C0; FONT-FAMILY: Verdana
+}
+A {
+	FONT-SIZE: 10px; COLOR: #74E62F; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+A:hover {
+	TEXT-DECORATION: underline
+}
+h1 {
+	FONT-SIZE: 12px; COLOR: #74E62F; FONT-FAMILY: Verdana
+}
+h2 {
+	FONT-SIZE: 10px; COLOR: #74E62F; FONT-FAMILY: Verdana
+}

@@ -1,0 +1,24 @@
+<HTML> 
+<HEAD> 
+ <TITLE>Webmarket.es</TITLE>
+  <script type="text/javascript" src="ufo.js"></script>
+  
+ <script language='javascript'> 
+   var arrTemp=self.location.href.split("?"); 
+   var swfURL = (arrTemp.length>0)?arrTemp[1]:""; 
+ </script>
+ 
+ <script type="text/javascript">
+	var FO = { movie: swfURL, id:"popupMovie", width:"100%", height:"100%", majorversion:"8", build:"0", menu:"false", setcontainercss:"true", quality:"best", scale:"noscale", bgcolor:"#414141", salign:"TL" };
+	UFO.create(FO, "flashcontent");
+</script>
+
+ 
+</HEAD> 
+
+<BODY style="background: #414141 url('images/bg.gif'); margin:0;;"> 
+	<div id="flashcontent">
+	</div>
+</BODY> 
+</HTML>
+

@@ -1,0 +1,368 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Contact Us</title>
+<META content=follow name=robots>
+<LINK href="images/default.css" type=text/css rel=stylesheet>
+<LINK href="scrollbars.css" type=text/css rel=stylesheet>
+
+<script language="JavaScript">
+function checkFields( )
+{
+	var realname = document.contactus.realname.value;
+	var email = document.contactus.email.value;
+	
+	if( realname == '' || email == '' )
+	{
+		alert("We need your name and your email. Thank you!");
+	}
+	else
+	{
+		document.contactus.submit( );
+	}	
+}
+
+//-->
+</script>
+
+
+</head>
+
+<body bgcolor="#FFFFFF" topmargin="0" leftmargin="0">
+
+	<p><b><font face="Arial" size="2">Contact Us<br>
+&nbsp;</font></b></p>
+	
+	<table border="0" style="border-collapse: collapse" width="23%" id="table1" height="192">
+		<form name="contactus" method=post onsubmit="checkFields();" autocomplete="off" action="http://www.slaterlabs.com/cgi-bin/FormMail.pl">
+		<tr>
+			<TD ALIGN=right width="16%" height="20"><font face="Arial" size="1">
+    		<B>*Name:&nbsp;&nbsp;&nbsp; </B></font></TD>
+			<TD ALIGN=right width="129" height="20">
+			<font color="#839FB3" size="1" face="Arial">
+			<input name="realname" size=27 style="font-family: Arial; font-size: 9; background-color: #FFFFFF; float:left"></font></TD>
+			<TD width="23%" height="20" align="right">
+			<font face="Arial" size="1"><B>*Email:&nbsp;&nbsp;&nbsp; </B></font>
+			</TD>
+			<TD width="37%" height="20">
+			<font color="#839FB3" size="1" face="Arial">
+			<input name="email" size=26 style="font-family: Arial; font-size: 9; background-color: #FFFFFF; float:left"></font></TD>
+		</tr>
+		<tr>
+			<TD ALIGN=right width="106" height="20"><font face="Arial" size="1">
+			<B>Organization:&nbsp;&nbsp;&nbsp; </B></font></TD>
+			<TD ALIGN=right width="129" height="20">
+			<font color="#839FB3" size="1" face="Arial">
+			<input name="org_name" size=27 style="font-family: Arial; font-size: 9; background-color: #FFFFFF; float:left"></font></TD>
+			<TD width="23%" height="20" align="right">
+			<font face="Arial" size="1"><B>Phone:&nbsp;&nbsp;&nbsp; </B></font>
+			</TD>
+			<TD width="37%" height="20">
+			<font color="#839FB3" size="1" face="Arial">
+			<input name="phone" size=26 style="font-family: Arial; font-size: 9; background-color: #FFFFFF; float:left"></font></TD>
+		</tr>
+		<tr>
+			<TD ALIGN=right width="106" height="20"><font face="Arial" size="1">
+			<B>Country:&nbsp;&nbsp;&nbsp; </B></font></TD>
+			<TD ALIGN=right width="129" height="20">
+			<p align="left"><font color="#839FB3" size="1" face="Arial">
+			<SELECT NAME="country" style="font-family: Arial; font-size: 9; background-color: #FFFFFF; width:133; height:18" size="1">
+			<option value="Afganistan">Afghanistan
+			<option value="Albania">Albania
+			<option value="Algeria">Algeria
+			<option value="American_Samoa">American Samoa
+			<option value="Andorra">Andorra
+			<option value="Angola">Angola
+			<option value="Anguilla">Anguilla
+			<option value="Antartica">Antarctica
+			<option value="Antigua_and_or_Barbuda">Antigua and/or Barbuda
+			<option value="Argentina">Argentina
+			<option value="Armenia">Armenia
+			<option value="Aruba">Aruba
+			<option value="Australia">Australia
+			<option value="Austria">Austria
+			<option value="Azerbijan">Azerbijan
+			<option value="Bahamas">Bahamas
+			<option value="Bahrain">Bahrain
+			<option value="Bangladesh">Bangladesh
+			<option value="Barbados">Barbados
+			<option value="Belarus">Belarus
+			<option value="Belgium">Belgium
+			<option value="Belize">Belize
+			<option value="Benin">Benin
+			<option value="Bermuda">Bermuda
+			<option value="Bhutan">Bhutan
+			<option value="Bolivia">Bolivia
+			<option value="Bosnia_and_Herzagowina">Bosnia and Herzegowina
+			<option value="Botswana">Botswana
+			<option value="Bouvet_Island">Bouvet Island
+			<option value="Brazil">Brazil
+			<option value="British_Indian">British Indian Ocian Territory
+			<option value="Brunei">Brunei Darussalam
+			<option value="Bulgaria">Bulgaria
+			<option value="Burkina_Faso">Burkina Faso
+			<option value="Burundi">Burundi
+			<option value="Canada">Canada
+			<option value="Cambodia">Cambodia
+			<option value="Cameroon">Cameroon
+			<option value="Cape_Verde">Cape Verde
+			<option value="Cayman_Islands">Cayman Islands
+			<option value="Central_African_Republic">Central African Republic
+			<option value="Chad">Chad
+			<option value="Chile">Chile
+			<option value="China">China
+			<option value="Christmas_Island">Christmas Island
+			<option value="Cocos_Islands">Cocos (Keeling) Islands
+			<option value="Colombia">Colombia
+			<option value="Comoros">Comoros
+			<option value="Congo">Congo
+			<option value="Cook_Islands">Cook Islands
+			<option value="CostaRica">Costa Rica
+			<option value="Cote_DIvoire">Cote D' Ivoire
+			<option value="Croatia">Croatia (Hrvatska)
+			<option value="Cuba">Cuba
+			<option value="Cyprus">Cyprus
+			<option value="Czech_Republic">Czech Republic
+			<option value="Denmark">Denmark
+			<option value="Djibouti">Djibouti
+			<option value="Dominica">Dominica
+			<option value="Dominican_Republic">Dominican Republic
+			<option value="East_Timor">East Timor
+			<option value="Ecuador">Ecudaor
+			<option value="Egypt">Egypt
+			<option value="El_Salvador">El Salvador
+			<option value="Equatorial_Guinea">Equatorial Guinea
+			<option value="Eritrea">Eritrea
+			<option value="Estonia">Estonia
+			<option value="Ethiopia">Ethiopia
+			<option value="Falkland_Islands">Falkland Islands (Malvinas)
+			<option value="Faroe_Islands">Faroe Islands
+			<option value="Fiji">Fiji
+			<option value="Finland">Finland
+			<option value="France">France
+			<option value="French_Guiana">French Guiana
+			<option value="French_Polynesia">French Polynesia
+			<option value="French_Southern">French Southern Territories
+			<option value="Gabon">Gabon
+			<option value="Gambia">Gambia
+			<option value="Georgia">Georgia
+			<option value="Germany">Germany
+			<option value="Ghana">Ghana
+			<option value="Gibraltar">Gibraltar
+			<option value="Greece">Greece
+			<option value="Greenland">Greenland
+			<option value="Grenada">Grenada
+			<option value="Guadeloupe">Guadeloupe
+			<option value="Guam">Guam
+			<option value="Guatemala">Guatemala
+			<option value="Guinea">Guinea
+			<option value="Guinea_Bissau">Guinea-Bissau
+			<option value="Guyana">Guyana
+			<option value="Haiti">Haiti
+			<option value="Heard_and_McDonald_Islands">Heard and Mc Donald Islands
+			<option value="Honduras">Honduras
+			<option value="Hong_Kong">Hong Kong
+			<option value="Hungary">Hungary
+			<option value="Iceland">Iceland
+			<option value="India">India
+			<option value="Indonesia">Indonesia
+			<option value="Iran">Iran (Islamic Republic of)
+			<option value="Iraq">Iraq
+			<option value="Ireland">Ireland
+			<option value="Israel">Israel
+			<option value="Italy">Italy
+			<option value="Jamaca">Jamaca
+			<option value="Japan">Japan
+			<option value="Jordan">Jordan
+			<option value="Kazakhastan">Kazakhastan
+			<option value="Kenya">Kenya
+			<option value="Kiribati">Kiribati
+			<option value="North Korea">North Korea
+			<option value="South Korea">South Korea
+			<option value="Kuwait">Kuwait
+			<option value="Kyrgyzstan">Kyrgyzstan
+			<option value="Lao">Lao People's Democratic Republic
+			<option value="Latvia">Latvia
+			<option value="Lebanon">Lebanon
+			<option value="Lesotho">Lesotho
+			<option value="Liberia">Liberia
+			<option value="Libyan_Arab">Libyan Arab Jamahiriya
+			<option value="Liechtenstein">Liechtenstein
+			<option value="Lithuania">Lithuania
+			<option value="Luxembourg">Luxembourg
+			<option value="Macau">Macau
+			<option value="Macedonia">Macdedonia, The Former Yugoslav Republic of
+			<option value="Madagascar">Madagascar
+			<option value="Malawi">Malawi
+			<option value="Malaysia">Malaysia
+			<option value="Maldives">Maldives
+			<option value="Mali">Mali
+			<option value="Malta">Malta
+			<option value="Marshall_Islands">Marshall Islands
+			<option value="Martinique">Martinique
+			<option value="Maritania">Maritania
+			<option value="Mauritus">Mauritius
+			<option value="Mayotte">Mayotte
+			<option value="Mexico">Mexico
+			<option value="Micronesia">Micronesia, Federated States of
+			<option value="Moldova">Moldova, Republic of
+			<option value="Monaco">Monaco
+			<option value="Mongolia">Mongolia
+			<option value="Monstserrat">Montserrat
+			<option value="Morocco">Morocco
+			<option value="Mozambique">Mozambique
+			<option value="Myanmar">Myanmar
+			<option value="Namibia">Namibia
+			<option value="Nauru">Nauru
+			<option value="Nepal">Nepal
+			<option value="Netherlands">Netherlands
+			<option value="Netherlands_Antilles">Netherlands Antilles
+			<option value="New_Caledonia">New Caledonia
+			<option value="New_Zealand">New Zealand
+			<option value="Nicaragua">Nicaragua
+			<option value="Niger">Niger
+			<option value="Nigeria">Nigeria
+			<option value="Niue">Niue
+			<option value="Norfork_Island">Norfork Island
+			<option value="Nothern_Mariana_Islands">Northern Mariana Islands
+			<option value="Norway">Norway
+			<option value="Oman">Oman
+			<option value="Pakistan">Pakistan
+			<option value="Palau">Palau
+			<option value="Panama">Panama
+			<option value="Papua_New_Guinea">Papua New Guinea
+			<option value="Paraguay">Paraguay
+			<option value="Peru">Peru
+			<option value="Philippines">Philippines
+			<option value="Pitcairn">Pitcairn
+			<option value="Poland">Poland
+			<option value="Portugal">Portugal
+			<option value="Puerto_Rico">Puerto Rico
+			<option value="Qatar">Qatar
+			<option value="Reunion">Reunion
+			<option value="Romania">Romania
+			<option value="Russian_Federation">Russian Federation
+			<option value="Rwanda">Rwanda
+			<option value="Saint_Kitts_and_Nevis">Saint Kitts and Nevis
+			<option value="Saint_Lucia">Saint Lucia
+			<option value="Saint_Vincent_and_the_Grenad_Ines">Saint Vincent and the Grenad Ines
+			<option value="Samoa">Samoa
+			<option value="San_Marino">San Marino
+			<option value="Sao_Tome_and_Principe">Sao Tome and Principe
+			<option value="Saudi_Arabia">Saudi Arabia
+			<option value="Senegal">Senegal
+			<option value="Seychelles">Seychelles
+			<option value="Sierra_Leone">Sierra Leone
+			<option value="Singapore">Singapore
+			<option value="Slovakia">Slovakia
+			<option value="Slovenia">Slovenia
+			<option value="Solomon_Islands">Solomon Islands
+			<option value="Somalia">Somalia
+			<option value="South_Africa">South Africa
+			<option value="South_Georgia_and_The_South_Sandwich_Islands">South Georgia and The South Sandwich Islands
+			<option value="Spain" selected>Spain
+			<option value="Sri_Lanka">Sri Lanka
+			<option value="St_Helena">St. Helena
+			<option value="St_Pierre_and_Miquelon">St. Pierre and Miquelon
+			<option value="Sudan">Sudan
+			<option value="Suriname">Suriname
+			<option value="Svalbarn_and_Jan_Mayen_Islands">Svalbarn and Jan Mayen Islands
+			<option value="Swaziland">Swaziland
+			<option value="Sweeden">Sweeden
+			<option value="Switzerland">Switzerland
+			<option value="Syriab_Arab_Republic">Syrian Arab Republic
+			<option value="Taiwan">Taiwan, Province of China
+			<option value="Tajikstan">Tajikistan
+			<option value="Tanzania">Tanzania, United Republic of
+			<option value="Thailand">Thailand
+			<option value="Togo">Togo
+			<option value="Tokelau">Tokelau
+			<option value="Tonga">Tonga
+			<option value="Trinidad_and_Tobago">Trinidad and Tobago
+			<option value="Tunisia">Tunisia
+			<option value="Turkey">Turkey
+			<option value="Turkenistan">Turkenistan
+			<option value="Turks_and_Caicos_Islands">Turks and Caicos Islands
+			<option value="Tuvalu">Tuvalu
+			<option value="Uganda">Uganda
+			<option value="Ukraine">Ukarine
+			<option value="United_Arab_Emirates">United Arab Emirates
+			<option value="United_Kingdom">United Kingdom
+			<option value="United_States">United States
+			<option value="United_States_minor_outlying_islands">United States minor outlying islands
+			<option value="Uruguay">Uruguay
+			<option value="Uzbekistan">Uzbekistan
+			<option value="Vanuatu">Vanuatu
+			<option value="Vatican_city">Vatican City State (Holy See)
+			<option value="Venezuela">Venezuela
+			<option value="Vietnam">Viet Nam
+			<option value="Virigan_Islands">Virigan Islands (British)
+			<option value="Virgin_Islands">Virgin Islands (U.S.)
+			<option value="Wallis_and_Futuna_Islands">Wallis and Futuna Islands
+			<option value="Western_Sahara">Western Sahara
+			<option value="Yemen">Yemen
+			<option value="Yugoslavia">Yugoslavia
+			<option value="Zaire">Zaire
+			<option value="Zambia">Zambia
+			<option value="Zimbabwe">Zimbabwe</SELECT></font></TD>
+			<TD width="23%" height="20" align="right">
+			<font face="Arial" size="1"><B>Fax:</B>&nbsp;&nbsp;&nbsp; </font>
+			</TD>
+			<TD width="37%" height="20">
+			<font color="#839FB3" size="1" face="Arial">
+			<input name="fax" size=26 style="font-family: Arial; font-size: 9; background-color: #FFFFFF; float:left"></font></TD>
+		</tr>
+		<tr>
+			<TD ALIGN=right width="106" height="20" valign="top">
+			Web site:&nbsp;&nbsp;&nbsp; </TD>
+			<TD ALIGN=right height="20" valign="top">
+			<font color="#839FB3" size="1" face="Arial">
+			<input name="website" size=27 style="font-family: Arial; font-size: 9; background-color: #FFFFFF; float:left"></font></TD>
+			<TD ALIGN=right height="20" valign="top">
+			<font size="1">Subject:&nbsp;&nbsp;&nbsp; </font></TD>
+			<TD ALIGN=right height="20" valign="top">
+			<p align="left">
+			<font color="#839FB3" size="1" face="Arial">
+			<SELECT NAME="recipient" style="font-family: Arial; font-size: 9; background-color: #FFFFFF; width:129; height:18" size="1">
+			<option value="sales@slaterlabs.com">Sales Department</option>
+			<option value="support@slaterlabs.com">Customer Support</option>
+			<option value="info@slaterlabs.com">Other</option>
+			<option value="rrhh@slaterlabs.com">Human Resources</option>
+			<option selected value="info@slaterlabs.com">Product Information
+			</option>
+			</SELECT></font></TD>
+		</tr>
+		<tr>
+			<TD ALIGN=right width="106" height="90" valign="top">
+			<p align="right"><b><font face="Arial" size="1">Comments:&nbsp;&nbsp;&nbsp;
+			</font></b></TD>
+			<TD ALIGN=right height="90" colspan="3">
+			<p align="left"><font color="#839FB3" size="1" face="Arial">
+			<textarea rows="7" name="comments" cols="83" style="overflow:auto; font-family: Arial; font-size: 9; background-color: #FFFFFF"></textarea></font></TD>
+		</tr>
+		<tr>
+			<TD align=center height="22" valign="top" colspan="4">
+			<p align="right">
+			<INPUT TYPE="reset" value=" Clear " style="font-family: Arial; font-size: 9; background-color: #FFFFFF"><font face="Arial" size="1">&nbsp;
+			</font>
+			<INPUT TYPE=button VALUE=" Submit " onClick="checkFields();" style="font-family: Arial; font-size: 9; background-color: #FFFFFF">&nbsp;
+			</TD>
+		</tr>
+		<tr>
+			<TD align=center height="22" valign="top" colspan="4">
+			&nbsp;<p>You can also contact us at
+			<a href="mailto:info@slaterlabs.com">info@slaterlabs.com</a></TD>
+		</tr>
+	<input type=hidden name="subject" value="Slaterlabs.com">
+	<input type=hidden name="required" value="realname,email">
+	<input type=hidden name="sort" value="alphabetic">
+	<input type=hidden name="redirect" value="http://www.slaterlabs.com/thanks.htm">
+	</form>
+	</table>
+	
+	
+			
+			</body>
+
+</html>

@@ -1,0 +1,36 @@
+﻿<xml>
+	<punto x="128" y="170" nombre="Langreo" habitantes="46.558">
+		<contenedores vidrio="83" envases="78" papel="137" />
+		<habcontenedor vidrio="560,94" envases="596,90" papel="339,84" />
+		<toneladas vidrio="248,84" envases="168,50" papel="800,61" />
+		<kghab vidrio="5,34" envases="3,62" papel="17,20" />
+	</punto>
+	
+	<punto x="240" y="224" nombre="S.M. Rey Aurelio" habitantes="19.698">
+		<contenedores vidrio="42" envases="41" papel="52" />
+		<habcontenedor vidrio="469,00" envases="480,44" papel="378,81" />
+		<toneladas vidrio="156,48" envases="115,81" papel="325,67" />
+		<kghab vidrio="7,94" envases="5,88" papel="16,53" />
+	</punto>
+	
+	<punto x="302" y="285" nombre="Laviana" habitantes="14.419">
+		<contenedores vidrio="41" envases="39" papel="43" />
+		<habcontenedor vidrio="351,68" envases="369,72" papel="335,33" />
+		<toneladas vidrio="110,22" envases="92,48" papel="249,39" />
+		<kghab vidrio="7,64" envases="6,41" papel="17,30" />
+	</punto>
+
+	<punto x="453" y="363" nombre="Sobrescobio" habitantes="873">
+		<contenedores vidrio="5" envases="5" papel="5" />
+		<habcontenedor vidrio="174,60" envases="174,60" papel="174,60" />
+		<toneladas vidrio="7,20" envases="3,23" papel="12,21" />
+		<kghab vidrio="8,25" envases="3,70" papel="13,99" />
+	</punto>
+
+	<punto x="552" y="399" nombre="Caso" habitantes="1.997">
+		<contenedores vidrio="9" envases="6" papel="8" />
+		<habcontenedor vidrio="221,89" envases="332,83" papel="249,62" />
+		<toneladas vidrio="11,68" envases="2,79" papel="8,52" />
+		<kghab vidrio="5,85" envases="1,40" papel="4,27" />
+	</punto>
+</xml>

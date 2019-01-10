@@ -1,0 +1,1 @@
+<?php function GalleryFastDownload() { return $GLOBALS['gallery']->fastDownload('cache/derivative/0/1/19.dat', 'peacock.gif', 'Thu, 07 Aug 2008 16:06:42 GMT', 'image/gif', 1589);} ?>

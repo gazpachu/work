@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE>Club de Golf El Plantío © 2002</TITLE>
+<script language="JavaScript">
+<!--
+<!--
+msg = "Club de Golf El Plantío © 2002 ||";
+msgud = "";
+
+function titleBarScroll() {
+
+if (msgud.length < msg.length)
+msgud += msg;
+msgud = msgud.substr(1);
+document.title = msgud.substring(0, msg.length);
+window.setTimeout("titleBarScroll()", 300);
+}
+//-->
+
+titleBarScroll();
+//-->
+var win = null;
+function NewWindow(mypage,myname,w,h,scroll){
+LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
+TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
+settings =
+'height='+h+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars='+scroll+',resizable'
+win = window.open(mypage,myname,settings)
+}
+</script>
+
+</HEAD>
+<BODY bgcolor="#FFFFFF" onload="NewWindow('intro.html','name','640','480','no');return false">
+<p align="center">
+<img border="0" src="imagenes/logo2.gif" width="115" height="209"></p>
+<p align="center"><font face="Verdana" size="2">Camino viejo Alicante - Elche 
+Km. 3<br>
+Tlf: 965 189 115 - 965 189 070 <br>
+Fax: 965 189 105<br>
+Alicante - España<br>
+E-mail: <a href="mailto:elplantiogolf@elplantio.com">elplantiogolf@elplantio.com</a> </font></p>
+<p align="center"><font face="Verdana" size="2"><b>Club de Golf El Plantío&nbsp; 
+© 2002<br>
+</b>Se recomienda que ajuste la resolución de su monitor<br>
+a 1024x768,&nbsp; e Internet Explorer 5.x o superior.<br>
+Es necesario instalar el plug-in de Macromedia Flash 6.<br>
+Si no puede visualizar la ventana emergente, desactive dicha<br>
+opción de su Firewall o programa anti Pop-up.</font></p>
+</BODY>
+</HTML>

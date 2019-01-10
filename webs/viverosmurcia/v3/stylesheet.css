@@ -1,0 +1,30 @@
+body {
+      SCROLLBAR-FACE-COLOR: #FFFFFF; SCROLLBAR-HIGHLIGHT-COLOR: #CCCCCC; SCROLLBAR-SHADOW-COLOR: #CCCCCC;
+	SCROLLBAR-3DLIGHT-COLOR: #EDEAD9; SCROLLBAR-ARROW-COLOR: #D8D4B1; SCROLLBAR-TRACK-COLOR: #FFFFFF;
+	SCROLLBAR-DARKSHADOW-COLOR: #EDEAD9;
+	background-color: #FFFFFF;
+	font: 8pt/16pt georgia;
+	color: #555753;
+	vertical-align: middle;
+}
+
+A {
+	text-decoration:underline;
+	font: 8pt/16pt georgia;
+	color:FFFFFF;
+}
+
+a:link { 
+	font-weight: bold; 
+	text-decoration: none; 
+	color: #FFFFFF;
+	}
+a:visited { 
+	font-weight: bold; 
+	text-decoration: none; 
+	color: #FFFFFF;
+	}
+a:hover, a:active { 
+	text-decoration: underline; 
+	color: #955413;
+	}

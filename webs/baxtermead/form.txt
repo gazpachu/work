@@ -1,0 +1,15 @@
+To: david@baxtermead.net
+Subject: Baxtermead.NET. [subject]
+
+Nombre: [required-name]
+Direccion: [address]
+País: [country]
+Teléfono [required-areacode] [required-phonenumber]
+Compañía: [company]
+Ciudad: [city]
+Código Postal: [zipcode]
+
+Email: [required-email]
+
+Comentatios: [comments]
+

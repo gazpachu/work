@@ -1,0 +1,48 @@
+P {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma
+}
+BODY {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma
+}
+TD {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma
+}
+A {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma; TEXT-DECORATION: none
+}
+A:hover {
+	TEXT-DECORATION: underline
+}
+.scroller {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma; TEXT-DECORATION: none
+}
+.scrolldate {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; COLOR: #000000
+}
+.copyright {
+	FONT-SIZE: 10px; FONT-FAMILY: verdana
+}
+.smalltext {
+	FONT-SIZE: 11px; FONT-FAMILY: Tahoma
+}
+.smalltextorange {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma
+}
+.smalltextred {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma
+}
+.clientlist {
+	FONT-SIZE: 11px; MARGIN-LEFT: 15px; FONT-FAMILY: Tahoma
+}
+.clientlist UL {
+	FONT-SIZE: 11px; MARGIN-LEFT: 20px; FONT-FAMILY: Tahoma
+}
+.clientlist LI {
+	MARGIN-TOP: 3px; FONT-SIZE: 11px; FONT-FAMILY: Tahoma
+}
+UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 10px; PADDING-BOTTOM: 0px; MARGIN: 7px 0px 12px 15px; PADDING-TOP: 0px; FONT-FAMILY: Verdana; LIST-STYLE-TYPE: none; TEXT-DECORATION: underline
+}
+UL UL {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}

@@ -1,0 +1,12 @@
+<galeria>
+	<item titulo="Cine" archivo="publicidad/carteles/Cine.jpg" />
+        <item titulo="Reyes Magos Alcoy" archivo="publicidad/carteles/9.jpg" />	
+        <item titulo="Violencia Mujer 2" archivo="publicidad/carteles/7.jpg" />
+        <item titulo="GAPE" archivo="publicidad/carteles/Gape.jpg" />
+        <item titulo="Violencia Mujer 1" archivo="publicidad/carteles/6.jpg" />
+        <item titulo="Medieval 1" archivo="publicidad/carteles/4.jpg" />
+        <item titulo="Medieval 2" archivo="publicidad/carteles/5.jpg" />	
+	<item titulo="Día int. Mujer" archivo="publicidad/carteles/8.jpg" />		
+	<item titulo="Violencia Mujer 3" archivo="publicidad/carteles/2.jpg" />
+        <item titulo="Día int. Mujer 2" archivo="publicidad/carteles/3.jpg" />
+</galeria>

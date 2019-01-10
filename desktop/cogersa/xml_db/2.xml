@@ -1,0 +1,57 @@
+﻿<xml>
+	<punto x="77" y="444" nombre="Yernes y Tameza" habitantes="197">
+		<contenedores vidrio="1" envases="1" papel="1" />
+		<habcontenedor vidrio="197,00" envases="197,00" papel="197,00" />
+		<toneladas vidrio="0,10" envases="0,05" papel="0,20" />
+		<kghab vidrio="0,51" envases="0,25" papel="1,02" />
+	</punto>
+	
+	<punto x="163" y="280" nombre="Grado" habitantes="11.128">
+		<contenedores vidrio="15" envases="14" papel="39" />
+		<habcontenedor vidrio="741,87" envases="794,86" papel="285,33" />
+		<toneladas vidrio="44,16" envases="28,26" papel="134,62" />
+		<kghab vidrio="3,97" envases="2,54" papel="12,10" />
+	</punto>
+	
+	<punto x="248" y="231" nombre="Las Regueras" habitantes="2.088">
+		<contenedores vidrio="13" envases="6" papel="8" />
+		<habcontenedor vidrio="160,62" envases="348,00" papel="261,00" />
+		<toneladas vidrio="23,34" envases="3,58" papel="17,97" />
+		<kghab vidrio="11,18" envases="1,71" papel="8,61" />
+	</punto>
+
+	<punto x="347" y="192" nombre="Llanera" habitantes="13.283">
+		<contenedores vidrio="47" envases="61" papel="115" />
+		<habcontenedor vidrio="282,62" envases="217,75" papel="115,50" />
+		<toneladas vidrio="125,88" envases="73,47" papel="360,95" />
+		<kghab vidrio="9,48" envases="5,53" papel="27,17" />
+	</punto>
+
+	<punto x="603" y="292" nombre="Noreña" habitantes="4.763">
+		<contenedores vidrio="15" envases="17" papel="32" />
+		<habcontenedor vidrio="317,53" envases="280,18" papel="148,84" />
+		<toneladas vidrio="43,20" envases="24,94" papel="144,38" />
+		<kghab vidrio="9,07" envases="5,24" papel="30,31" />
+	</punto>
+
+	<punto x="661" y="344" nombre="Siero" habitantes="48.991">
+		<contenedores vidrio="116" envases="117" papel="202" />
+		<habcontenedor vidrio="422,34" envases="418,73" papel="242,53" />
+		<toneladas vidrio="424,26" envases="230,88" papel="1.165,96" />
+		<kghab vidrio="8,66" envases="4,71" papel="23,80" />
+	</punto>
+
+	<punto x="377" y="286" nombre="Oviedo" habitantes="212.174">
+		<contenedores vidrio="101" envases="97" papel="178" />
+		<habcontenedor vidrio="2.100,73" envases="2.187,36" papel="1.191,99" />
+		<toneladas vidrio="1.784,12" envases="1.388,58" papel="6.173,99" />
+		<kghab vidrio="8,41" envases="6,54" papel="29,10" />
+	</punto>
+
+	<punto x="345" y="358" nombre="Ribera de Arriba" habitantes="1.968">
+		<contenedores vidrio="22" envases="17" papel="19" />
+		<habcontenedor vidrio="89,45" envases="115,76" papel="103,58" />
+		<toneladas vidrio="20,04" envases="23,57" papel="50,36" />
+		<kghab vidrio="10,18" envases="11,98" papel="25,59" />
+	</punto>
+</xml>
