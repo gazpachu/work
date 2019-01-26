@@ -1,9 +1,9 @@
 /*!
 * itunes-reward-main.js
 * This file contains the code for the animation logic
-* 
+*
 * @project   VITALITY ITUNES PRIZE PICKER
-* @date      2015-02-09 
+* @date      2015-02-09
 * @author    JOAN MIRA, SapientNitro <jmira@sapient.com>
 * @licensor  SAPIENTNITRO
 *
@@ -44,12 +44,12 @@
 				else {
 					$('#ir-anim-container #white-circle').animate({ left: '-250px', top: '-250px', width: '1000px', height: '1000px' }, 500);
 				}
-				
+
 				physics.debugDraw.SetFlags(0);
 
 				// Dummy animation  to delay the start of the particle generation
 				$('#ir-anim-container #white-circle').animate({'color':'#FFF'}, 500, function() {
-					
+
 					clearInterval(physics.generator);
 					delete physics.world;
 					sequence = 2;
@@ -192,7 +192,7 @@
 	function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
 
 	/***********************************************************************************************
-	/* App entry point 
+	/* App entry point
 	/**********************************************************************************************/
 	var allReady = $('#ir-anim-container #gift-image').data('prize');
 
@@ -204,7 +204,7 @@
 
 			// Only proceed in the browser supports canvas (needs Modernizr)
 			if ($('html').hasClass('canvas')) {
-
+				console.log('hi');
 				/* Begin of requestAnimationFrame polyfill (works on IE9) */
 				var lastTime = 0;
 			    var vendors = ['webkit', 'moz'];
@@ -229,7 +229,7 @@
 			            clearTimeout(id);
 			        };
 			    /* End of requestAnimationFrame polyfill */
-				
+
 			    /* Initialize variables */
 				var shapes = [],
 					nodes = [],
