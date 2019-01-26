@@ -1,0 +1,277 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ICA Box2d zero gravity with DOM prototype</title>
+<meta content='width=device-width, maximum-scale=1.0' name='viewport'>
+<link rel="shortcut icon" href="img/favicon.ico" />
+<link href="css/dom9.css" media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/Box2dWeb-2.1.a.3.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/MouseAndTouch.js"></script>
+<script type="text/javascript">
+     // Rules
+     var rules = [  'Today, contemporary arts are our non-prescriptive way of presenting aesthetics',
+                    'The purpose of art is washing the dust of daily life off our souls',
+                    'Art should comfort the disturbed and disturb the comfortable',
+                    'The contemporary arts will not be categorised or defined',
+                    'Artists must be present in all possible activities',
+                    'Art is what is, what was and what is to come, bound',
+                    'Simple things, always the most complex',
+                    'All great art is a form of complaint” - John Cage',
+                    'Art confounds, surprises and provokes',
+                    'Art is the ultimate freedom',
+                    'Art transcends language. So stop. Please',
+                    'Don\'t be defined. Discover',
+                    'Art is an emotion, a feeling, a thought, an idea. Intellectual, pretty. Either one, a few or all',
+                    'The creative expression of the inner, hidden you',
+                    'Let\'s quit trying to re-plumb the Fountain',
+                    'Time flies like an arrow; fruit flies like a banana - Groucho Marx',
+                    'Be ruthless',
+                    'Art makes you think differently',
+                    'Art is not to follow, it is to lead',
+                    'Mostly just an excuse for rich people to have parties',
+                    'Art is how we know we are still alive',
+                    'Art has no purpose without a point, but is pointless if it has a purpose',
+                    'Art is a series of risks, taken, then a long pause',
+                    'By contemplating the ordinary, art releases us from the ordinary',
+                    'You cannot experience art without unsettling some deeply held assumptions'];
+
+     var rulesCount = 0;
+
+     var selectedRule = null;
+
+     // Keep a reference to the Box2D World
+     var world;
+
+     // The scale between Box2D units and pixels
+     var SCALE = 30;
+
+     // Multiply to convert degrees to radians.
+     var D2R = Math.PI / 180;
+
+     // Multiply to convert radians to degrees.
+     var R2D = 180 / Math.PI;
+
+     // 360 degrees in radians.
+     var PI2 = Math.PI * 2;
+     var interval;
+
+     //Cache the canvas DOM reference
+     var canvas = $("#canvas");
+
+     // Shorthand "imports"
+     var b2Vec2 = Box2D.Common.Math.b2Vec2,
+          b2BodyDef = Box2D.Dynamics.b2BodyDef,
+          b2AABB = Box2D.Collision.b2AABB,
+          b2Body = Box2D.Dynamics.b2Body,
+          b2FixtureDef = Box2D.Dynamics.b2FixtureDef,
+          b2Fixture = Box2D.Dynamics.b2Fixture,
+          b2World = Box2D.Dynamics.b2World,
+          b2MassData = Box2D.Collision.Shapes.b2MassData,
+          b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
+          b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
+          b2DebugDraw = Box2D.Dynamics.b2DebugDraw,
+          b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef,
+          b2EdgeShape = Box2D.Collision.Shapes.b2EdgeShape;
+
+     function init() {
+
+          //Create the Box2D World with horisontal and vertical gravity (10 is close enough to 9.8)
+          world = new b2World(
+          new b2Vec2(0,0) //gravity
+          , true //allow sleep
+          );
+
+          //Make sure that the screen canvas for debug drawing matches the window size
+          resizeHandler();
+          $(window).bind('resize', resizeHandler);
+
+          //Create the viewport walls
+          var w = $(window).width(); 
+          var h = $(window).height();
+
+          createBox(0,h,w,1, true);
+          createBox(0,0,1,h, true);
+          createBox(w,0,1,h, true);
+          createBox(0,0,w,1, true); //top
+
+          //Do one animation interation and start animating
+          //debugDraw();
+          interval = setInterval(update,1000/60);
+          update();
+     }
+
+     function createDOMObject(xPos,yPos) {
+          
+          if( rulesCount < rules.length )
+          {
+               var rule = rules[rulesCount];
+               var size = 200;
+
+               var $newRule = $('<div id="rule-'+rulesCount+'" class="circle"><h1>Rule #'+(rulesCount+1)+'</h1><p>'+rules[rulesCount]+'</p></div>');
+               $newRule.css('width', size);
+               $newRule.css('height', size);
+
+               // Add the new div
+               $("#container").append($newRule);
+
+               var domObj = $newRule;
+               var domPos = $newRule.position();
+               var width = size / 2 ;
+               var height = size / 2;
+
+               var body = createRule(xPos,yPos,width);
+
+               body.m_userData = {domObj:domObj, width:width, height:height};
+
+               rulesCount++;
+          }
+     }
+
+     function createBox(x,y,width,height, static) {
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = static ? b2Body.b2_staticBody : b2Body.b2_dynamicBody;
+          bodyDef.position.x = x / SCALE;
+          bodyDef.position.y = y / SCALE
+
+          var fixDef = new b2FixtureDef;
+          fixDef.density = 1.5;
+          fixDef.friction = 0.3;
+          fixDef.restitution = 0.4;
+
+          fixDef.shape = new b2PolygonShape;
+          fixDef.shape.SetAsBox(width / SCALE, height / SCALE);
+          return world.CreateBody(bodyDef).CreateFixture(fixDef);
+     }
+
+     function createRule(x,y,radius) {
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = b2Body.b2_dynamicBody;
+          bodyDef.position.x = x / SCALE;
+          bodyDef.position.y = y / SCALE
+
+          var fixDef = new b2FixtureDef;
+          fixDef.density = 1.5;
+          fixDef.friction = 0.3;
+          fixDef.restitution = 0.4;
+
+          fixDef.shape = new b2CircleShape;
+          fixDef.shape.SetRadius(radius / SCALE);
+          return world.CreateBody(bodyDef).CreateFixture(fixDef);
+     }
+
+     // Paint the bodies
+     function debugDraw(){
+          var debugDraw = new b2DebugDraw();
+          debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
+          debugDraw.SetDrawScale(30.0);
+          debugDraw.SetFillAlpha(1);
+          debugDraw.SetLineThickness(1.0);
+          debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+          world.SetDebugDraw(debugDraw);
+     }
+
+     //Animate DOM objects
+     function drawDOMObjects() {
+          var i = 0;
+          for (var b = world.m_bodyList; b; b = b.m_next) {
+              for (var f = b.m_fixtureList; f; f = f.m_next) {
+                         if( f.m_userData )
+                         {
+                              // Resize the body if the rule is resizing
+                              if( selectedRule )
+                              {
+                                   if( selectedRule == f.m_userData.domObj[0].id )
+                                   {
+                                        var newRadius = parseInt(f.m_userData.domObj[0].style.width, 10) / 2;
+                                        f.GetShape().Set(new b2CircleShape( newRadius / SCALE));
+                                   }
+                              }
+
+                              //Retrieve positions from the Box2d world
+                              var x = Math.floor((f.m_body.m_xf.position.x * SCALE) - f.m_userData.width);
+                              var y = Math.floor((f.m_body.m_xf.position.y * SCALE) - f.m_userData.height);
+
+                              var css = {'-webkit-transform':'translate(' + x + 'px,' + y + 'px)', '-moz-transform':'translate(' + x + 'px,' + y + 'px)', '-ms-transform':'translate(' + x + 'px,' + y + 'px)'  , '-o-transform':'translate(' + x + 'px,' + y + 'px)', 'transform':'translate(' + x + 'px,' + y + 'px)'};
+
+                              f.m_userData.domObj.css(css);
+                         }
+              }
+           }
+     };
+
+     //Method for animating
+     function update() {
+
+          updateMouseDrag();
+
+          world.Step(
+          1 / 60 //frame-rate
+          , 10 //velocity iterations
+          , 10 //position iterations
+          );
+
+          drawDOMObjects();
+
+          //world.DrawDebugData();
+
+          world.ClearForces();
+     }
+
+     //Keep the canvas size correct for debug drawing
+     function resizeHandler() {
+          canvas.attr('width', $(window).width());
+          canvas.attr('height', $(window).height());
+     }
+
+     // Animate the circles on MouseEnter and leave
+     $(document).ready(function()
+     {
+          $("#container .circle").live({
+              dblclick: function ()
+              {
+                    selectedRule = $(this).attr('id');
+
+                    if( $(this).width() == 200 )
+                    {
+                         $(this).animate({
+                              width: 400,
+                              height: 400,
+                              left: -$(this).width() / 2,
+                              top: -$(this).height() / 2
+                         }, 300, function() {
+                              // Animation complete.
+                              selectedRule = null;
+                         });
+                    }
+                    else
+                    {
+                         $(this).animate({
+                              width: 200,
+                              height: 200,
+                              left: 0,
+                              top: 0
+                         }, 300, function() {
+                              // Animation complete.
+                              selectedRule = null;
+                         });
+                    }
+                    
+              }
+          });
+
+     });
+
+</script>
+</head>
+<body onload="init();" screen_capture_injected="true" cz-shortcut-listen="true">
+
+     <div id="logo"></div>
+     <div id="icons"></div>
+     <div id="write"></div>
+     <canvas id="canvas" width="1605" height="772"></canvas>
+     <div id="container"></div>
+     <script type="text/javascript" src="js/DebugMouseDrag.js"></script>
+</body>
+</html>

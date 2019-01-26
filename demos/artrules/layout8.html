@@ -1,0 +1,357 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ICA Art Rules</title>
+<meta content='width=device-width, maximum-scale=1.0, user-scalable=no' name='viewport'>
+<link rel="shortcut icon" href="img/favicon.ico" />
+<link href="css/layout7.css" media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/Box2dWeb-2.1.a.3.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+<script async>
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+window.requestAnimFrame = (function(){
+     return  window.requestAnimationFrame       || 
+             window.webkitRequestAnimationFrame || 
+             window.mozRequestAnimationFrame    || 
+             window.oRequestAnimationFrame      || 
+             window.msRequestAnimationFrame     || 
+             function(callback, element){
+               window.setTimeout(callback, 1000 / 60);
+             };
+})();
+</script>
+<script async>
+
+     // A container with the names of the CSS classes for the rules and their radius
+     var ruleSizes = [ ['small-rule', 244], ['medium-rule', 347], ['big-rule', 481] ];
+
+     // Counter of the rules created
+     var rulesCount = 0;
+
+     // Create a new rule every 3 seconds
+     var creationFreq = 3000;
+
+     // This array contains all the rules read from the JSON file
+     var rules = [];
+
+     // This array holds the CSS styles of all the rules
+     var cssRules = [];
+
+     // Holds the new rule while is being resized
+     var selectedRule = null;
+
+     // Holds the size of the new
+     var resizeTo = 0;
+
+     // Keep a reference to the Box2D World
+     var world;
+
+     // The scale between Box2D units and pixels
+     var SCALE = 30;
+
+     // Multiply to convert degrees to radians.
+     var D2R = Math.PI / 180;
+
+     // Multiply to convert radians to degrees.
+     var R2D = 180 / Math.PI;
+
+     // 360 degrees in radians.
+     var PI2 = Math.PI * 2;
+
+     // First interval is to update the world. Second interval is to create new rules
+     var creationInterval, updateInterval, paintInterval;
+
+     // Box2d "imports"
+     var b2Vec2 = Box2D.Common.Math.b2Vec2,
+          b2BodyDef = Box2D.Dynamics.b2BodyDef,
+          b2AABB = Box2D.Collision.b2AABB,
+          b2Body = Box2D.Dynamics.b2Body,
+          b2FixtureDef = Box2D.Dynamics.b2FixtureDef,
+          b2Fixture = Box2D.Dynamics.b2Fixture,
+          b2World = Box2D.Dynamics.b2World,
+          b2MassData = Box2D.Collision.Shapes.b2MassData,
+          b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
+          b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
+          b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+
+     // This is the main function
+     function init()
+     {
+          // Create the Box2D World without gravity and allowing bodies to sleep
+          world = new b2World( new b2Vec2(0,0), true );
+
+          // Resize the body height on page resize
+          resizeHandler();
+          $(window).bind('resize', resizeHandler);
+
+          //Create the viewport walls
+          var w = $('body').width(); 
+          var h = $('body').height();
+
+          createBox(0,h,w,1, true); // bottom
+          createBox(0,0,1,h, true); // left
+          createBox(w,0,1,h, true); // right
+          createBox(0,0,w,1, true); // top
+
+          // Start updating and painting DOM objects and box2d bodies
+          loop();
+
+          /*updateInterval = setInterval( update, 1000/60 );
+          paintInterval = setInterval( paint, 1000/60 );
+          update();
+          paint();*/
+
+          // Move the viewport to the center of the body
+          window.scrollTo($('body').width()/2, 0);
+
+          // Start loading rules from the JSON file
+          loadRules('json/rules.json');
+     }
+
+     function loop()
+     {
+          update();
+          paint();
+          requestAnimFrame(loop);
+     }
+
+     // Load rules from the external file
+     function loadRules( file )
+     {
+          $.getJSON(file, function(data)
+          { 
+               $.each(data, function(key, val)
+               {
+                    var rule = ruleSizes[Math.floor(Math.random() * ruleSizes.length)];
+
+                    var $newRule = $('<div id="rule-'+rulesCount+'" class="circle ' + rule[0] + '"><h1>Rule #'+val.id+'</h1><p class="textfill">'+val.content+'</p><div class="rollover"></div></div>');
+
+                    rules.push( $newRule );
+
+                    rulesCount++;
+               });
+
+               rulesCount = 0;
+               creationInterval = setInterval( displayRules, creationFreq );
+          });
+     }
+
+     // Create the DOM objects and the box2d bodies for the rules
+     function displayRules()
+     {
+          if( !selectedRule ) // only continue if we are not busy
+          {
+               if( rulesCount < rules.length )
+               {
+                    $("#container").append(rules[rulesCount]);
+
+                    var $newRule = rules[rulesCount];
+
+                    resizeTo = $newRule.width();
+                    $newRule.css('width', 1);
+                    $newRule.css('height', 1);
+
+                    var width = parseInt($newRule.css('width'), 10) / 2 ;
+                    var height = parseInt($newRule.css('height'), 10) / 2;
+
+                    var body = createRule( ($('body').width() / 2) + Math.random() * 400, ($(window).height() / 3) + Math.random(), width);
+
+                    body.m_userData = {domObj:$newRule, width:width, height:height};
+
+                    rulesCount++;
+
+                    selectedRule = $newRule;
+               }
+               else
+                    clearInterval(interval2);
+          }
+     }
+
+     // This creates the walls in box2d
+     function createBox( x, y, width, height, static )
+     {
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = static ? b2Body.b2_staticBody : b2Body.b2_dynamicBody;
+          bodyDef.position.x = x / SCALE;
+          bodyDef.position.y = y / SCALE
+
+          var fixDef = new b2FixtureDef;
+          fixDef.density = 1.5;
+          fixDef.friction = 0.3;
+          fixDef.restitution = 0.4;
+
+          fixDef.shape = new b2PolygonShape;
+          fixDef.shape.SetAsBox(width / SCALE, height / SCALE);
+          return world.CreateBody(bodyDef).CreateFixture(fixDef);
+     }
+
+     // 
+     function createRule( x, y, radius )
+     {
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = b2Body.b2_dynamicBody;
+          bodyDef.position.x = x / SCALE;
+          bodyDef.position.y = y / SCALE;
+          bodyDef.linearDamping = 0.1;
+
+          var fixDef = new b2FixtureDef;
+          fixDef.density = 0.1;
+          fixDef.friction = 0.1;
+          fixDef.restitution = 0.1;
+
+          fixDef.shape = new b2CircleShape;
+          fixDef.shape.SetRadius(radius / SCALE);
+          return world.CreateBody(bodyDef).CreateFixture(fixDef);
+     }
+
+     //Animate DOM objects
+     function updateDOMObjects()
+     {
+          var i = 0;
+
+          var offset = $('body').scrollLeft() - 400;
+          var windowWidth = $(window).width() + 400;
+          var middleHeight = $(window).height() / 3;
+          var css = '';
+          cssRules = [];
+
+          for (var b = world.m_bodyList; b; b = b.m_next)
+          {
+              for (var f = b.m_fixtureList; f; f = f.m_next)
+              {
+                    if( f.m_userData )
+                    {
+                         if( b.IsAwake() )
+                         {
+                              //Retrieve positions from the Box2d world
+                              var x = Math.floor((f.m_body.m_xf.position.x * SCALE) - f.m_userData.width);
+                              var y = Math.floor((f.m_body.m_xf.position.y * SCALE) - f.m_userData.height);
+
+                              if( x > offset && x < (offset + windowWidth) )
+                              {
+                                   var dX = offset + (windowWidth /2) - x;
+                                   var dY = middleHeight - y;
+                                   var rads = Math.atan2(dY,dX);
+                                   var accel=0.2;
+                                   var xVel = accel*Math.cos(rads);
+                                   var yVel = accel*Math.sin(rads);
+
+                                   f.m_body.SetPosition(new b2Vec2(f.m_body.m_xf.position.x+xVel,f.m_body.m_xf.position.y+yVel));
+
+                                   x = Math.floor(x+xVel);
+                                   y = Math.floor(y+yVel);
+                              }
+
+                              css = {'-webkit-perspective':'1000', '-webkit-backface-visibility':'hidden', '-webkit-transform-style':'preserve-3d', 'display':'inline', '-webkit-transform':'translate3d(' + x + 'px,' + y + 'px, 0)', '-moz-transform':'translate3d(' + x + 'px,' + y + 'px, 0)', '-ms-transform':'translate3d(' + x + 'px,' + y + 'px, 0)'  , '-o-transform':'translate3d(' + x + 'px,' + y + 'px, 0)', 'transform':'translate3d(' + x + 'px,' + y + 'px, 0)'};
+
+                              // Resize the body if the rule is resizing
+                              if( selectedRule )
+                              {
+                                   if( selectedRule[0] == f.m_userData.domObj[0] )
+                                   {
+                                        // Get the new width value from the resizeTo script at the bottom
+                                        var newRadius = parseInt(f.m_userData.domObj[0].style.width, 10) / 2;
+                                        f.m_body.SetAwake(true);
+                                        f.GetShape().Set(new b2CircleShape( newRadius / SCALE));
+
+                                        // Proceed to resize the selected rule DIV
+                                        if( resizeTo > 0 )
+                                        {
+                                             var w = selectedRule.width();
+                                             var l = selectedRule.css('left');
+                                             var t = selectedRule.css('top');
+
+                                             if( w <= resizeTo )
+                                             {
+                                                  w += 8;
+                                                  l = -(w - resizeTo / 2);
+                                                  t = -(w - resizeTo / 2);
+                                                  f = Math.max(Math.min(w / 13, parseFloat(Number.POSITIVE_INFINITY)), parseFloat(Number.NEGATIVE_INFINITY));
+
+                                                  css['font-size'] = f + 'px';
+                                                  css['left'] = l + 'px';
+                                                  css['top'] = t + 'px';
+                                                  css['width'] = w + 'px';
+                                                  css['height'] = w + 'px';
+                                             }
+                                             else
+                                             {
+                                                  selectedRule = null;
+                                                  resizeTo = 0;
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                         else
+                         {
+                              css = '';
+                         }
+
+                         cssRules.push(css);   
+                    }
+               }
+          }
+     }
+
+     // Update the DOM and the Box2D world
+     function update()
+     {
+          world.Step(
+          1 / 60 //frame-rate
+          , 10 //velocity iterations
+          , 10 //position iterations
+          );
+
+          world.ClearForces();
+
+          updateDOMObjects();
+     }
+
+     // Update the CSS of the rules
+     function paint()
+     {
+          var i = 0;
+
+          for (var b = world.m_bodyList; b; b = b.m_next) {
+              for (var f = b.m_fixtureList; f; f = f.m_next) {
+                    if( f.m_userData && cssRules[i] != '' ) {
+                         f.m_userData.domObj.css(cssRules[i]);
+                    }
+                    i++;
+               }
+          }
+     }
+
+     // Page events
+     $(document).ready(function()
+     {
+          // Resize circles on click
+          $('#container .circle').live('click touchstart', function(event) {
+               //resizeRule($(this));
+          });        
+
+          // Scroll the body with the mouse wheel
+          $('body').bind('mousewheel', function(event, delta, deltaX, deltaY) {
+               this.scrollLeft -= (delta * 80);
+               event.preventDefault();
+          });
+     });
+
+     //Keep the canvas size correct for debug drawing
+     function resizeHandler()
+     {
+          $('body').css('height', $(window).height());
+     }
+
+</script>
+</head>
+<body onload="init();">
+     <div id="container"></div>
+     <div id="logo"></div>
+     <div id="icons"></div>
+     <div id="write"></div>
+</body>
+</html>

@@ -1,0 +1,471 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ICA Art Rules</title>
+<meta content='width=device-width, maximum-scale=1.0, user-scalable=no' name='viewport'>
+<link rel="shortcut icon" href="img/favicon.ico" />
+<link href="css/layout4.css" media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/Box2dWeb-2.1.a.3.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+<script type="text/javascript">
+     // Rules
+     var ruleSizes = [ ['small-rule', 244], ['medium-rule', 347], ['big-rule', 481] ];
+
+     var rulesCount = 0;
+
+     var rules = [];
+
+     var cssRules = [];
+
+     var selectedRule = null;
+
+     var clicked = false;
+
+     // Keep a reference to the Box2D World
+     var world;
+
+     var worldPosition = 0;
+
+     var graveyard = [];
+
+     // The scale between Box2D units and pixels
+     var SCALE = 30;
+
+     // Multiply to convert degrees to radians.
+     var D2R = Math.PI / 180;
+
+     // Multiply to convert radians to degrees.
+     var R2D = 180 / Math.PI;
+
+     // 360 degrees in radians.
+     var PI2 = Math.PI * 2;
+     var interval, interval2;
+
+     //Cache the canvas DOM reference
+     //var canvas = $("#canvas");
+
+     // Shorthand "imports"
+     var b2Vec2 = Box2D.Common.Math.b2Vec2,
+          b2BodyDef = Box2D.Dynamics.b2BodyDef,
+          b2AABB = Box2D.Collision.b2AABB,
+          b2Body = Box2D.Dynamics.b2Body,
+          b2FixtureDef = Box2D.Dynamics.b2FixtureDef,
+          b2Fixture = Box2D.Dynamics.b2Fixture,
+          b2World = Box2D.Dynamics.b2World,
+          b2MassData = Box2D.Collision.Shapes.b2MassData,
+          b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
+          b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
+          b2DebugDraw = Box2D.Dynamics.b2DebugDraw,
+          b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef,
+          b2RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef,
+          b2EdgeShape = Box2D.Collision.Shapes.b2EdgeShape;
+
+     (function( $ ){
+
+            $.fn.fitText = function( kompressor, options ) {
+
+              // Setup options
+              var compressor = kompressor || 1,
+                  settings = $.extend({
+                    'minFontSize' : Number.NEGATIVE_INFINITY,
+                    'maxFontSize' : Number.POSITIVE_INFINITY
+                  }, options);
+
+              return this.each(function(){
+
+                // Store the object
+                var $this = $(this);
+
+                // Resizer() resizes items based on the object width divided by the compressor * 10
+                var resizer = function () {
+                  $this.css('font-size', Math.max(Math.min($this.width() / (compressor*10), parseFloat(settings.maxFontSize)), parseFloat(settings.minFontSize)));
+                };
+
+                // Call once to set.
+                resizer();
+
+                // Call on resize. Opera debounces their resize by default.
+                $(window).on('resize.fittext orientationchange.fittext', resizer);
+
+              });
+
+            };
+
+          })( jQuery );
+
+     function init() {
+
+          //Create the Box2D World with horisontal and vertical gravity (10 is close enough to 9.8)
+          world = new b2World(
+          new b2Vec2(0,0) //gravity
+          , true //allow sleep
+          );
+
+          resizeHandler();
+          $(window).bind('resize', resizeHandler);
+
+          //Create the viewport walls
+
+          var w = $('body').width(); 
+          var h = $('body').height();
+
+          createBox(0,h,w,1, true);
+          createBox(0,0,1,h, true);
+          createBox(w,0,1,h, true);
+          createBox(0,0,w,1, true); //top
+
+          //Do one animation interation and start animating
+          //debugDraw();
+
+          interval = setInterval(update,1000/90);
+          update();
+
+          window.scrollTo($('body').width()/2, 0);
+
+          loadRules('json/rules.json');
+     }
+
+     function loadRules( file )
+     {
+          // Load rules
+          $.getJSON(file, function(data)
+          { 
+               $.each(data, function(key, val)
+               {
+                    var rule = ruleSizes[Math.floor(Math.random() * ruleSizes.length)][0];
+
+                    var $newRule = $('<div id="rule-'+rulesCount+'" class="circle ' + rule + '"><h1>Rule #'+val.id+'</h1><p class="textfill">'+val.content+'</p><div class="rollover"></div></div>');
+
+                    rules.push( $newRule );
+
+                    rulesCount++;
+               });
+
+               rulesCount = 0;
+               interval2 = setInterval(displayRules,3300);
+          });
+
+          
+     }
+
+     function displayRules()
+     {
+          if( rulesCount < rules.length )
+          {
+               $("#container").append(rules[rulesCount]);
+
+               $('#rule-' + rulesCount + ' .textfill').fitText();
+
+               var $newRule = rules[rulesCount];
+               $newRule.css('width', 1);
+               $newRule.css('height', 1);
+
+               var width = parseInt($newRule.css('width'), 10) / 2 ;
+               var height = parseInt($newRule.css('height'), 10) / 2;
+
+               var body = createRule( ($('body').width() / 2) + Math.random() * 400, ($(window).height() / 3) + Math.random(), width);
+
+               body.m_userData = {domObj:$newRule, width:width, height:height};
+
+               rulesCount++;
+
+               growRule($newRule);
+          }
+          else
+               clearInterval(interval2);
+     }
+
+     function createBox(x,y,width,height, static) {
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = static ? b2Body.b2_staticBody : b2Body.b2_dynamicBody;
+          bodyDef.position.x = x / SCALE;
+          bodyDef.position.y = y / SCALE
+
+          var fixDef = new b2FixtureDef;
+          fixDef.density = 1.5;
+          fixDef.friction = 0.3;
+          fixDef.restitution = 0.4;
+
+          fixDef.shape = new b2PolygonShape;
+          fixDef.shape.SetAsBox(width / SCALE, height / SCALE);
+          return world.CreateBody(bodyDef).CreateFixture(fixDef);
+     }
+
+     function createRule(x,y,radius) {
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = b2Body.b2_dynamicBody;
+          bodyDef.position.x = x / SCALE;
+          bodyDef.position.y = y / SCALE;
+          bodyDef.linearDamping = 0.5;
+
+          var fixDef = new b2FixtureDef;
+          fixDef.density = 0.5;
+          fixDef.friction = 0.3;
+          fixDef.restitution = 2.8;
+
+          fixDef.shape = new b2CircleShape;
+          fixDef.shape.SetRadius(radius / SCALE);
+          return world.CreateBody(bodyDef).CreateFixture(fixDef);
+     }
+
+     // Paint the bodies
+     function debugDraw(){
+          var debugDraw = new b2DebugDraw();
+          debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
+          debugDraw.SetDrawScale(30.0);
+          debugDraw.SetFillAlpha(1);
+          debugDraw.SetLineThickness(1.0);
+          debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+          world.SetDebugDraw(debugDraw);
+     }
+
+     //Animate DOM objects
+     function updateDOMObjects() {
+          var i = 0;
+
+          var offset = $('body').scrollLeft() - 400;
+          var windowWidth = $(window).width() + 400;
+          var middleHeight = $(window).height() / 3;
+          var css = '';
+          cssRules = [];
+
+          for (var b = world.m_bodyList; b; b = b.m_next) {
+              for (var f = b.m_fixtureList; f; f = f.m_next) {
+                    if( f.m_userData )
+                    {
+                         // Resize the body if the rule is resizing
+                         if( selectedRule )
+                         {
+                              if( selectedRule == f.m_userData.domObj[0].id )
+                              {
+                                   var newRadius = parseInt(f.m_userData.domObj[0].style.width, 10) / 2;
+                                   f.m_body.SetAwake(true);
+                                   f.GetShape().Set(new b2CircleShape( newRadius / SCALE));
+                              }
+                         }
+                         
+                         if( b.IsAwake() )
+                         {
+                              //Retrieve positions from the Box2d world
+                              var x = Math.floor((f.m_body.m_xf.position.x * SCALE) - f.m_userData.width);
+                              var y = Math.floor((f.m_body.m_xf.position.y * SCALE) - f.m_userData.height);
+
+                              if( x > offset && x < (offset + windowWidth) )
+                              {
+                                   var dX = offset + (windowWidth /2) - x;
+                                   var dY = middleHeight - y;
+                                   var rads = Math.atan2(dY,dX);
+                                   var accel=0.2;
+                                   var xVel = accel*Math.cos(rads);
+                                   var yVel = accel*Math.sin(rads);
+
+                                   f.m_body.SetPosition(new b2Vec2(f.m_body.m_xf.position.x+xVel,f.m_body.m_xf.position.y+yVel));
+
+                                   x = Math.floor(x+xVel);
+                                   y = Math.floor(y+yVel);
+                              }
+
+                              css = {'-webkit-perspective':'1000', '-webkit-backface-visibility':'hidden', '-webkit-transform-style':'preserve-3d', 'display':'inline', '-webkit-transform':'translate3d(' + x + 'px,' + y + 'px, 0)', '-moz-transform':'translate3d(' + x + 'px,' + y + 'px, 0)', '-ms-transform':'translate3d(' + x + 'px,' + y + 'px, 0)'  , '-o-transform':'translate3d(' + x + 'px,' + y + 'px, 0)', 'transform':'translate3d(' + x + 'px,' + y + 'px, 0)'};
+                         }
+                         else
+                         {
+                              css = '';
+                         }
+
+                         // Clipping
+                         if( x > offset && x < (offset + windowWidth) )
+                         {
+                              //b.SetActive(true);
+
+                              //Retrieve positions from the Box2d world
+                              /*var x = (f.m_body.m_xf.position.x * SCALE) - f.m_userData.width;
+                              var y = (f.m_body.m_xf.position.y * SCALE) - f.m_userData.height;
+                              
+                              var dX = offset + (windowWidth /2) - x;
+                              var dY = middleHeight - y;
+                              var rads = Math.atan2(dY,dX);
+                              var accel=0.2;
+                              var xVel = accel*Math.cos(rads);
+                              var yVel = accel*Math.sin(rads);
+
+
+                              f.m_body.SetPosition(new b2Vec2(f.m_body.m_xf.position.x+xVel,f.m_body.m_xf.position.y+yVel));
+
+                              x = Math.floor(x+xVel);
+                              y = Math.floor(y+yVel);*/
+
+                              //var x = Math.floor((f.m_body.m_xf.position.x * SCALE) - f.m_userData.width);
+                              //var y = Math.floor((f.m_body.m_xf.position.y * SCALE) - f.m_userData.height);
+
+                              
+
+                              //f.m_userData.domObj.css(css);
+                         }
+                         else
+                         {
+                              //css = {'display':'none'};
+                              //b.SetActive(false);
+                         }
+
+                         cssRules.push(css);
+                    }
+              }
+           }
+
+           //worldPosition = 0;
+     };
+
+     //Method for animating
+     function update() {
+
+          world.Step(
+          1 / 60 //frame-rate
+          , 10 //velocity iterations
+          , 10 //position iterations
+          );
+
+          world.ClearForces();
+
+          updateDOMObjects();
+
+
+          var i = 0;
+
+          for (var b = world.m_bodyList; b; b = b.m_next) {
+              for (var f = b.m_fixtureList; f; f = f.m_next) {
+                    if( f.m_userData && cssRules[i] != '' ) {
+                         f.m_userData.domObj.css(cssRules[i]);
+                    }
+                    i++;
+               }
+          }
+
+          //world.DrawDebugData();
+     }
+
+     // Remove dead bodies from the world
+     function cleanWorld()
+     {
+          for (var i = 0; i < graveyard.length; i++)
+          {
+               delete world[graveyard[i]];
+          }
+     }
+
+     function growRule( rule )
+     {
+          resizeTo = 0;
+
+          if( rule.hasClass('big-rule') ) {
+               resizeTo = ruleSizes[2][1];
+          }
+          else if( rule.hasClass('medium-rule') ) {
+               resizeTo = ruleSizes[1][1];
+          }
+          else if( rule.hasClass('small-rule') ) {
+               resizeTo = ruleSizes[0][1];
+          }
+          else if( rule.hasClass('filter-rule') ) {
+               resizeTo = ruleSizes[3][1];
+          }
+          
+          selectedRule = rule.attr('id');
+
+          // Scale animation 
+          rule.animate({
+               width: resizeTo,
+               height: resizeTo,
+               left: -(resizeTo - rule.width()) / 2,
+               top: -(resizeTo - rule.height()) / 2
+          }, resizeTo * 4, function() {
+               // Animation complete.
+               selectedRule = null;
+          });
+     }
+
+     function resizeRule( rule )
+     {
+          resizeTo = 0;
+
+          if( rule.hasClass('big-rule') && rule.width() == ruleSizes[2][1] ) {
+               //Do nothing
+          }
+          else if( rule.hasClass('medium-rule') && rule.width() == ruleSizes[2][1] ) {
+               resizeTo = ruleSizes[1][1];
+          }
+          else if( rule.hasClass('small-rule') && rule.width() == ruleSizes[2][1] ) {
+               resizeTo = ruleSizes[0][1];
+          }
+          else if( rule.hasClass('filter-rule') && rule.width() == ruleSizes[2][1] )
+          {
+               //Do nothing
+          }
+          else if( rule.width() != ruleSizes[2][1] && !rule.hasClass('filter-rule') )
+          {
+               selectedRule = rule.attr('id');
+
+               // Scale animation 
+               rule.animate({
+                    width: ruleSizes[2][1],
+                    height: ruleSizes[2][1],
+                    left: -(ruleSizes[2][1] - rule.width()) / 2,
+                    top: -(ruleSizes[2][1] - rule.height()) / 2
+               }, 500, function() {
+                    // Animation complete.
+                    selectedRule = null;
+                    rule.children(".rollover").fadeIn(300);
+               });
+          }
+
+          //Downscale animation
+          if( resizeTo != 0 )
+          {
+               selectedRule = rule.attr('id');
+
+               rule.children(".rollover").fadeOut(100);
+               rule.animate({
+                    width: resizeTo,
+                    height: resizeTo,
+                    left: 0,
+                    top: 0
+               }, 300, function() {
+                    // Animation complete.
+                    selectedRule = null;
+               });
+          }
+     }
+
+     // Resize circles on click
+     $(document).ready(function()
+     {
+          $('#container .circle').live('click touchstart', function(event) {
+               //resizeRule($(this));
+          });        
+
+          $('body').bind('mousewheel', function(event, delta, deltaX, deltaY) {
+               this.scrollLeft -= (delta * 80);
+               event.preventDefault();
+          });
+
+     });
+
+     //Keep the canvas size correct for debug drawing
+     function resizeHandler() {
+          //canvas.attr('width', $(window).width());
+          //canvas.attr('height', $(window).height());
+          $('body').css('height', $(window).height());
+     }
+
+</script>
+</head>
+<body onload="init();">
+     <!--canvas id="canvas" width="1600" height="900"></canvas-->
+     <div id="container"></div>
+     <div id="logo"></div>
+     <div id="icons"></div>
+     <div id="write"></div>
+     
+</body>
+</html>

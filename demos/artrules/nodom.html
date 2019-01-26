@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta content='width=device-width, maximum-scale=1.0' name='viewport'>
+</head>
+<body style="margin: 0">
+    <canvas id="canvas" width="1024" height="768" />
+
+    <!-- Get this from the box2dweb project site -->
+    <script type="text/javascript" src="js/Box2dWeb-2.1.a.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/MouseAndTouchNoDOM.js"></script>
+
+    <script type="text/javascript">
+
+    var maxRules = 20;
+    var totalRules = 0;
+    var clickedBody = null;
+
+    var ruleSizes = [ ['small-rule', 244], ['medium-rule', 347], ['big-rule', 481] ];
+
+    function createBox(x,y,width,height, static) {
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = static ? b2Body.b2_staticBody : b2Body.b2_dynamicBody;
+          bodyDef.position.x = x / SCALE;
+          bodyDef.position.y = y / SCALE
+
+          var fixDef = new b2FixtureDef;
+          fixDef.density = 1.5;
+          fixDef.friction = 0.3;
+          fixDef.restitution = 0.4;
+
+          fixDef.shape = new b2PolygonShape;
+          fixDef.shape.SetAsBox(width / SCALE, height / SCALE);
+          return world.CreateBody(bodyDef).CreateFixture(fixDef);
+     }
+
+    var CANVAS_WIDTH = $('canvas').attr('width'), CANVAS_HEIGHT = $('canvas').attr('height'), SCALE = 30;
+
+    var b2Vec2 = Box2D.Common.Math.b2Vec2
+            , b2BodyDef = Box2D.Dynamics.b2BodyDef
+            , b2AABB = Box2D.Collision.b2AABB
+            , b2Body = Box2D.Dynamics.b2Body
+            , b2FixtureDef = Box2D.Dynamics.b2FixtureDef
+            , b2Fixture = Box2D.Dynamics.b2Fixture
+            , b2World = Box2D.Dynamics.b2World
+            , b2MassData = Box2D.Collision.Shapes.b2MassData
+            , b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
+            , b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
+            , b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+
+    var world = new b2World(new b2Vec2(0, 0), true);
+
+    var w = $(window).width(); 
+    var h = $(window).height();
+
+    createBox(0,h,w,1, true);
+    createBox(0,0,w,1, true); //top
+
+    debugDraw();
+
+    // Create some objects in the world
+    var fixDef = new b2FixtureDef();
+    fixDef.density = 1.0;
+    fixDef.friction = 0.5;
+    fixDef.restitution = 1;
+    var bodyDef = new b2BodyDef();
+
+    var interval = setInterval(createRule, 2000);
+
+    function createRule()
+    {
+        if( totalRules < maxRules )
+        {
+            bodyDef.type = b2Body.b2_dynamicBody;
+            var w = ($(window).width() / 2) + Math.random() * 200;
+            var h = ($(window).height() / 2) + Math.random() * 200;
+
+            bodyDef.position.Set( w / SCALE, h / SCALE);
+
+            var ruleSize = ruleSizes[Math.floor(Math.random() * ruleSizes.length)][1];
+
+            fixDef.shape = new b2CircleShape();
+            fixDef.shape.SetRadius((ruleSize/2) / SCALE);
+            var body = world.CreateBody(bodyDef).CreateFixture(fixDef);
+            body.m_userData = {radius: ruleSize};
+
+            totalRules++;
+        }
+        else
+        {
+            clearInterval(interval);
+        }
+    }
+
+
+    var image = new Image();
+    image.src = "img/big-rule.png";
+
+
+    window.setInterval(gameLoop, 1000 / 60);
+
+    
+    function debugDraw(){
+          var debugDraw = new b2DebugDraw();
+          debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
+          debugDraw.SetDrawScale(30.0);
+          debugDraw.SetFillAlpha(1);
+          debugDraw.SetLineThickness(1.0);
+          debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+          world.SetDebugDraw(debugDraw);
+     }
+
+    function gameLoop() {
+
+        checkClick();
+
+        // Update the box2d world
+        world.Step(1 / 60, 8, 3);
+        world.ClearForces();
+
+        context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+        //world.DrawDebugData();
+
+        for (b = world.GetBodyList() ; b; b = b.GetNext()) {
+            if (b.GetType() == b2Body.b2_dynamicBody) {
+                var pos = b.GetPosition();
+                var radius = 0;
+                var resizedRadius = 0;
+
+                for (var f = b.m_fixtureList; f; f = f.m_next)
+                {
+                    radius = 0;
+
+                    if( f.m_userData.radius )
+                    {
+                        radius = f.m_userData.radius;
+
+                        if( clickedBody == b )
+                        {
+                            if( radius < 481 )
+                            {
+                                radius += 5;
+                                f.m_userData.radius = radius;
+                                f.GetShape().Set(new b2CircleShape( radius / SCALE));
+                                resizedRadius = radius;
+                            }
+                            else
+                                clickedBody = null;
+                        }
+                    }
+                }
+
+                if( resizedRadius > 0 )
+                    radius = resizedRadius;
+
+                console.log(resizedRadius);
+
+                context.save();
+                context.translate(pos.x * SCALE, pos.y * SCALE);
+                context.rotate(b.GetAngle());
+                context.drawImage(image, -radius/2, -radius/2, radius, radius);
+                context.restore();
+            }
+        }
+    }
+
+    </script>
+    <script type="text/javascript" src="js/DebugMouseDragNoDOM.js"></script>
+</body>
+</html>

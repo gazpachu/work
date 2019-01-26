@@ -1,0 +1,150 @@
+@import url("https://fnt.webink.com/wfs/webink.css/?project=61832A80-FB0E-492F-8F18-D25F46364705&fonts=82DA4627-8191-9CE4-706C-58F3C2615A95:f=Theinhardt-Bold,5F278FF9-E581-1824-0F92-F6D72B137A6A:f=Theinhardt-HeavyIta,F77BBDE3-5270-5846-90AD-5529C2FFDA57:f=Theinhardt-Medium,9773ABFB-EF93-0C1B-AE14-35A7DD420754:f=Theinhardt-UltraLight,BA766C3D-9F83-4950-AFCD-AD9F2BF5CEAB:f=Theinhardt-Regular,8077EE42-0ADA-525C-C3DB-4DAFD57BE06D:f=PTSerif-Regular,864889ED-8E73-7E19-00E2-BBE0F997E58C:f=Theinhardt-Thin,0684BC34-8E92-BE61-25F1-D15CB377C180:f=Theinhardt-UltraLightIta,8B459781-89CC-B7EA-6A87-7EC561303F45:f=Theinhardt-BoldIta,70F8A7D9-BDFF-D029-E465-E7FC928A5994:f=Theinhardt-MediumIta,A7E06AF3-FA3A-4B28-764F-AC325B3529DA:f=Theinhardt-Heavy,602BD939-0B36-207C-56E5-E3E6434C3273:f=Theinhardt-HairlineIta,F1909AAE-4087-F011-EEAD-AB047C3C6A43:f=Theinhardt-Hairline,BFE4A44E-8D1D-66D8-BBF8-42F52771F0D3:f=Theinhardt-ThinIta,DC84A178-A66C-DB8D-5140-7E5BF64AB28F:f=Theinhardt-RegularIta,008579D7-00D8-1E34-1306-843EC6BC82EA:f=Theinhardt-Light,2A04CF10-789B-A5BB-9721-E19ACED96EEB:f=Theinhardt-Black,BF522E13-B921-2C59-5FD3-9D3C689FC32B:f=Theinhardt-LightIta,2272E54A-6BEF-79F6-B479-9FB26CE41DD7:f=Theinhardt-BlackIta");
+
+
+@font-face {
+     font-family: 'ica';
+     src:url('fonts/ica.eot');
+     src:url('fonts/ica.eot?#iefix') format('embedded-opentype'),
+          url('fonts/ica.woff') format('woff'),
+          url('fonts/ica.ttf') format('truetype'),
+          url('fonts/ica.svg#ica') format('svg');
+     font-weight: normal;
+     font-style: normal;
+     -webkit-transform: translate3d(0,0,0);
+     -webkit-font-smoothing:antialiased;
+     font-smooth:always;
+     font-smoothing: antialiased;
+}
+
+body {
+     overflow-y: hidden;
+     width: 10000px;
+     font-family: 'Theinhardt-Hairline';
+}
+
+body,div {
+     margin:0;
+     padding:0;
+     border:none;
+     color:#fff;
+}
+
+#logo {
+     background: url(../img/logo.png) no-repeat;
+     position: fixed;
+     top: 30;
+     left: 30;
+     z-index: 1000;
+     width: 109px;
+     height: 109px
+}
+
+#icons {
+     background: url(../img/icons.png) no-repeat;
+     position: fixed;
+     top: 30;
+     right: 30;
+     z-index: 1000;
+     width: 452px;
+     height: 35px
+}
+
+#write {
+     background: url(../img/write-rule.png) no-repeat;
+     position: fixed;
+     bottom: 0;
+     left: 50%;
+     margin-left: -50px;
+     z-index: 1000;
+     width: 162px;
+     height: 89px
+}
+
+/* Set translateZ to trigger HW acc for CSS3 transforms */
+#container {
+     position: absolute;
+     left: 0;
+     top: 0;
+     -webkit-transform: translate3d(0,0,1px);
+     -o-transform: translate3d(0,0,1px);
+     -moz-transform: translate3d(0,0,1px);
+     -ms-transform: translate3d(0,0,1px);
+     transform: translate3d(0,0,1px);
+     -webkit-perspective: 1000; 
+     -webkit-backface-visibility: hidden;
+     -webkit-transition-property: -webkit-transform;
+     -webkit-transition-duration: 0.1;
+     background-color: white;
+}
+
+.circle {
+     -webkit-border-radius: 999px;
+     -moz-border-radius: 999px;
+     border-radius: 999px;
+     text-align: center;
+     position: absolute;
+     background-color: black;
+     top: 0;
+     left: 0;
+     background: url(../img/big-rule.png) no-repeat center center;
+     background-size: 100% 100%;
+}
+
+.circle .rollover {
+     position: absolute;
+     top: 0;
+     left: 0;
+     background: url(../img/big-rollover.png) no-repeat center center;
+     background-size: 100% 100%;
+     width: 481px;
+     height: 481px;
+     display: none;
+     z-index: 99;
+}
+
+.small-rule {
+     width: 244px;
+     height: 244px;
+}
+
+.medium-rule {
+     width: 347px;
+     height: 347px;
+}
+
+.big-rule {
+     width: 481px;
+     height: 481px;
+}
+
+.filter-rule {
+     background: url(../img/filter-rule.png) no-repeat center center !important;
+     width: 253px;
+     height: 253px;
+}
+
+.circle:hover {
+     cursor: -moz-grab;
+     cursor: -webkit-grab;
+}
+
+.circle:active {
+     cursor: -moz-grabbing;
+     cursor: -webkit-grabbing;
+}
+
+.circle h1 {
+     font-size: 20px;
+     margin: 30px 0;
+}
+
+.circle p {
+     text-align: center;
+     margin: 0 auto;
+     padding: 0 20px;
+}
+
+.circle a {
+     color:#FFF;
+     text-decoration:underline;
+}

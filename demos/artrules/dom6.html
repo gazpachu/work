@@ -1,0 +1,230 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ICA Box2d zero gravity with DOM prototype</title>
+<meta content='width=device-width, maximum-scale=1.0' name='viewport'>
+<link rel="shortcut icon" href="img/favicon.ico" />
+<link href="css/dom6.css" media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/Box2dWeb-2.1.a.3.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/MouseAndTouch.js"></script>
+<script type="text/javascript">
+
+     var rulesCount = 0;
+
+     var tw = 1;
+
+     // Keep a reference to the Box2D World
+     var world;
+
+     // The scale between Box2D units and pixels
+     var SCALE = 30;
+
+     // Multiply to convert degrees to radians.
+     var D2R = Math.PI / 180;
+
+     // Multiply to convert radians to degrees.
+     var R2D = 180 / Math.PI;
+
+     // 360 degrees in radians.
+     var PI2 = Math.PI * 2;
+     var interval;
+
+     //Cache the canvas DOM reference
+     var canvas = $("#canvas");
+
+     // Shorthand "imports"
+     var b2Vec2 = Box2D.Common.Math.b2Vec2,
+          b2BodyDef = Box2D.Dynamics.b2BodyDef,
+          b2AABB = Box2D.Collision.b2AABB,
+          b2Body = Box2D.Dynamics.b2Body,
+          b2FixtureDef = Box2D.Dynamics.b2FixtureDef,
+          b2Fixture = Box2D.Dynamics.b2Fixture,
+          b2World = Box2D.Dynamics.b2World,
+          b2MassData = Box2D.Collision.Shapes.b2MassData,
+          b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
+          b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
+          b2DebugDraw = Box2D.Dynamics.b2DebugDraw,
+          b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef,
+          b2EdgeShape = Box2D.Collision.Shapes.b2EdgeShape;
+
+     function init() {
+
+          //Create the Box2D World with horisontal and vertical gravity (10 is close enough to 9.8)
+          world = new b2World(
+          new b2Vec2(0,0) //gravity
+          , true //allow sleep
+          );
+
+          //Make sure that the screen canvas for debug drawing matches the window size
+          resizeHandler();
+          $(window).bind('resize', resizeHandler);
+
+          //Create the viewport walls
+          var w = $(window).width(); 
+          var h = $(window).height();
+
+          createBox(0,h,4000,1, true); //bottom
+          //createBox(0,0,1,h, true); //left
+          //createBox(w,0,1,h, true); //right
+          createBox(0,0,4000,1, true); //top
+
+          //Do one animation interation and start animating
+          debugDraw();
+          interval = setInterval(update,1000/60);
+          update();
+
+          window.scrollTo(1600, 0);
+
+          setInterval( createDOMObject, 3000);
+     }
+
+     function createDOMObject(xPos,yPos) {
+          
+		var size = 214;
+
+		if( xPos == null || yPos == null )
+		{
+			xPos = 2200 + Math.floor(Math.random() * -3);
+			yPos = 300 + Math.floor(Math.random() * -3);
+		}
+
+          var rNum = Math.floor(Math.random() * 2) + 1;
+
+		var $newRule = $('<div id="rule-'+rulesCount+'" class="circle" style="background: url(img/rule'+rNum+'.png) no-repeat;"></div>');
+
+		// Add the new div
+		$("#container").append($newRule);
+
+		var domObj = $newRule;
+		var domPos = $newRule.position();
+		var width = size / 2 ;
+		var height = size / 2;
+
+		var body = createRule(xPos,yPos,width);
+
+		body.m_userData = {domObj:domObj, width:width, height:height};
+
+		rulesCount++;
+
+		$newRule.css('width', size);
+		$newRule.css('height', size);
+     }
+
+     function createBox(x,y,width,height, static) {
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = static ? b2Body.b2_staticBody : b2Body.b2_dynamicBody;
+          bodyDef.position.x = x / SCALE;
+          bodyDef.position.y = y / SCALE
+
+          var fixDef = new b2FixtureDef;
+          fixDef.density = 1.5;
+          fixDef.friction = 0.3;
+          fixDef.restitution = 0.4;
+
+          fixDef.shape = new b2PolygonShape;
+          fixDef.shape.SetAsBox(width / SCALE, height / SCALE);
+          return world.CreateBody(bodyDef).CreateFixture(fixDef);
+     }
+
+     function createRule(x,y,radius) {
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = b2Body.b2_dynamicBody;
+          bodyDef.position.x = x / SCALE;
+          bodyDef.position.y = y / SCALE;
+          //bodyDef.linearVelocity = new b2Vec2(Math.floor(Math.random() * -0.5), Math.floor(Math.random() * -0.5));
+
+          var fixDef = new b2FixtureDef;
+          fixDef.density = 1.5;
+          fixDef.friction = 0.8;
+          fixDef.restitution = 0.4;
+
+          fixDef.shape = new b2CircleShape;
+          fixDef.shape.SetRadius(radius / SCALE);
+          return world.CreateBody(bodyDef).CreateFixture(fixDef);
+     }
+
+     // Paint the bodies
+     function debugDraw(){
+          var debugDraw = new b2DebugDraw();
+          debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
+          debugDraw.SetDrawScale(30.0);
+          debugDraw.SetFillAlpha(1);
+          debugDraw.SetLineThickness(1.0);
+          debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+          world.SetDebugDraw(debugDraw);
+     }
+
+     //Animate DOM objects
+     function drawDOMObjects() {
+          var i = 0;
+          for (var b = world.m_bodyList; b; b = b.m_next) {
+              for (var f = b.m_fixtureList; f; f = f.m_next) {
+                    if (f.m_userData) {
+
+                         /*f.GetShape().Set(new b2CircleShape(tw));
+                         f.m_body.
+
+                         tw += 0.1;;
+
+                         if( tw > 218 / SCALE)
+                              tw = 1;
+
+                         /*if( rulesCount == 1 )
+                              console.log(f.m_userData.domObj[0].style);*/
+
+                         //Retrieve positions from the Box2d world
+                         var x = Math.floor((f.m_body.m_xf.position.x * SCALE) - f.m_userData.width);
+                         var y = Math.floor((f.m_body.m_xf.position.y * SCALE) - f.m_userData.height);
+
+                         var css = {    '-webkit-transform':'translate(' + x + 'px,' + y + 'px)',
+                                        '-moz-transform':'translate(' + x + 'px,' + y + 'px)',
+                                        '-ms-transform':'translate(' + x + 'px,' + y + 'px)',
+                                        '-o-transform':'translate(' + x + 'px,' + y + 'px)',
+                                        'transform':'translate(' + x + 'px,' + y + 'px)',
+                                        '-o-transition':'width 2s, height 2s',
+                                        '-moz-transition':'width 2s, height 2s',
+                                        '-webkit-transition':'width 2s, height 2s',
+                                        'transition':'width 2s, height 2s'};
+
+                         f.m_userData.domObj.css(css);
+                    }
+              }
+           }
+     };
+
+     //Method for animating
+     function update() {
+
+          updateMouseDrag();
+
+          world.Step(
+          1 / 60 //frame-rate
+          , 10 //velocity iterations
+          , 10 //position iterations
+          );
+
+          drawDOMObjects();
+
+          world.DrawDebugData();
+
+          world.ClearForces();
+     }
+
+     //Keep the canvas size correct for debug drawing
+     function resizeHandler() {
+          canvas.attr('width', $(window).width());
+          canvas.attr('height', $(window).height());
+     }
+
+</script>
+</head>
+<body onload="init();" screen_capture_injected="true" cz-shortcut-listen="true">
+
+     <div id="logo"></div>
+     <canvas id="canvas" width="1605" height="772"></canvas>
+     <div id="container"></div>
+     <script type="text/javascript" src="js/DebugMouseDrag.js"></script>
+</body>
+</html>

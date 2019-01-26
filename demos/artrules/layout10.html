@@ -1,0 +1,1558 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ICA Art Rules</title>
+<meta content='width=device-width, maximum-scale=1.0, user-scalable=no' name='viewport'>
+<link rel="shortcut icon" href="img/favicon.ico" />
+<link href="css/layout10.css" media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/Box2dWeb-2.1.a.3.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+<script async>
+/* Box2D circles */
+window.requestAnimFrame = (function(){
+    return  window.requestAnimationFrame       || 
+            window.webkitRequestAnimationFrame || 
+            window.mozRequestAnimationFrame    || 
+            window.oRequestAnimationFrame      || 
+            window.msRequestAnimationFrame     || 
+            function(callback, element){
+              window.setTimeout(callback, 1000 / 60);
+            };
+})();
+
+// General counter for rules population
+var elapsedTime = 0;
+
+// Amount of rules for the initial population
+var rulesInit = 15;
+
+// Counter of the total amount of rules on the screen
+var rulesCount = 0;
+
+// How often (in cycles) do we populate at the beginning
+var creationFreqInit = 13;
+
+// Create a new rule every x cycles
+var creationFreq = 100;
+
+// The amount of resizing pixels to apply per cycle
+var resizeFactor = 15;
+
+// Holds the new rule while is being resized
+var selectedRules = [];
+
+// Keep a reference to the Box2D World
+var world;
+
+// The scale between Box2D units and pixels
+var SCALE = 30;
+
+// Multiply to convert degrees to radians.
+var D2R = Math.PI / 180;
+
+// Multiply to convert radians to degrees.
+var R2D = 180 / Math.PI;
+
+// 360 degrees in radians.
+var PI2 = Math.PI * 2;
+
+// We need this to calculate the attraction force
+var windowWidth = $(window).width();
+var windowHeight = $(window).height();
+
+var $ruleWrapper, $ruleList, $doc;
+
+// Box2d "imports"
+var b2Vec2 = Box2D.Common.Math.b2Vec2,
+    b2BodyDef = Box2D.Dynamics.b2BodyDef,
+    b2AABB = Box2D.Collision.b2AABB,
+    b2Body = Box2D.Dynamics.b2Body,
+    b2FixtureDef = Box2D.Dynamics.b2FixtureDef,
+    b2Fixture = Box2D.Dynamics.b2Fixture,
+    b2World = Box2D.Dynamics.b2World,
+    b2MassData = Box2D.Collision.Shapes.b2MassData,
+    b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
+    b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
+    b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+
+// This is the main function
+function init()
+{
+    // Create the Box2D World without gravity and allowing bodies to sleep
+    world = new b2World( new b2Vec2(0,0), true );
+
+    $ruleWrapper = $('.rule-wrapper');
+    $ruleList = $ruleWrapper.find('ul');
+    $doc = $(document);
+
+    //Create the viewport walls
+    var w = $ruleWrapper.width();
+    var h = $ruleWrapper.height();
+
+    createBox(0,h,w,1, true); // bottom
+    createBox(0,0,1,h, true); // left
+    createBox(w,0,1,h, true); // right
+    createBox(0,0,w,1, true); // top
+
+    createLogo(); // logo body
+     createWar(); // war body
+
+    // Move the viewport to the center of the body
+    $doc.scrollLeft( $ruleWrapper.width() / 2 );
+
+    // Limit the amount of rules on tablets on start
+    if( windowWidth < 1100 )
+     rulesInit = 7;
+
+    // Start updating and painting DOM objects and box2d bodies
+    loop();
+}
+
+function loop()
+{
+     elapsedTime++;
+
+     // Check if a body can be created at this point
+     if( (elapsedTime > creationFreqInit && rulesCount < rulesInit ) || (elapsedTime > creationFreq) )
+     {
+          displayRules();
+          elapsedTime = 0;
+     }
+     else
+     {
+          update();
+     paint();
+     }
+
+    requestAnimFrame(loop);
+}
+
+// Create the DOM objects and the box2d bodies for the rules
+function displayRules()
+{
+     // Find a rule that is hidden
+     var $newRule = $ruleList.find('li .mini-rule:hidden');
+
+     if( $newRule.length ) // Only proceed if there are dead bodies
+     {
+          $newRule = $newRule.first();
+
+          // The update function will grab this value to resize the rule
+          $newRule.data( 'resizeTo', $newRule.width() );
+          $newRule.data( 'direction', 'up' );
+
+          // Initialize the rule style
+          $newRule.css('width', 1);
+          $newRule.css('height', 1);
+          $newRule.css('display', 'inline');
+
+          var width = parseInt($newRule.css('width'), 10) / 2 ;
+          var height = parseInt($newRule.css('height'), 10) / 2;
+
+          // Create a new body in the center of the viewport
+          var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+
+          // Number of life cycles for a given rule
+          var ruleLife = Math.floor(Math.random() * 5000) + 2000;
+
+          // Get the cached body from the DOM
+          var body = $newRule.data("box2dBody");
+
+          if( !body ) // Create a new one if there's none cached
+               body = createRule( null, null, width);
+
+          body.m_userData = null;
+          body.m_userData = { domObj:$newRule, width:width, height:height, life:ruleLife, css:'' };
+          body.m_body.SetPosition( new b2Vec2( ($doc.scrollLeft() + (windowWidth / 2) + (Math.random()*30*plusOrMinus)) / SCALE, ((windowHeight ) + 500 + (Math.random()*30*plusOrMinus) ) / SCALE ) );
+
+          $newRule.data( "box2dBody", body );
+          
+          selectedRules.push( $newRule );
+
+          rulesCount++;
+          console.log(rulesCount);
+     }
+
+     $newRule = null;
+}
+
+// This creates the walls in box2d
+function createBox( x, y, width, height, static )
+{
+    var bodyDef = new b2BodyDef;
+    bodyDef.type = static ? b2Body.b2_staticBody : b2Body.b2_dynamicBody;
+    bodyDef.position.x = x / SCALE;
+    bodyDef.position.y = y / SCALE;
+    bodyDef.fixedRotation = true;
+
+    var fixDef = new b2FixtureDef;
+    fixDef.density = 0;
+    fixDef.friction = 0;
+    fixDef.restitution = 0;
+
+    fixDef.shape = new b2PolygonShape;
+    fixDef.shape.SetAsBox(width / SCALE, height / SCALE);
+    return world.CreateBody(bodyDef).CreateFixture(fixDef);
+}
+
+function createLogo()
+{
+    var bodyDef = new b2BodyDef;
+    bodyDef.type = b2Body.b2_staticBody;
+    bodyDef.fixedRotation = true;
+
+    var fixDef = new b2FixtureDef;
+    fixDef.density = 0;
+    fixDef.friction = 0;
+    fixDef.restitution = 0;
+
+    fixDef.shape = new b2CircleShape;
+    fixDef.shape.SetRadius(109 / SCALE);
+    var logoBody = world.CreateBody(bodyDef).CreateFixture(fixDef);
+    logoBody.m_userData = { id:'logo', life:-1 };
+}
+
+function createWar()
+{
+    var bodyDef = new b2BodyDef;
+    bodyDef.type = b2Body.b2_staticBody;
+    bodyDef.fixedRotation = true;
+
+    var fixDef = new b2FixtureDef;
+    fixDef.density = 0;
+    fixDef.friction = 0;
+    fixDef.restitution = 0;
+
+    fixDef.shape = new b2PolygonShape;
+    fixDef.shape.SetAsBox(60 / SCALE, 80 / SCALE);
+    var warBody = world.CreateBody(bodyDef).CreateFixture(fixDef);
+    warBody.m_userData = { id:'war', life:-1 };
+}
+
+// 
+function createRule( x, y, radius, static )
+{
+    var bodyDef = new b2BodyDef;
+    bodyDef.type = static ? b2Body.b2_staticBody : b2Body.b2_dynamicBody;
+    bodyDef.fixedRotation = true;
+    bodyDef.linearDamping = 2;
+
+    if( x && y )
+    {
+     bodyDef.position.x = x / SCALE;
+     bodyDef.position.y = y / SCALE;
+    }
+
+    var fixDef = new b2FixtureDef;
+    fixDef.density = 0;
+    fixDef.friction = 0.5;
+    fixDef.restitution = 0;
+
+    fixDef.shape = new b2CircleShape;
+    fixDef.shape.SetRadius(radius / SCALE);
+    return world.CreateBody(bodyDef).CreateFixture(fixDef);
+}
+
+//Animate DOM objects
+function updateDOMObjects()
+{
+    var offset = $doc.scrollLeft();
+    var css = '';
+
+    for( var b = world.m_bodyList; b; b = b.m_next )
+    {
+        for( var f = b.m_fixtureList; f; f = f.m_next )
+        {
+               if( f.m_userData ) // Only of the body is linked with a DOM object (Rule)
+               {
+                    // Hide the body
+                    if( f.m_userData.life <= 0)
+                    {
+                         if( f.m_userData.id == 'logo' )
+                         {
+                              f.m_body.SetPosition( new b2Vec2( (offset + 60) / SCALE, 10 / SCALE ) );
+                         }
+                         else if( f.m_userData.id == 'war' )
+                         {
+                              f.m_body.SetPosition( new b2Vec2( (offset + (windowWidth/2)) / SCALE, (windowHeight + 15) / SCALE ) );
+                         }
+                         else
+                              css = { 'display':'none' };
+                    }
+                    else if( f.m_userData.life > 0 )
+                    {
+                         if( b.IsAwake() )
+                         {
+                             //Retrieve positions from the Box2d world
+                             var x = Math.floor( ( f.m_body.m_xf.position.x * SCALE ) - f.m_userData.width );
+                             var y = Math.floor( ( f.m_body.m_xf.position.y * SCALE ) - f.m_userData.height );
+
+                             // Calculate the attraction force only if the body is inside the viewport (clipping) and we are not resizing anything
+                             if( !selectedRules.length )
+                             {
+                                   if( x > offset && x < ( offset + (windowWidth/2) ) )
+                                   {
+                                        var dX = offset + ( (windowWidth/2) / 2 ) - x; // Get the screen center X
+                                        var dY = (windowHeight/3) - y; // Get the screen center Y
+                                        var distance = Math.floor( Math.sqrt( Math.pow( dX, 2) + Math.pow( dX, 2) ) ); // Get the distance between the body and the screen center position
+                                        var rads = Math.atan2( dY, dX ); // Get the angle from the triangle between the body position and the screen center position
+                                        var accel = Math.max( 0, ( distance - ((windowWidth/2) / 3) ) / 1000 );
+                                        var xVel = accel * Math.cos( rads ); // Get the new acceleration in the X asis
+                                        var yVel = accel * Math.sin( rads ); // Get the new acceleration in the Y asis
+
+                                        // Apply the new position to the body
+                                        //f.m_body.SetPosition( new b2Vec2( f.m_body.m_xf.position.x + xVel, f.m_body.m_xf.position.y + yVel ) );
+
+                                        if( xVel > 0.02 || yVel > 0.02 )
+                                        {
+                                             f.m_body.ApplyForce( new b2Vec2( xVel * 500, yVel * 500 ), new b2Vec2( f.m_body.m_xf.position.x, f.m_body.m_xf.position.y ) );
+
+                                             // Prepare coordinates to apply to the DOM
+                                             x = Math.floor( x + xVel );
+                                             y = Math.floor( y + yVel );
+                                        }
+                                   }
+                             }
+
+                             css = {    '-webkit-perspective':'1000',
+                                   '-webkit-backface-visibility':'hidden',
+                                   '-webkit-transform-style':'preserve-3d',
+                                   'display':'inline',
+                                   '-webkit-transform':'translate3d(' + x + 'px,' + y + 'px, 0)',
+                                   '-moz-transform':'translate(' + x + 'px,' + y + 'px)',
+                                   '-ms-transform':'translate(' + x + 'px,' + y + 'px)',
+                                   '-o-transform':'translate(' + x + 'px,' + y + 'px)',
+                                   'transform':'translate(' + x + 'px,' + y + 'px)'
+                              };
+                         }
+                         else
+                         {
+                             css = '';
+                         }
+
+                         f.m_userData.life = f.m_userData.life -1;
+
+                         // Resize bodies and DOM rules
+                         //console.log("Queue size: " + selectedRules.length);
+
+                         for( var i = 0; i < selectedRules.length; i++ )
+                         {
+                              var rule_id = selectedRules[i].data('rule_id');
+
+                              if( !rule_id )
+                                   rule_id = selectedRules[i].attr('data-spotlight_id');
+
+                              if( rule_id == f.m_userData.domObj.data('rule_id') || rule_id == f.m_userData.domObj.attr('data-spotlight_id') )
+                              {
+                                   var direction = selectedRules[i].data('direction');
+                                   var newRadius = parseInt( f.m_userData.domObj[0].style.width, 10 ) / 2;
+
+                                   if( direction != 'none' && newRadius > 0.0 )
+                                   {
+                                        f.m_body.SetAwake( true );
+                                        //f.GetShape().Set(new b2CircleShape( newRadius / SCALE));
+                                        f.GetShape().m_radius = newRadius / SCALE;
+
+                                        // Get the current values of the rule
+                                        var w = selectedRules[i].width();
+                                        var l = selectedRules[i].css('left');
+                                        var t = selectedRules[i].css('top');
+                                        var font = 1;
+                                        var resizeTo = selectedRules[i].data('resizeTo');
+                                        var resizeDirection = 1;
+
+                                        if( direction == 'down' ) resizeDirection = -1;
+
+                                        if( w < resizeTo ) // increasing size
+                                             w += resizeFactor * resizeDirection;
+                                        else if( w > resizeTo )
+                                             w = resizeTo;
+                                        else
+                                             selectedRules[i].data('direction', 'none');
+
+                                        l = -(w / 2);
+                                        t = -(w / 2);
+
+                                        if( w > 240 )
+                                             font = Math.max(Math.min(w / 15, parseFloat(Number.POSITIVE_INFINITY)), parseFloat(Number.NEGATIVE_INFINITY));
+                                        else
+                                             font = 0;
+
+                                        css['font-size'] = font + 'px';
+                                        css['left'] = l + 'px';
+                                        css['top'] = t + 'px';
+                                        css['width'] = w + 'px';
+                                        css['height'] = w + 'px';
+                                   }
+                                   else
+                                   {
+                                        selectedRules.splice(i,1);
+                                   }
+
+                                   break; // Get out of the loop
+                              }
+                         }
+                    }
+
+                    f.m_userData.css = css;
+                    break;
+               }
+        }
+    }
+}
+
+// Update the DOM and the Box2D world
+function update()
+{
+    world.Step(
+    1 / 60 //frame-rate
+    , 10 //velocity iterations
+    , 10 //position iterations
+    );
+
+    world.ClearForces();
+
+    updateDOMObjects();
+}
+
+// Update the CSS of the rules
+function paint()
+{
+    var i = 0;
+
+    for (var b = world.m_bodyList; b; b = b.m_next)
+    {
+        for (var f = b.m_fixtureList; f; f = f.m_next)
+        {
+              if( f.m_userData && f.m_userData.domObj )
+              {
+                   f.m_userData.domObj.css( f.m_userData.css );
+              }
+              i++;
+         }
+    }
+}
+
+// Page events
+$(document).ready(function()
+{
+
+     var $rule = $('.mini-rule').not('.spotlight');
+
+     // Resize the rule on hover
+     $rule.hover(function()
+     {
+          var rule_id = $(this).data('rule_id');
+
+          /*$('#mini_rule_overlay_bg_'+rule_id+'.overlay-bg').fadeIn(200);
+          $('#mini_rule_overlay_'+rule_id+'.overlay').fadeIn(200);*/
+
+          $('#mini_rule_overlay_bg_'+rule_id+'.overlay-bg').show();
+          $('#mini_rule_overlay_'+rule_id+'.overlay').show();
+
+          // Fade-in the overlay
+          /*
+          timeout = setTimeout(function()
+          {
+               
+          },300);
+
+          /*$(this).data( 'originalWidth', $(this).width() );
+          $(this).data( 'resizeTo', 481 );
+          $(this).data( 'direction', 'up' );
+
+          selectedRules.push( $(this) );
+
+          console.log("resizing...");*/
+          
+     });
+
+     // Shrink the rule on rollout
+     $rule.mouseleave(function()
+     {
+          /*$('.overlay-bg').fadeOut(200);
+          $('.overlay').fadeOut(200);*/
+
+          $('.overlay-bg').hide();
+          $('.overlay').hide();
+
+          /*var rule_id = $(this).data('rule_id');
+
+          for( var i = 0; i < selectedRules.length; i++ )
+        {
+          console.log(rule_id, selectedRules[i].data('rule_id'));
+
+          if( rule_id == selectedRules[i].data('rule_id') )
+          {
+               
+               $(this).data( 'resizeTo', $(this).data( 'originalWidth') );
+               $(this).data( 'direction', 'down' );
+
+               console.log("shrinking...");
+          }
+        }*/
+     });
+
+     if( $rule.length )
+     {
+         // Scroll the body with the mouse wheel. Use document for Firefox
+         $(this).bind('mousewheel', function(event, delta, deltaX, deltaY)
+         {
+              $doc.scrollLeft( $doc.scrollLeft() - (delta * 30) );
+              event.preventDefault();
+         });
+     }
+
+     init();
+});
+</script>
+</head>
+<body>
+     <div class='rule-wrapper'>
+  <div id='slider'>
+    <ul id='pageless'>
+      <li class=''>
+  <div class='medium mini-rule' data-rule_id='6'>
+    <h3>
+      <span>Rule º</span>
+      6
+    </h3>
+    <div class='content'>
+      <p>Like any other, the contemporary arts are a currency that is traded</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test3 user3</span>
+      <time datetime='2013-08-01'> 1 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_6'></div>
+    <div class='overlay' data-rule_id='6' id='mini_rule_overlay_6'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_6'>
+          <a href="/rules/6/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_6'>
+          <a href="/rules/6/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/6">View Rule &amp;</a>
+          <span class='comments'>
+            7
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='7'>
+    <h3>
+      <span>Rule º</span>
+      7
+    </h3>
+    <div class='content'>
+      <p>They're a sales proposition. Contemporary arts are determined by the market</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test5 user5</span>
+      <time datetime='2013-08-01'> 1 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_7'></div>
+    <div class='overlay' data-rule_id='7' id='mini_rule_overlay_7'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_7'>
+          <a href="/rules/7/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_7'>
+          <a href="/rules/7/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/7">View Rule &amp;</a>
+          <span class='comments'>
+            4
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='medium mini-rule' data-rule_id='21'>
+    <h3>
+      <span>Rule º</span>
+      21
+    </h3>
+    <div class='content'>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test2 user2</span>
+      <time datetime='2013-08-07'> 7 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_21'></div>
+    <div class='overlay' data-rule_id='21' id='mini_rule_overlay_21'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_21'>
+          <a href="/rules/21/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+            Agree
+            </a>
+        </span>
+        <span class='disagree' id='disagree_link_21'>
+          <a href="/rules/21/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+            Disagree
+            </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/21">View Rule &amp;</a>
+          <span class='comments'>
+            7
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='4'>
+    <h3>
+      <span>Rule º</span>
+      4
+    </h3>
+    <div class='content'>
+      <p>The contemporary arts will not be categorised or defined</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test1 user1</span>
+      <time datetime='2013-08-02'> 2 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_4'></div>
+    <div class='overlay' data-rule_id='4' id='mini_rule_overlay_4'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_4'>
+          <a href="/rules/4/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_4'>
+          <a href="/rules/4/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/4">View Rule &amp;</a>
+          <span class='comments'>
+            1
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li>
+  <div class='mini-rule spotlight' data-spotlight_id='3'>
+    <div class='content'>
+      <p>FILTER RULES BY</p>
+      <h4>
+        STUDENTS
+        <span></span>
+        &amp; ARTISTS
+      </h4>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='medium mini-rule' data-rule_id='3'>
+    <h3>
+      <span>Rule º</span>
+      3
+    </h3>
+    <div class='content'>
+      <p>Today, contemporary arts are our non-prescriptive way of presenting aesthetics</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test2 user2</span>
+      <time datetime='2013-08-06'> 6 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_3'></div>
+    <div class='overlay' data-rule_id='3' id='mini_rule_overlay_3'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_3'>
+          <a href="/rules/3/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+            Agree
+            </a>
+        </span>
+        <span class='disagree' id='disagree_link_3'>
+          <a href="/rules/3/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+            Disagree
+            </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/3">View Rule &amp;</a>
+          <span class='comments'>
+            7
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='19'>
+    <h3>
+      <span>Rule º</span>
+      19
+    </h3>
+    <div class='content'>
+      <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test2 user2</span>
+      <time datetime='2013-08-05'> 5 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_19'></div>
+    <div class='overlay' data-rule_id='19' id='mini_rule_overlay_19'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_19'>
+          <a href="/rules/19/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_19'>
+          <a href="/rules/19/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/19">View Rule &amp;</a>
+          <span class='comments'>
+            0
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='15'>
+    <h3>
+      <span>Rule º</span>
+      15
+    </h3>
+    <div class='content'>
+      <p>quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit.</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test2 user2</span>
+      <time datetime='2013-08-05'> 5 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_15'></div>
+    <div class='overlay' data-rule_id='15' id='mini_rule_overlay_15'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_15'>
+          <a href="/rules/15/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_15'>
+          <a href="/rules/15/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/15">View Rule &amp;</a>
+          <span class='comments'>
+            3
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='medium mini-rule' data-rule_id='10'>
+    <h3>
+      <span>Rule º</span>
+      10
+    </h3>
+    <div class='content'>
+      <p>totam rem aperiam, eaque ipsa quae ab illo inventore veritatis</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test2 user2</span>
+      <time datetime='2013-08-12'>12 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_10'></div>
+    <div class='overlay' data-rule_id='10' id='mini_rule_overlay_10'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_10'>
+          <a href="/rules/10/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_10'>
+          <a href="/rules/10/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/10">View Rule &amp;</a>
+          <span class='comments'>
+            7
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='8'>
+    <h3>
+      <span>Rule º</span>
+      8
+    </h3>
+    <div class='content'>
+      <p>Contemporary art is the definition of where we are in our cultural development</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test4 user4</span>
+      <time datetime='2013-08-14'>14 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_8'></div>
+    <div class='overlay' data-rule_id='8' id='mini_rule_overlay_8'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_8'>
+          <a href="/rules/8/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_8'>
+          <a href="/rules/8/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/8">View Rule &amp;</a>
+          <span class='comments'>
+            4
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li>
+  <div class='mini-rule spotlight' data-spotlight_id='2'>
+    <div class='content'>
+      <p>THIS IS A SPOTLIGHT</p>
+      <h4>
+        POPULAR
+        <span></span>
+        RULES
+      </h4>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='medium mini-rule' data-rule_id='18'>
+    <h3>
+      <span>Rule º</span>
+      18
+    </h3>
+    <div class='content'>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test3 user3</span>
+      <time datetime='2013-08-09'> 9 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_18'></div>
+    <div class='overlay' data-rule_id='18' id='mini_rule_overlay_18'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_18'>
+          <a href="/rules/18/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_18'>
+          <a href="/rules/18/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/18">View Rule &amp;</a>
+          <span class='comments'>
+            5
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='22'>
+    <h3>
+      <span>Rule º</span>
+      22
+    </h3>
+    <div class='content'>
+      <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test1 user1</span>
+      <time datetime='2013-08-14'>14 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_22'></div>
+    <div class='overlay' data-rule_id='22' id='mini_rule_overlay_22'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_22'>
+          <a href="/rules/22/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_22'>
+          <a href="/rules/22/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/22">View Rule &amp;</a>
+          <span class='comments'>
+            0
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='28'>
+    <h3>
+      <span>Rule º</span>
+      28
+    </h3>
+    <div class='content'>
+      <p>cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test3 user3</span>
+      <time datetime='2013-08-12'>12 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_28'></div>
+    <div class='overlay' data-rule_id='28' id='mini_rule_overlay_28'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_28'>
+          <a href="/rules/28/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_28'>
+          <a href="/rules/28/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/28">View Rule &amp;</a>
+          <span class='comments'>
+            0
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='5'>
+    <h3>
+      <span>Rule º</span>
+      5
+    </h3>
+    <div class='content'>
+      <p>It's the shortest distance between deep and dumb</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test2 user2</span>
+      <time datetime='2013-08-12'>12 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_5'></div>
+    <div class='overlay' data-rule_id='5' id='mini_rule_overlay_5'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_5'>
+          <a href="/rules/5/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_5'>
+          <a href="/rules/5/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/5">View Rule &amp;</a>
+          <span class='comments'>
+            0
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li>
+  <div class='mini-rule spotlight' data-spotlight_id='4'>
+    <div class='content'>
+      <p>FILTER RULES BY</p>
+      <h4>
+        EXHIBITORS
+        <span></span>
+        &amp; ARTISTS
+      </h4>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='medium mini-rule' data-rule_id='20'>
+    <h3>
+      <span>Rule º</span>
+      20
+    </h3>
+    <div class='content'>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test2 user2</span>
+      <time datetime='2013-08-11'>11 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_20'></div>
+    <div class='overlay' data-rule_id='20' id='mini_rule_overlay_20'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_20'>
+          <a href="/rules/20/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_20'>
+          <a href="/rules/20/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/20">View Rule &amp;</a>
+          <span class='comments'>
+            8
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='medium mini-rule' data-rule_id='26'>
+    <h3>
+      <span>Rule º</span>
+      26
+    </h3>
+    <div class='content'>
+      <p>ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test3 user3</span>
+      <time datetime='2013-08-06'> 6 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_26'></div>
+    <div class='overlay' data-rule_id='26' id='mini_rule_overlay_26'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_26'>
+          <a href="/rules/26/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+            Agree
+            </a>
+        </span>
+        <span class='disagree' id='disagree_link_26'>
+          <a href="/rules/26/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+            Disagree
+            </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/26">View Rule &amp;</a>
+          <span class='comments'>
+            5
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='high mini-rule' data-rule_id='25'>
+    <h3>
+      <span>Rule º</span>
+      25
+    </h3>
+    <div class='content'>
+      <p>labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test4 user4</span>
+      <time datetime='2013-08-09'> 9 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_25'></div>
+    <div class='overlay' data-rule_id='25' id='mini_rule_overlay_25'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_25'>
+          <a href="/rules/25/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_25'>
+          <a href="/rules/25/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/25">View Rule &amp;</a>
+          <span class='comments'>
+            10
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='24'>
+    <h3>
+      <span>Rule º</span>
+      24
+    </h3>
+    <div class='content'>
+      <p>consectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test2 user2</span>
+      <time datetime='2013-08-06'> 6 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_24'></div>
+    <div class='overlay' data-rule_id='24' id='mini_rule_overlay_24'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_24'>
+          <a href="/rules/24/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_24'>
+          <a href="/rules/24/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/24">View Rule &amp;</a>
+          <span class='comments'>
+            3
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li>
+  <div class='mini-rule spotlight' data-spotlight_id='1'>
+    <div class='content'>
+      <p>THIS IS A SPOTLIGHT</p>
+      <h4>
+        RECENT
+        <span></span>
+        RULES
+      </h4>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='medium mini-rule' data-rule_id='17'>
+    <h3>
+      <span>Rule º</span>
+      17
+    </h3>
+    <div class='content'>
+      <p>nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test4 user4</span>
+      <time datetime='2013-08-07'> 7 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_17'></div>
+    <div class='overlay' data-rule_id='17' id='mini_rule_overlay_17'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_17'>
+          <a href="/rules/17/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_17'>
+          <a href="/rules/17/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/17">View Rule &amp;</a>
+          <span class='comments'>
+            5
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='14'>
+    <h3>
+      <span>Rule º</span>
+      14
+    </h3>
+    <div class='content'>
+      <p>consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test5 user5</span>
+      <time datetime='2013-08-13'>13 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_14'></div>
+    <div class='overlay' data-rule_id='14' id='mini_rule_overlay_14'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_14'>
+          <a href="/rules/14/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_14'>
+          <a href="/rules/14/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/14">View Rule &amp;</a>
+          <span class='comments'>
+            1
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='9'>
+    <h3>
+      <span>Rule º</span>
+      9
+    </h3>
+    <div class='content'>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test4 user4</span>
+      <time datetime='2013-08-03'> 3 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_9'></div>
+    <div class='overlay' data-rule_id='9' id='mini_rule_overlay_9'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_9'>
+          <a href="/rules/9/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_9'>
+          <a href="/rules/9/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/9">View Rule &amp;</a>
+          <span class='comments'>
+            2
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='27'>
+    <h3>
+      <span>Rule º</span>
+      27
+    </h3>
+    <div class='content'>
+      <p>in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test5 user5</span>
+      <time datetime='2013-08-06'> 6 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_27'></div>
+    <div class='overlay' data-rule_id='27' id='mini_rule_overlay_27'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_27'>
+          <a href="/rules/27/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_27'>
+          <a href="/rules/27/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/27">View Rule &amp;</a>
+          <span class='comments'>
+            2
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li>
+  <div class='mini-rule spotlight' data-spotlight_id='5'>
+    <div class='content'>
+      <p>RULES WRITTEN BY</p>
+      <h4>
+        TEST USER5
+        <span></span>
+        
+      </h4>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='1'>
+    <h3>
+      <span>Rule º</span>
+      1
+    </h3>
+    <div class='content'>
+      <p>In a post-post-modern age, the market determines the value and validity of art</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test5 user5</span>
+      <time datetime='2013-08-03'> 3 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_1'></div>
+    <div class='overlay' data-rule_id='1' id='mini_rule_overlay_1'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_1'>
+          <a href="/rules/1/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_1'>
+          <a href="/rules/1/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/1">View Rule &amp;</a>
+          <span class='comments'>
+            1
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='2'>
+    <h3>
+      <span>Rule º</span>
+      2
+    </h3>
+    <div class='content'>
+      <p>Modern art is a contemporary relic formed around a personal or communal tale</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test2 user2</span>
+      <time datetime='2013-08-10'>10 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_2'></div>
+    <div class='overlay' data-rule_id='2' id='mini_rule_overlay_2'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_2'>
+          <a href="/rules/2/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_2'>
+          <a href="/rules/2/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/2">View Rule &amp;</a>
+          <span class='comments'>
+            0
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='13'>
+    <h3>
+      <span>Rule º</span>
+      13
+    </h3>
+    <div class='content'>
+      <p>eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor.</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test3 user3</span>
+      <time datetime='2013-08-12'>12 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_13'></div>
+    <div class='overlay' data-rule_id='13' id='mini_rule_overlay_13'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_13'>
+          <a href="/rules/13/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_13'>
+          <a href="/rules/13/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/13">View Rule &amp;</a>
+          <span class='comments'>
+            2
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+<li class=''>
+  <div class='mini-rule small' data-rule_id='12'>
+    <h3>
+      <span>Rule º</span>
+      12
+    </h3>
+    <div class='content'>
+      <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur</p>
+    </div>
+    <div class='meta'>
+      <span class='author'>test5 user5</span>
+      <time datetime='2013-08-07'> 7 Aug 2013</time>
+    </div>
+    <div class='overlay-bg' id='mini_rule_overlay_bg_12'></div>
+    <div class='overlay' data-rule_id='12' id='mini_rule_overlay_12'>
+      <span class='hover-container'>
+        <span class='agree' id='agree_link_12'>
+          <a href="/rules/12/like?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00d;'></i>
+          Agree
+          </a>
+        </span>
+        <span class='disagree' id='disagree_link_12'>
+          <a href="/rules/12/dislike?from=rules" data-method="post" rel="nofollow"><i aria-hidden data-icon='&#xe00a;'></i>
+          Disagree
+          </a>
+        </span>
+        <span class='view-rule'>
+          <a href="/rules/12">View Rule &amp;</a>
+          <span class='comments'>
+            3
+          </span>
+          <span class='comments-icon'>
+            Comments
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</li>
+    </ul>
+  </div>
+</div>
+     <div id="logo"></div>
+     <div id="icons"></div>
+     <div id="write"></div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+
+body {
+    
+}
+
+#content {
+    position: relative;
+    margin: 20px auto;
+    width: 800px;
+    height: 600px;
+    border: 5px solid #FFF;
+    background: #FFF;
+}
+
+#content img {
+    margin-top: 50px;
+    margin-left: 260px;
+    width: 256px;
+    height: 256px;
+}
+
+#content h2, #content h3 {
+    font-family: 'Hanalei', cursive;
+    font-size: 30px;
+    color: #333;
+    text-align: center;
+}
+
+#content #controls {
+    color: #333;
+    text-align: center;
+}
+
+video {
+    z-index: 1;
+    width: 800px;
+    height: 600px;
+}
+
+#canvas {
+    display: none;
+}
+
+#box2dcanvas {
+    z-index: 2;
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    top:  0;
+    left:  0;
+}
+
+#score {
+    background: #18181A;
+    margin: 0 auto;
+    width: 320px;
+    height: 60px;
+    padding: 10px 20px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    color: white;
+    font-size: 30px;
+}
+
+#info {
+    position: absolute;
+    top:  0;
+    left: 0;
+    font: 10px "Courier New";
+    color: #FFF;
+    margin-left: 20px;
+}
+
+#frame {
+    
+    width: 900px;
+    height: 615px;
+    position:  absolute;
+    top:  0;
+    left:  0;
+}

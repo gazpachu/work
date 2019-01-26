@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>ICA Box2d circle generator prototype</title>
+<link rel="shortcut icon" href="img/favicon.ico" />
+     <style>
+          html, body {
+            width:  100%;
+            height: 100%;
+            margin: 0px;
+          }
+
+          #logo {
+          	background: url(img/logo.png) no-repeat;
+          	position: absolute;
+          	top: 30;
+          	left: 30;
+          	z-index: 1000;
+          	width: 94px;
+          	height: 62px
+          }
+     </style>
+     <script type="text/javascript" src="js/Box2dWeb-2.1.a.3.js"></script>
+     <script type="text/javascript">
+          function init(){
+
+          // Resize the canvas to fit the window
+          var canvas = document.getElementById("canvas");
+          var ctx = canvas.getContext("2d");
+          ctx.canvas.width  = window.innerWidth;
+          ctx.canvas.height = window.innerHeight;
+
+          var canvasPosition = getElementPosition(document.getElementById("canvas"));
+
+          // Define Box2D objects
+          var b2Vec2 = Box2D.Common.Math.b2Vec2;
+          var b2AABB = Box2D.Collision.b2AABB;
+          var b2BodyDef = Box2D.Dynamics.b2BodyDef;
+          var b2Body = Box2D.Dynamics.b2Body;
+          var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
+          var b2Fixture = Box2D.Dynamics.b2Fixture;
+          var b2World = Box2D.Dynamics.b2World;
+          var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
+          var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
+          var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+          
+          var worldScale = 30;
+          
+          // Init the Box2d world
+          var world = new b2World(new b2Vec2(0, 10),true);
+          
+          debugDraw();             
+          window.setInterval(update,1000/60);
+          
+          // Draw the walls
+          createBox(window.innerWidth,1,window.innerWidth/2,window.innerHeight,b2Body.b2_staticBody);
+          createBox(window.innerWidth,1,window.innerWidth/2,0,b2Body.b2_staticBody);
+          createBox(1,window.innerHeight,0,window.innerHeight/2,b2Body.b2_staticBody);
+          createBox(1,window.innerHeight,window.innerWidth,window.innerHeight/2,b2Body.b2_staticBody);
+          
+          // Create new rules on click or touch
+          if( !!('ontouchstart' in window) || !!('onmsgesturechange' in window) )
+          {
+               document.addEventListener("touchstart",function(e){
+               		e.preventDefault();
+               		var touch = e.touches[0];
+
+                    createRule(Math.random()*4,touch.pageX-canvasPosition.x,touch.pageY-canvasPosition.y,b2Body.b2_dynamicBody);
+               });
+          }
+          else
+          {
+               document.addEventListener("mousedown",function(e){
+                    createRule(Math.random()*4,e.clientX-canvasPosition.x,e.clientY-canvasPosition.y,b2Body.b2_dynamicBody);
+               });
+          }
+
+          // Build the screen limits (walls)
+          function createBox(width,height,pX,pY,type){
+               var bodyDef = new b2BodyDef;
+               bodyDef.type = type;
+               bodyDef.position.Set(pX/worldScale,pY/worldScale);
+               var polygonShape = new b2PolygonShape;
+               polygonShape.SetAsBox(width/2/worldScale,height/2/worldScale);
+               var fixtureDef = new b2FixtureDef;
+               fixtureDef.density = 1.0;
+               fixtureDef.friction = 0.5;
+               fixtureDef.restitution = 0.5;
+               fixtureDef.shape = polygonShape;
+               var body = world.CreateBody(bodyDef);
+               body.CreateFixture(fixtureDef);
+          }
+
+          // Build a new rule body
+          function createRule(radius,pX,pY,type){
+               var bodyDef = new b2BodyDef;
+               bodyDef.type = type;
+               bodyDef.position.Set(pX/worldScale,pY/worldScale);
+               var circleShape = new b2CircleShape;
+               circleShape.SetRadius(radius);
+               var fixtureDef = new b2FixtureDef;
+               fixtureDef.density = 1.0;
+               fixtureDef.friction = 0.5;
+               fixtureDef.restitution = 0.5;
+               fixtureDef.shape = circleShape;
+               var body = world.CreateBody(bodyDef);
+               body.CreateFixture(fixtureDef);
+          }
+          
+          // Paint the bodies
+          function debugDraw(){
+               var debugDraw = new b2DebugDraw();
+               debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
+               debugDraw.SetDrawScale(30.0);
+               debugDraw.SetFillAlpha(1);
+               debugDraw.SetLineThickness(1.0);
+               debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+               world.SetDebugDraw(debugDraw);
+          }
+          
+          // Update the box2d world
+          function update() { 
+               world.Step(1/60,10,10);
+               world.DrawDebugData();
+               world.ClearForces();
+          };
+          
+          //http://js-tut.aardon.de/js-tut/tutorial/position.html
+          function getElementPosition(element) {
+               var elem=element, tagname="", x=0, y=0;
+               while((typeof(elem) == "object") && (typeof(elem.tagName) != "undefined")) {
+                    y += elem.offsetTop;
+                    x += elem.offsetLeft;
+                    tagname = elem.tagName.toUpperCase();
+                    if(tagname == "BODY"){
+                         elem=0;
+                    }
+                    if(typeof(elem) == "object"){
+                         if(typeof(elem.offsetParent) == "object"){
+                              elem = elem.offsetParent;
+                         }
+                    }
+               }
+               return {x: x, y: y};
+          }
+
+     };
+     </script>
+</head>
+<body onload="init();">
+	<div id="logo"></div>
+    <canvas id="canvas" width="640" height="480"></canvas>
+</body>
+</html>

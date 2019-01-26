@@ -1,0 +1,287 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ICA Box2d with DOM prototype</title>
+<link rel="shortcut icon" href="img/favicon.ico" />
+<script type="text/javascript" src="js/Box2dWeb-2.1.a.3.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/MouseAndTouch.js"></script>
+
+<style type="text/css">
+     
+     body { overflow: hidden; }
+
+     body,div {
+          margin:0;
+          padding:0;
+          border:none;
+          color:#fff;
+     }
+
+     #logo {
+          background: url(img/logo.png) no-repeat;
+          position: absolute;
+          top: 30;
+          left: 30;
+          z-index: 1000;
+          width: 94px;
+          height: 62px
+     }
+
+     /* Set translateZ to trigger HW acc for CSS3 transforms */
+     #container {
+          position: absolute;
+          left: 0;
+          top: 0;
+          -webkit-transform: translate3d(0,0,1px);
+          -o-transform: translate3d(0,0,1px);
+          -moz-transform: translate3d(0,0,1px);
+          -ms-transform: translate3d(0,0,1px);
+          transform: translate3d(0,0,1px);
+          -webkit-perspective: 1000; 
+          -webkit-backface-visibility: hidden;
+          -webkit-transition-property: -webkit-transform;
+          -webkit-transition-duration: 0.1;
+          background-color: white;
+     }
+
+     .circle {
+          -webkit-border-radius: 999px;
+          -moz-border-radius: 999px;
+          border-radius: 999px;
+          behavior: url(PIE.htc);
+          text-align: center;
+          position: absolute;
+          background-color: black;
+          top: 0;
+          left: 0;
+     }
+
+     .circle h1 {
+          font-size: 20px;
+          margin: 30px 0;
+     }
+
+     .circle p {
+          text-align: center;
+          margin: 0 auto;
+     }
+
+     .circle a {
+          color:#FFF;
+          text-decoration:underline;
+     }
+     
+</style>
+
+<script type="text/javascript">
+     // Keep a reference to the Box2D World
+     var world;
+
+     // The scale between Box2D units and pixels
+     var SCALE = 30;
+
+     // Multiply to convert degrees to radians.
+     var D2R = Math.PI / 180;
+
+     // Multiply to convert radians to degrees.
+     var R2D = 180 / Math.PI;
+
+     // 360 degrees in radians.
+     var PI2 = Math.PI * 2;
+     var interval;
+
+     //Cache the canvas DOM reference
+     var canvas;
+
+     //Are we debug drawing
+     var debug = false;
+
+     // Shorthand "imports"
+     var b2Vec2 = Box2D.Common.Math.b2Vec2,
+          b2BodyDef = Box2D.Dynamics.b2BodyDef,
+          b2AABB = Box2D.Collision.b2AABB,
+          b2Body = Box2D.Dynamics.b2Body,
+          b2FixtureDef = Box2D.Dynamics.b2FixtureDef,
+          b2Fixture = Box2D.Dynamics.b2Fixture,
+          b2World = Box2D.Dynamics.b2World,
+          b2MassData = Box2D.Collision.Shapes.b2MassData,
+          b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
+          b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
+          b2DebugDraw = Box2D.Dynamics.b2DebugDraw,
+          b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef,
+          b2EdgeShape = Box2D.Collision.Shapes.b2EdgeShape;
+
+     function init() {
+
+          //Create the Box2D World with horisontal and vertical gravity (10 is close enough to 9.8)
+          world = new b2World(
+          new b2Vec2(0, 20) //gravity
+          , true //allow sleep
+          );
+
+          //setup debug draw
+          var debugDraw = new b2DebugDraw();
+          canvas = $("#canvas");
+          debugDraw.SetSprite(canvas[0].getContext("2d"));
+          debugDraw.SetDrawScale(SCALE);
+          debugDraw.SetFillAlpha(0.3);
+          debugDraw.SetLineThickness(1.0);
+          debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+          world.SetDebugDraw(debugDraw);
+
+          //Create DOB OBjects
+          createDOMObjects();
+
+          //Make sure that the screen canvas for debug drawing matches the window size
+          resizeHandler();
+          $(window).bind('resize', resizeHandler);
+
+          //Create the ground
+          var w = $(window).width(); 
+          var h = $(window).height();
+
+          createBox(0, h , w, 0, true);
+          createBox(0,0,0,h, true);
+          createBox(w,0,0,h, true);
+          createBox(0,0,w,0, true); //top
+
+          //Do one animation interation and start animating
+          interval = setInterval(update,1000/60);
+          update();
+     }
+
+     function createDOMObjects() {
+          //iterate all div elements and create them in the Box2D system
+          $("#container div").each(function (a,b) {
+               var domObj = $(b);
+               var domPos = $(b).position();
+               var width = domObj.width() / 2 ;
+               var height = domObj.height() / 2
+               
+               //set the width of "p"
+               domObj.find('p').css("width",domObj.width() - 40);
+
+               var x = (domPos.left) + width;
+               var y = (domPos.top) + height;
+               var body = createRule(x,y,width);
+
+               body.m_userData = {domObj:domObj, width:width, height:height};
+          });
+     }
+
+     function createBox(x,y,width,height, static) {
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = static ? b2Body.b2_staticBody : b2Body.b2_dynamicBody;
+          bodyDef.position.x = x / SCALE;
+          bodyDef.position.y = y / SCALE
+
+          var fixDef = new b2FixtureDef;
+          fixDef.density = 1.5;
+          fixDef.friction = 0.3;
+          fixDef.restitution = 0.4;
+
+          fixDef.shape = new b2PolygonShape;
+          fixDef.shape.SetAsBox(width / SCALE, height / SCALE);
+          return world.CreateBody(bodyDef).CreateFixture(fixDef);
+     }
+
+     function createRule(x,y,radius, static) {
+          var bodyDef = new b2BodyDef;
+          bodyDef.type = static ? b2Body.b2_staticBody : b2Body.b2_dynamicBody;
+          bodyDef.position.x = x / SCALE;
+          bodyDef.position.y = y / SCALE
+
+          var fixDef = new b2FixtureDef;
+          fixDef.density = 1.5;
+          fixDef.friction = 0.3;
+          fixDef.restitution = 0.4;
+
+          fixDef.shape = new b2CircleShape;
+          fixDef.shape.SetRadius(radius / SCALE);
+          return world.CreateBody(bodyDef).CreateFixture(fixDef);
+     }
+
+     //Animate DOM objects
+     function drawDOMObjects() {
+          var i = 0;
+          for (var b = world.m_bodyList; b; b = b.m_next) {
+              for (var f = b.m_fixtureList; f; f = f.m_next) {
+                         if (f.m_userData) {
+                              //Retrieve positions and rotations from the Box2d world
+                              var x = Math.floor((f.m_body.m_xf.position.x * SCALE) - f.m_userData.width);
+                              var y = Math.floor((f.m_body.m_xf.position.y * SCALE) - f.m_userData.height);
+
+                              //CSS3 transform does not like negative values or infinite decimals
+                              var r = Math.round(((f.m_body.m_sweep.a + PI2) % PI2) * R2D * 100) / 100;
+
+                              var css = {'-webkit-transform':'translate(' + x + 'px,' + y + 'px) rotate(' + r  + 'deg)', '-moz-transform':'translate(' + x + 'px,' + y + 'px) rotate(' + r  + 'deg)', '-ms-transform':'translate(' + x + 'px,' + y + 'px) rotate(' + r  + 'deg)'  , '-o-transform':'translate(' + x + 'px,' + y + 'px) rotate(' + r  + 'deg)', 'transform':'translate(' + x + 'px,' + y + 'px) rotate(' + r  + 'deg)'};
+
+                              f.m_userData.domObj.css(css);
+                         }
+              }
+           }
+     };
+
+     //Method for animating
+     function update() {
+          //I tried to use this cross browser animation snippet from Paul Irish, but it killed the performance/timing.
+          //Ill have to look more at it later, when I have the time.
+          //requestAnimFrame(update);
+
+          updateMouseDrag();
+
+          world.Step(
+          1 / 60 //frame-rate
+          , 10 //velocity iterations
+          , 10 //position iterations
+          );
+
+          //If you experience strange results, enable the debug drawing
+          if (debug) {
+               world.DrawDebugData();
+          }
+
+          drawDOMObjects();
+
+          world.ClearForces();
+     }
+
+     //Keep the canvas size correct for debug drawing
+     function resizeHandler() {
+          canvas.attr('width', $(window).width());
+          canvas.attr('height', $(window).height());
+     }
+</script>
+</head>
+<body onload="init();" screen_capture_injected="true" cz-shortcut-listen="true">
+
+     <div id="logo"></div>
+     <canvas id="canvas" width="1605" height="772"></canvas>
+
+     <div id="container">
+          <div class="circle" style="width: 220px; height: 220px;">
+               <h1>RULE #79</h1> 
+               <p>Today, contemporary arts are our non-prescriptive way of presenting aesthetics</p>
+          </div>
+          <div class="circle" style="width: 210px; height: 210px;">
+               <h1>RULE #15</h1> 
+               <p>The purpose of art is washing the dust of daily life off our souls</p>
+          </div>
+          <div class="circle" style="width: 200px; height: 200px;">
+               <h1>RULE #37</h1> 
+               <p>Art should comfort the disturbed and disturb the comfortable</p>
+          </div>
+          <div class="circle" style="width: 190px; height: 190px;">
+               <h1>RULE #8</h1> 
+               <p>The contemporary arts will not be categorised or defined</p>
+          </div>
+          <div class="circle" style="width: 170px; height: 170px;">
+               <h1>RULE #28</h1> 
+               <p>Artists must be present in all possible activities</p>
+          </div>
+     </div>
+     <script type="text/javascript" src="js/DebugMouseDrag.js"></script>
+</body>
+</html>
