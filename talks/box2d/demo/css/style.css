@@ -1,0 +1,27 @@
+
+body {
+    background: url(../img/bg.png) center center no-repeat;
+}
+
+h1 {
+    font-family: 'Hanalei', cursive;
+    font-size: 48px;
+    color: #FFF;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#content {
+    position: relative;
+    margin: 0 auto;
+    width: 800px;
+    height: 600px;
+    border: 5px solid #FFF;
+}
+
+#canvas {
+    position: absolute;
+    top:  0;
+    left:  0;
+}
