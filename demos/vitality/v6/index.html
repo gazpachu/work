@@ -1,13 +1,3 @@
-<?php
-$prizes = ['5', '10', '15', '20', 'song'];
-$selected = array_rand($prizes);
-$prize = $prizes[$selected];
-$message = "";
-
-if ($selected != 'song') $message = 'AN ITUNES VOUCHER';
-else $message = 'A SONG';
-?>
-
 <!doctype html>
 <!--[if lt IE 7 ]><html lang="en" class="no-js ie6"><![endif]-->
 <!--[if IE 7 ]><html lang="en" class="no-js ie7"><![endif]-->
@@ -34,8 +24,8 @@ else $message = 'A SONG';
                <div id="congrats" style="display: none">
                     <h1>CONGRATULATIONS!</h1>
                     <p>John Smith,<br />Your reward this month</p>
-                    <h2 id="gift-copy"><?php echo $message; ?></h2>
-                    <img id="gift-image" src="img/prize-<?php echo $prize; ?>.png" data-prize="<?php echo $prize; ?>" alt="iTunes reward" width="300" height="210" />
+                    <h2 id="gift-copy">Congratulations!</h2>
+                    <img id="gift-image" src="img/prize-song.png" data-prize="song" alt="iTunes reward" width="300" height="210" />
                </div>
           </div>
 
@@ -45,7 +35,7 @@ else $message = 'A SONG';
           <!--[if gt IE 8]><!-->
                <script type="text/javascript" src="js/Box2dWeb-2.1.a.3.js"></script>
                <script type="text/javascript" src="js/node.js"></script>
-               <script type="text/javascript" src="js/physics.js"></script> 
+               <script type="text/javascript" src="js/physics.js"></script>
           <!--<![endif]-->
 
           <!--[if IE 8]>
