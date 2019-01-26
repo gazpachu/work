@@ -204,7 +204,7 @@
 
 			// Only proceed in the browser supports canvas (needs Modernizr)
 			if ($('html').hasClass('canvas')) {
-				console.log('hi');
+
 				/* Begin of requestAnimationFrame polyfill (works on IE9) */
 				var lastTime = 0;
 			    var vendors = ['webkit', 'moz'];
