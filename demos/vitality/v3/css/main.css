@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+    background-color: #FFF;
+    font-family: 'Arial';
+    overflow: hidden;
+}
+
+#font {
+    position: absolute;
+    display: none;
+}
+
+.node {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #5BB5B3;
+    position: absolute;
+}
+
+#container {
+    width: 1000px;
+    height: 600px;
+    background: #eee;
+    margin: 50px auto;
+    position: relative;
+    display: none;
+}
+
+#framerate {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #fff;
+    padding: 10px;
+}

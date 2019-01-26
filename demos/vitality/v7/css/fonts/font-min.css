@@ -1,0 +1,20 @@
+﻿/*----------------------------------------------------------
+The base color for this template is #5c87b2. If you'd like
+to use a different color start by replacing all instances of
+#5c87b2 with your new color.ul
+----------------------------------------------------------*/
+@font-face{font-family:'PruSansExtraBold';src:url('prusb___-webfont.eot?') format('embedded-opentype'),url('prusb___-webfont.woff') format('woff'),url('prusb___-webfont.ttf') format('truetype'),url('prusb___-webfont.svg#webfonthbiDL9z7') format('svg');font-weight:normal;font-style:normal;
+}@font-face{font-family:'PruSansExtraBoldItalic';src:url('prusbi__-webfont.eot?') format('embedded-opentype'),url('prusbi__-webfont.woff') format('woff'),url('prusbi__-webfont.ttf') format('truetype'),url('prusbi__-webfont.svg#webfontsYNdA8dC') format('svg');font-weight:normal;font-style:normal;}
+
+@font-face{font-family:'PruSansNormalDemi';src:url('prusd___-webfont.eot?') format('embedded-opentype'),url('prusd___-webfont.woff') format('woff'),url('prusd___-webfont.ttf') format('truetype'),url('prusd___-webfont.svg#webfontZoajA08Z') format('svg');font-weight:normal;font-style:normal;}
+
+@font-face{font-family:'PruSansNormalDemiItalic';src:url('prusdi__-webfont.eot?') format('embedded-opentype'),url('prusdi__-webfont.woff') format('woff'),url('prusdi__-webfont.ttf') format('truetype'),url('prusdi__-webfont.svg#webfontFCeztpny') format('svg');font-weight:normal;font-style:normal;}
+
+@font-face{font-family:'PruSansExtraRegular';src:url('prusm___-webfont.eot?') format('embedded-opentype'),url('prusm___-webfont.woff') format('woff'),url('prusm___-webfont.ttf') format('truetype'),url('prusm___-webfont.svg#webfontSpePxoxE') format('svg');font-weight:normal;font-style:normal;}
+
+@font-face{font-family:'PruSansExtraMediumItalic';src:url('prusmi__-webfont.eot?') format('embedded-opentype'),url('prusmi__-webfont.woff') format('woff'),url('prusmi__-webfont.ttf') format('truetype'),url('prusmi__-webfont.svg#webfontrgYHA8k6') format('svg');font-weight:normal;font-style:normal;}
+
+@font-face{font-family:'PruSansNormalRegular';src:url('prusw___-webfont.eot?') format('embedded-opentype'),url('prusw___-webfont.woff') format('woff'),url('prusw___-webfont.ttf') format('truetype'),url('prusw___-webfont.svg#webfont1fSIt6tb') format('svg');font-weight:normal;font-style:normal;}
+
+@font-face{font-family:'PruSansNormalBookItalic';src:url('prusmi__-webfont.eot?') format('embedded-opentype'),url('prusmi__-webfont.woff') format('woff'),url('pruswi__-webfont.ttf') format('truetype'),url('prusmi__-webfont.svg#webfontHe7ORgTO') format('svg');font-weight:normal;font-style:normal;
+}

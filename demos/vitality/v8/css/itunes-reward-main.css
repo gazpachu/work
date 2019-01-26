@@ -1,0 +1,265 @@
+/**
+* NAME OF THE STYLESHEET (e.g. core.client.css)
+* The styles in this file represent all basic styles for the <CLIENT> <PROJECTNAME> site.
+* It includes a reset, the basic grid and some default components.
+*<br>* Why we are using the equals sign in the section identifier:
+* stopdesign.com/archive/2005/05/03/css-tip-flags.html
+* 
+* @project   VITALITY ITUNES PRIZE PICKER
+* @date      2015-02-09 
+* @author    JOAN MIRA, SapientNitro <jmira@sapient.com>
+* @licensor  SAPIENTNITRO
+*
+*/
+
+/* The body styles can be removed (they were added only for demo purposes) */
+body {
+    margin: 0;
+    font-family: 'Arial';
+    background-color: #f7116b;
+}
+
+#ir-anim-container {
+    background-color: #f7116b;
+    position: relative;
+    width: 533px;
+    height: 533px;
+    margin: 0 auto;
+
+    /* Uncomment to change the size of the main wrapper */
+    /* width: 400px; */
+}
+
+#ir-anim-canvas {
+    /* Uncomment to change the size of the main wrapper */
+    /* position: absolute;
+    left: -67px; */
+}
+
+#ir-anim-container #white-circle {
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    top: 180px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 10;
+    display: block;
+    background: #FFF;
+    border-radius: 999px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#ir-anim-container #white-circle h1 {
+    color: #f7116b;
+    font-family: 'PruSansExtraBold';
+    font-weight: normal;
+    font-size: 25px;
+    width: 160px;
+    margin: 55px auto 7px auto;
+    display: none;
+}
+
+#ir-anim-container #white-circle:hover h1 {
+    color: #f7116b;
+}
+
+#ir-anim-container #white-circle h2 {
+    color: #f7116b;
+    font-size: 15.5px;
+    font-family:'PruSansExtraRegular';
+    font-weight: normal;
+    width: 110px;
+    margin: 0 auto;
+    display: none;
+}
+
+#ir-anim-container #gifts {
+    margin-top: 110px;
+    color: #FFF;
+    font-size: 16px;
+    font-family:'PruSansNormalDemi';
+    background-image: url(../img/gifts.png);
+    background-repeat: no-repeat;
+    background-position: center 70%;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 240px;
+    display: none;
+}
+
+#ir-anim-container #gifts span {
+    font-size: 13px;
+    font-family: 'PruSansExtraBold';
+    margin-top: 75px;
+    display: inline-block;
+    margin-right: 23px;
+    margin-left: 31px;
+}
+
+#ir-anim-container #congrats {
+    display: none;
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+#ir-anim-container #congrats #user-copy {
+    color: #777;
+    font-family:'PruSansExtraRegular';
+    font-size: 17px;
+}
+
+#ir-anim-container #congrats h1,
+#ir-anim-container #congrats h2 {
+    color: #f7116b;
+    font-size: 30px;
+    font-family:'PruSansNormalDemi';
+    text-transform: uppercase;
+}
+
+#ir-anim-container #congrats h2 {
+    font-size: 20px;
+}
+
+#ir-anim-container #gift-image {
+    display: none;
+}
+
+#ir-anim-container .node {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #f7116b;
+    position: absolute;
+}
+
+#ir-anim-container #congrats #download-on-itunes {
+    margin-top: 260px;
+}
+
+#ir-anim-container #congrats p {
+    font-family:'PruSansExtraRegular';
+    font-size: 14px;
+    color: #737373;
+    max-width: 290px;
+    margin: 20px auto;
+}
+
+#ir-anim-container #congrats a {
+    color: #f7116b;
+    text-decoration: none;
+}
+
+/* Old browsers and no-js */
+.ie8 #ir-anim-canvas,
+.ie7 #ir-anim-canvas,
+#ir-anim-container.error #ir-anim-canvas, {
+    display: none;
+}
+
+.ie8 #ir-anim-container #white-circle,
+.ie7 #ir-anim-container #white-circle {
+    background-color: transparent;
+    background-image: url(../img/bg.png);
+    background-repeat: no-repeat;
+    background-position: top center;
+    height: 400px;
+    width: 533px;
+    left: 0;
+    top: 0;
+}
+
+.ie8 #ir-anim-container #white-circle h1,
+.ie7 #ir-anim-container #white-circle h1,
+#ir-anim-container.revealed #white-circle h1 {
+    display: block;
+    margin-top: 125px;
+}
+
+.ie8 #ir-anim-container #white-circle h2,
+.ie7 #ir-anim-container #white-circle h2,
+#ir-anim-container.revealed #white-circle h2
+.ie8 #ir-anim-container #gifts,
+.ie7 #ir-anim-container #gifts {
+    display: block;
+}
+
+.ie8 #ir-anim-container #congrats #download-on-itunes,
+.ie7 #ir-anim-container #congrats #download-on-itunes,
+#ir-anim-container.revealed #congrats #download-on-itunes {
+    margin: 0 auto;
+    display: block;
+}
+
+.ie8 #ir-anim-container #gifts,
+.ie7 #ir-anim-container #gifts,
+#ir-anim-container.revealed #gifts {
+    top: 260px;
+}
+
+.ie8 #ir-anim-container #gift-image,
+.ie7 #ir-anim-container #gift-image {
+    display: inline;
+}
+
+#ir-anim-container.revealed {
+    background: #FFF;
+}
+
+#ir-anim-container.revealed #congrats {
+    display: block;
+    background: white;
+}
+
+#ir-anim-container.revealed #white-circle,
+#ir-anim-container.revealed #ir-anim-canvas {
+    display: none;
+}
+
+/* Error */
+#ir-anim-container.error {
+    background: white;
+}
+
+#ir-anim-container.error #white-circle {
+    display: none;
+}
+
+#ir-anim-container.error #congrats,
+#ir-anim-container.revealed #gift-image {
+    display: block;
+    margin: 0 auto;
+}
+
+#ir-anim-container.error #congrats #prize-error {
+    background: url(../img/prize-error.png) no-repeat;
+}
+
+
+/* Animations */
+@keyframes ir-anim-zoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(4); }
+}
+
+@-webkit-keyframes ir-anim-zoom {
+    0% { -webkit-transform: scale(1); }
+    100% { -webkit-transform: scale(4); }
+}
+
+#ir-anim-container .zoom {
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    -webkit-backface-visibility: hidden;
+    -webkit-animation: ir-anim-zoom .5s ease-in forwards;
+    -moz-animation: ir-anim-zoom .5s ease-in forwards;
+    -o-animation: ir-anim-zoom .5s ease-in forwards;
+    animation: ir-anim-zoom .5s ease-in forwards;
+}
