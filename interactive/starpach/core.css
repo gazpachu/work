@@ -240,16 +240,6 @@ body { font-family: "Lato", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial,
 .m-scene.is-exiting .scene_element--noexiting { -webkit-animation-direction: alternate-reverse; animation-direction: alternate-reverse; }
 .m-scene.is-loading, .m-scene.is-loading a { cursor: progress; }
 
-.home-template .hero, .tag-template .hero, .archive-template .hero { background: #000 url(/assets/games/starpach/images/starpach-bg.jpg) no-repeat center; background-size: cover; /*@media screen and (max-width: $largeTablet) {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#222850', endColorstr='#355d80');
-	background-image: -ms-linear-gradient(top, rgba(17,2,49,0.75) 0%, rgba(17,2,49,0) 100%),-ms-linear-gradient(bottom left, #eb6670 0%, #f67f7c 12.5%, #f9ac97 25%, #f1b79f 37.5%, #e1bea7 50%, #c3bcb0 62.5%, #8aabb2 75%, #4e95b2 87.5%, #2588b6 100%);
-	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(17,2,49,0.75)), color-stop(100%, rgba(17,2,49,0))),-webkit-gradient(linear, 0% 100%, 100% 0%, color-stop(0%, #eb6670), color-stop(12.5%, #f67f7c), color-stop(25%, #f9ac97), color-stop(37.5%, #f1b79f), color-stop(50%, #e1bea7), color-stop(62.5%, #c3bcb0), color-stop(75%, #8aabb2), color-stop(87.5%, #4e95b2), color-stop(100%, #2588b6));
-	background-image: -webkit-linear-gradient(top, rgba(17,2,49,0.75), rgba(17,2,49,0)),-webkit-linear-gradient(bottom left, #eb6670, #f67f7c, #f9ac97, #f1b79f, #e1bea7, #c3bcb0, #8aabb2, #4e95b2, #2588b6);
-	background-image: -moz-linear-gradient(top, rgba(17,2,49,0.75), rgba(17,2,49,0)),-moz-linear-gradient(bottom left, #eb6670, #f67f7c, #f9ac97, #f1b79f, #e1bea7, #c3bcb0, #8aabb2, #4e95b2, #2588b6);
-	background-image: -o-linear-gradient(top, rgba(17,2,49,0.75), rgba(17,2,49,0)),-o-linear-gradient(bottom left, #eb6670, #f67f7c, #f9ac97, #f1b79f, #e1bea7, #c3bcb0, #8aabb2, #4e95b2, #2588b6);
-	background-image: linear-gradient(top, rgba(17,2,49,0.75),rgba(17,2,49,0)),linear-gradient(bottom left, #eb6670,#f67f7c,#f9ac97,#f1b79f,#e1bea7,#c3bcb0,#8aabb2,#4e95b2,#2588b6);
-}*/ }
-
 #starpach, #starfield { position: absolute; top: 0; width: 100%; height: 100%; overflow: hidden; }
 
 .game-info { font-size: 40px; text-align: center; color: white; }

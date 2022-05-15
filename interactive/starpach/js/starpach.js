@@ -119,23 +119,23 @@ var JM_MODULES = (function (modules, $, window, Phaser) {
 
 		load: function() {
 
-			this.game.load.image('bullet', '../images/bullets.png');
-			this.game.load.spritesheet('asteroid1', '../images/asteroid1.png', 130, 130, 1);
-			this.game.load.spritesheet('asteroid2', '../images/asteroid2.png', 130, 130, 1);
-			this.game.load.spritesheet('asteroid3', '../images/asteroid3.png', 130, 130, 1);
-			this.game.load.spritesheet('asteroid4', '../images/asteroid4.png', 130, 130, 1);
-			this.game.load.spritesheet('asteroid5', '../images/asteroid5.png', 130, 130, 4);
-			this.game.load.image('emitter-asteroid', '../images/emitter-asteroid.png');
-			this.game.load.image('emitter-ship', '../images/emitter-ship.png');
-			//this.game.load.image('powerup', '../images/powerup.png');
-			this.game.load.spritesheet('ship', '../images/ship.png', 143, 67, 4);
+			this.game.load.image('bullet', '/interactive/starpach/images/bullets.png');
+			this.game.load.spritesheet('asteroid1', '/interactive/starpach/images/asteroid1.png', 130, 130, 1);
+			this.game.load.spritesheet('asteroid2', '/interactive/starpach/images/asteroid2.png', 130, 130, 1);
+			this.game.load.spritesheet('asteroid3', '/interactive/starpach/images/asteroid3.png', 130, 130, 1);
+			this.game.load.spritesheet('asteroid4', '/interactive/starpach/images/asteroid4.png', 130, 130, 1);
+			this.game.load.spritesheet('asteroid5', '/interactive/starpach/images/asteroid5.png', 130, 130, 4);
+			this.game.load.image('emitter-asteroid', '/interactive/starpach/images/emitter-asteroid.png');
+			this.game.load.image('emitter-ship', '/interactive/starpach/images/emitter-ship.png');
+			//this.game.load.image('powerup', '/interactive/starpach/images/powerup.png');
+			this.game.load.spritesheet('ship', '/interactive/starpach/images/ship.png', 143, 67, 4);
 
 			if (starpach.sfxOn) {
-				this.game.load.audio('sfx', ['../sounds/sfx.mp3', '../sounds/sfx.ogg']);
+				this.game.load.audio('sfx', ['/interactive/starpach/sounds/sfx.mp3', '/interactive/starpach/sounds/sfx.ogg']);
 			}
 
 			if (starpach.musicOn) {
-				this.game.load.audio('music', ['../sounds/music.mp3', '../sounds/music.ogg']);
+				this.game.load.audio('music', ['/interactive/starpach/sounds/music.mp3', '/interactive/starpach/sounds/music.ogg']);
 			}
 
 			this.game.load.start();
