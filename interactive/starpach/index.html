@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Starpach</title>
+    <link rel="stylesheet" type="text/css" href="core.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <section class="hero full-height scene_element scene_element--fadein">
+        <h1>Hi! I'm Joan, a frontend engineer / web developer who makes technology <i>easy as candy</i></h1>
+        <h2 class="game-status">Fancy playing Starpach?<br />Use the CURSORS & SPACE BAR or TOUCH the screen</h2>
+        <div class="game-options">
+            <div class="switch switch-blue music-switch">
+                <input type="checkbox" id="music-cb" checked=checked data-option="music" />
+                <label for="music-cb"></label>
+                <span class="caption">Music <span>Off</span></span>
+            </div>
+            <div class="switch switch-blue sfx-switch">
+                <input type="checkbox" id="sfx-cb" checked=checked data-option="sfx" />
+                <label for="sfx-cb"></label>
+                <span class="caption">SFX <span>Off</span></span>
+            </div>
+            <div class="switch switch-blue stars-switch">
+                <input type="checkbox" id="stars-cb" checked=checked data-option="stars" />
+                <label for="stars-cb"></label>
+                <span class="caption">Stars <span>On</span></span>
+            </div>
+            <button id="start-game">Start game</button>
+        </div>
+        <div class="game-info blink"></div>
+        <canvas id="starfield" width="1200" height="600"></canvas>
+        <section id="starpach"></section>
+        <video class="video-background" preload autoplay loop muted>
+            <source src="videos/loop.mp4" type="video/mp4">
+        </video
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="/js/phaser.min.js"></script>
+    <script src="/js/starpach.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

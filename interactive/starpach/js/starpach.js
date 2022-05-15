@@ -104,12 +104,6 @@ var JM_MODULES = (function (modules, $, window, Phaser) {
 				starpach.paused = false;
 				requestAnimationFrame(starpach.render);
 			});
-
-			cheet('c h e a t e r', function () {
-				console.log('Cheater!!! You\'ve got an extra life');
-				starpach.lives += 1;
-				starpach.updateScore();
-			});
 		},
 
 		destroy: function() {
@@ -125,23 +119,23 @@ var JM_MODULES = (function (modules, $, window, Phaser) {
 
 		load: function() {
 
-			this.game.load.image('bullet', 'assets/games/starpach/images/bullets.png');
-			this.game.load.spritesheet('asteroid1', 'assets/games/starpach/images/asteroid1.png', 130, 130, 1);
-			this.game.load.spritesheet('asteroid2', 'assets/games/starpach/images/asteroid2.png', 130, 130, 1);
-			this.game.load.spritesheet('asteroid3', 'assets/games/starpach/images/asteroid3.png', 130, 130, 1);
-			this.game.load.spritesheet('asteroid4', 'assets/games/starpach/images/asteroid4.png', 130, 130, 1);
-			this.game.load.spritesheet('asteroid5', 'assets/games/starpach/images/asteroid5.png', 130, 130, 4);
-			this.game.load.image('emitter-asteroid', 'assets/games/starpach/images/emitter-asteroid.png');
-			this.game.load.image('emitter-ship', 'assets/games/starpach/images/emitter-ship.png');
-			//this.game.load.image('powerup', 'assets/games/starpach/images/powerup.png');
-			this.game.load.spritesheet('ship', 'assets/games/starpach/images/ship.png', 143, 67, 4);
+			this.game.load.image('bullet', '../images/bullets.png');
+			this.game.load.spritesheet('asteroid1', '../images/asteroid1.png', 130, 130, 1);
+			this.game.load.spritesheet('asteroid2', '../images/asteroid2.png', 130, 130, 1);
+			this.game.load.spritesheet('asteroid3', '../images/asteroid3.png', 130, 130, 1);
+			this.game.load.spritesheet('asteroid4', '../images/asteroid4.png', 130, 130, 1);
+			this.game.load.spritesheet('asteroid5', '../images/asteroid5.png', 130, 130, 4);
+			this.game.load.image('emitter-asteroid', '../images/emitter-asteroid.png');
+			this.game.load.image('emitter-ship', '../images/emitter-ship.png');
+			//this.game.load.image('powerup', '../images/powerup.png');
+			this.game.load.spritesheet('ship', '../images/ship.png', 143, 67, 4);
 
 			if (starpach.sfxOn) {
-				this.game.load.audio('sfx', ['assets/games/starpach/sounds/sfx.mp3', 'assets/games/starpach/sounds/sfx.ogg']);
+				this.game.load.audio('sfx', ['../sounds/sfx.mp3', '../sounds/sfx.ogg']);
 			}
 
 			if (starpach.musicOn) {
-				this.game.load.audio('music', ['assets/games/starpach/sounds/music.mp3', 'assets/games/starpach/sounds/music.ogg']);
+				this.game.load.audio('music', ['../sounds/music.mp3', '../sounds/music.ogg']);
 			}
 
 			this.game.load.start();
